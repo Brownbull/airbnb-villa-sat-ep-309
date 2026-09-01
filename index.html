@@ -163,6 +163,9 @@
   .spec .sub{display:block;font-size:13px;color:var(--ink-soft);margin-top:2px}
   .spec.hot{border-color:var(--rausch)}
   .spec .tag{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.03em;text-transform:uppercase;color:var(--rausch);background:var(--tint-rausch);border-radius:6px;padding:1px 6px;margin-left:7px;vertical-align:middle}
+  ul.rules{margin:8px 0 0;padding-left:20px;display:flex;flex-direction:column;gap:9px}
+  ul.rules li{line-height:1.45}
+  ul.rules li::marker{color:var(--rausch)}
 
   /* ===== print stage (hojas de QR para imprimir) ===== */
   #printstage{display:none}
@@ -263,8 +266,8 @@
 
         <div class="bigcard">
           <p class="kv">WiFi</p>
-          <div class="val es">Red y clave más abajo →</div><div class="val en">Network & password below →</div>
-          <div class="todo" style="margin-top:10px"><b class="es">Por completar por el anfitrión:</b><b class="en">To be completed by the host:</b> <span class="es">nombre de la red y contraseña (ver pestaña WiFi).</span><span class="en">network name and password (see the WiFi tab).</span></div>
+          <div class="val">Tommy-309</div>
+          <p style="font-size:14px;color:var(--ink-soft);margin-top:8px"><span class="es">La clave te la enviamos por el chat de Airbnb. Ver la pestaña <b>WiFi</b>.</span><span class="en">We send you the password via the Airbnb chat. See the <b>WiFi</b> tab.</span></p>
         </div>
 
         <div class="note danger"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg><span><b class="es">En una emergencia llama al 132 (Bomberos).</b><b class="en">In an emergency call 132 (Fire brigade).</b> <span class="es">Ver la pestaña Emergencias.</span><span class="en">See the Emergency tab.</span></span></div>
@@ -279,14 +282,13 @@
         <h1><span class="es">Conéctate al WiFi</span><span class="en">Connect to WiFi</span></h1>
         <div class="bigcard">
           <p class="kv es">Nombre de la red · Network</p><p class="kv en">Network name</p>
-          <div class="val">············</div>
+          <div class="val">Tommy-309</div>
           <p class="kv" style="margin-top:14px">Clave · Password</p>
-          <div class="val">············</div>
-          <div class="todo" style="margin-top:12px"><b class="es">Por completar por el anfitrión.</b><b class="en">To be completed by the host.</b></div>
+          <div class="val" id="wifi-pass" style="font-size:1.05rem"><span class="es">Te enviamos la clave por el chat de Airbnb.</span><span class="en">We send you the password via the Airbnb chat.</span></div>
         </div>
         <ol class="steps">
           <li><div><span class="es">Abre los <b>ajustes de WiFi</b> en tu teléfono.</span><span class="en">Open your phone's <b>WiFi settings</b>.</span></div></li>
-          <li><div><span class="es">Toca el nombre de la red de arriba.</span><span class="en">Tap the network name above.</span></div></li>
+          <li><div><span class="es">Toca la red <b>Tommy-309</b>.</span><span class="en">Tap the <b>Tommy-309</b> network.</span></div></li>
           <li><div><span class="es">Escribe la clave y listo.</span><span class="en">Type the password and you're done.</span></div></li>
         </ol>
       </section>
@@ -295,28 +297,52 @@
       <section class="view" id="view-llegada">
         <p class="eyebrow es">Llegada</p><p class="eyebrow en">Check-in</p>
         <h1><span class="es">Cómo entrar</span><span class="en">How to get in</span></h1>
-        <div class="todo"><b class="es">Por completar por el anfitrión:</b><b class="en">To be completed by the host:</b> <span class="es">dirección exacta, cómo llegar, estacionamiento, y cómo abrir la puerta (código de la cerradura inteligente).</span><span class="en">exact address, how to arrive, parking, and how to open the door (smart-lock code).</span></div>
+        <p class="lead es">Check-in desde las <b>15:00</b>. El acceso es por <b>conserjería</b> (edificio con acceso controlado 24/7). No hay cerradura con código: el conserje te abre y te entrega las llaves.</p>
+        <p class="lead en">Check-in from <b>3:00 PM</b>. Access is through the <b>concierge</b> (building has 24/7 controlled access). There's no keypad lock: the concierge lets you in and hands you the keys.</p>
+        <div class="bigcard">
+          <p class="kv es">Dirección · Address</p><p class="kv en">Address</p>
+          <div class="val" style="font-size:1.15rem">Saturnino Epulef 1575, Villarrica, Araucanía</div>
+          <p style="font-size:14px;color:var(--ink-soft);margin-top:8px"><span class="es"><b>Estacionamiento:</b> piso 3 (mismo piso del depto), espacio <b>#94</b>.</span><span class="en"><b>Parking:</b> 3rd floor (same floor as the apartment), space <b>#94</b>.</span></p>
+        </div>
+        <ol class="steps">
+          <li><div><span class="es">El edificio está en Saturnino Epulef 1575, <b>frente a la tienda Easy</b>.</span><span class="en">The building is at Saturnino Epulef 1575, <b>across from the Easy store</b>.</span></div></li>
+          <li><div><span class="es">Entra por la <b>calle lateral (Recabarren)</b>, primera entrada a la derecha.</span><span class="en">Enter through the <b>side street (Recabarren)</b>, first entrance on the right.</span></div></li>
+          <li><div><span class="es">Toca el <b>timbre</b> para que el conserje te abra. Menciona el <b>depto 309</b>.</span><span class="en">Ring the <b>bell</b> so the concierge lets you in. Mention <b>apartment 309</b>.</span></div></li>
+          <li><div><span class="es">Retira las llaves con el <b>conserje</b>.</span><span class="en">Pick up the keys from the <b>concierge</b>.</span></div></li>
+        </ol>
       </section>
 
       <!-- SALIDA -->
       <section class="view" id="view-salida">
         <p class="eyebrow es">Salida</p><p class="eyebrow en">Check-out</p>
         <h1><span class="es">Antes de irte</span><span class="en">Before you leave</span></h1>
-        <p class="lead es">Una lista corta para dejar todo bien.</p><p class="lead en">A short list to leave everything in order.</p>
+        <p class="lead es">Check-out hasta las <b>11:00</b>.</p><p class="lead en">Check-out by <b>11:00 AM</b>.</p>
         <ol class="steps">
-          <li><div><span class="es"><b>Apaga el calefactor</b> y el secatoallas.</span><span class="en"><b>Turn off the heater</b> and the towel warmer.</span></div></li>
-          <li><div><span class="es">Apaga las luces.</span><span class="en">Turn off the lights.</span></div></li>
-          <li><div><span class="es">Deja las llaves donde te indicó el anfitrión.</span><span class="en">Leave the keys where the host told you.</span></div></li>
-          <li><div><span class="es">Cierra bien la puerta.</span><span class="en">Close the door firmly.</span></div></li>
+          <li><div><span class="es"><b>Apaga los aparatos eléctricos</b>, sobre todo el <b>calefactor de la entrada</b> y el <b>secatoallas del baño</b>.</span><span class="en"><b>Turn off the electric appliances</b>, especially the <b>heater at the entrance</b> and the <b>towel warmer in the bathroom</b>.</span></div></li>
+          <li><div><span class="es">Apaga luces, cocina y horno. Cierra las ventanas.</span><span class="en">Turn off lights, stove and oven. Close the windows.</span></div></li>
+          <li><div><span class="es"><b>Cierra la puerta con llave por fuera.</b></span><span class="en"><b>Lock the door from the outside.</b></span></div></li>
+          <li><div><span class="es"><b>Devuelve las llaves al conserje</b> y menciona el número de depto (309).</span><span class="en"><b>Return the keys to the concierge</b> and mention the apartment number (309).</span></div></li>
+          <li><div><span class="es">Avísanos por el <b>chat de Airbnb</b> cuando hayas salido.</span><span class="en">Let us know via the <b>Airbnb chat</b> once you've left.</span></div></li>
         </ol>
-        <div class="todo"><b class="es">Por completar por el anfitrión:</b><b class="en">To be completed by the host:</b> <span class="es">hora de salida, dónde dejar llaves/basura, pasos extra.</span><span class="en">check-out time, where to leave keys/trash, extra steps.</span></div>
       </section>
 
       <!-- CASA -->
       <section class="view" id="view-casa">
         <p class="eyebrow es">Reglas de la casa</p><p class="eyebrow en">House rules</p>
         <h1><span class="es">Reglas de la casa</span><span class="en">House rules</span></h1>
-        <div class="todo"><b class="es">Por completar por el anfitrión:</b><b class="en">To be completed by the host:</b> <span class="es">no fumar, ruido/horarios, mascotas, número de huéspedes, reciclaje, etc.</span><span class="en">no smoking, noise/quiet hours, pets, number of guests, recycling, etc.</span></div>
+        <p class="lead es">Para una buena convivencia con los vecinos:</p><p class="lead en">For good coexistence with the neighbors:</p>
+        <ul class="rules">
+          <li><span class="es">Máximo <b>4 huéspedes</b>.</span><span class="en">Maximum <b>4 guests</b>.</span></li>
+          <li><span class="es"><b>No</b> fiestas, eventos ni reuniones.</span><span class="en"><b>No</b> parties, events or gatherings.</span></li>
+          <li><span class="es"><b>No</b> mascotas.</span><span class="en"><b>No</b> pets.</span></li>
+          <li><span class="es"><b>No fumar dentro.</b> Solo en el balcón, usa el cenicero; no arrojes colillas.</span><span class="en"><b>No smoking indoors.</b> Balcony only, use the ashtray; don't throw butts.</span></li>
+          <li><span class="es"><b>Silencio 22:00–07:00.</b> Evita ruidos molestos.</span><span class="en"><b>Quiet hours 10:00 PM–7:00 AM.</b> Avoid loud noise.</span></li>
+          <li><span class="es">El <b>balcón no tiene malla</b>: no arrojes nada y vigila a los niños en todo momento.</span><span class="en">The <b>balcony has no safety net</b>: don't throw anything and watch children at all times.</span></li>
+          <li><span class="es">Cocina/horno eléctricos y termo: úsalos con cuidado, no cocines sin supervisión y toma duchas moderadas.</span><span class="en">Electric stove/oven and water heater: use carefully, don't cook unattended, keep showers moderate.</span></li>
+          <li><span class="es">Delivery de comida OK. <b>No</b> uses la dirección para recibir encomiendas o paquetes.</span><span class="en">Food delivery is OK. <b>Do not</b> use the address to receive parcels or packages.</span></li>
+          <li><span class="es">Los consumibles de cortesía (café, té, aseo) son libres; el resto es inventario del depto.</span><span class="en">Courtesy consumables (coffee, tea, toiletries) are free; everything else is apartment inventory.</span></li>
+          <li><span class="es">Reporta cualquier daño por el <b>chat de Airbnb</b>.</span><span class="en">Report any damage via the <b>Airbnb chat</b>.</span></li>
+        </ul>
       </section>
 
       <!-- NESPRESSO -->
@@ -457,7 +483,7 @@
           <div class="emcard"><span class="big">131</span><span class="lbl"><span class="es">🚑 Ambulancia</span><span class="en">🚑 Ambulance</span></span></div>
           <div class="emcard"><span class="big">133</span><span class="lbl"><span class="es">🚓 Carabineros</span><span class="en">🚓 Police</span></span></div>
         </div>
-        <div class="bigcard"><p class="kv es">Anfitrión</p><p class="kv en">Host</p><div class="todo"><b class="es">Por completar:</b><b class="en">To complete:</b> <span class="es">teléfono del anfitrión.</span><span class="en">host's phone number.</span></div></div>
+        <div class="bigcard"><p class="kv es">Anfitrión · Host</p><p class="kv en">Host</p><div class="val" style="font-size:1.1rem"><span class="es">Escríbenos por el chat de Airbnb</span><span class="en">Message us via the Airbnb chat</span></div><p style="font-size:14px;color:var(--ink-soft);margin-top:8px"><span class="es">El edificio tiene <b>conserjería 24/7</b> en la entrada.</span><span class="en">The building has a <b>24/7 concierge</b> at the entrance.</span></p></div>
         <h2><span class="es">¿Dónde está la seguridad?</span><span class="en">Where is the safety gear?</span></h2>
         <figure><span class="ph"><img src="img/calefanctor4.jpeg" alt="Pasillo con la manta ignífuga y el extintor"></span><figcaption><span class="es">En el pasillo: arriba la manta roja, abajo el extintor.</span><span class="en">In the hallway: the red blanket on top, the extinguisher below.</span></figcaption></figure>
       </section>
