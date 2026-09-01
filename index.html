@@ -1,0 +1,446 @@
+<!doctype html>
+<html lang="es" data-theme="light" data-lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Guía del huésped · Depto 309 Villarrica</title>
+<style>
+  /* ===== Airbnb-style tokens · light default (parte siempre en claro) ===== */
+  :root{
+    --bg:#ffffff; --bg-soft:#f7f7f7; --card:#ffffff;
+    --ink:#222222; --ink-soft:#6a6a6a; --line:#dddddd; --line-soft:#ebebeb;
+    --rausch:#ff385c; --on-rausch:#ffffff; --danger:#c13515; --warn:#b35309; --ok:#0a7d33;
+    --tint-danger:rgba(193,53,21,.08); --tint-warn:rgba(179,83,9,.10); --tint-info:rgba(34,102,204,.08); --tint-rausch:rgba(255,56,92,.08);
+    --shadow:0 1px 2px rgba(0,0,0,.05),0 6px 20px rgba(0,0,0,.06);
+    --sidebar-w:300px; --topbar-h:60px; --radius:14px;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  }
+  :root[data-theme="dark"]{
+    --bg:#1b1b1d; --bg-soft:#242427; --card:#242427;
+    --ink:#f2f2f3; --ink-soft:#adadb2; --line:#3a3a3e; --line-soft:#2e2e31;
+    --rausch:#ff5a76; --on-rausch:#1b1b1d; --danger:#ff7a63; --warn:#e8a33d; --ok:#4ecb71;
+    --tint-danger:rgba(255,122,99,.12); --tint-warn:rgba(232,163,61,.13); --tint-info:rgba(120,170,255,.12); --tint-rausch:rgba(255,90,118,.13);
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.5);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.5;-webkit-font-smoothing:antialiased;font-size:16px}
+  img{max-width:100%;display:block}
+  a{color:inherit}
+  button{font-family:inherit}
+
+  /* ===== language visibility ===== */
+  :root[data-lang="es"] .en{display:none!important}
+  :root[data-lang="en"] .es{display:none!important}
+
+  /* ===== layout ===== */
+  .app{display:flex;min-height:100vh}
+  .side{width:var(--sidebar-w);flex:0 0 var(--sidebar-w);position:fixed;top:0;left:0;height:100vh;overflow-y:auto;background:var(--card);border-right:1px solid var(--line-soft);padding:18px 14px 28px;z-index:40}
+  .content{margin-left:var(--sidebar-w);flex:1;min-width:0;display:flex;flex-direction:column}
+  .main{padding:26px clamp(18px,4vw,44px) 60px;max-width:760px}
+
+  /* ===== brand ===== */
+  .brand{display:flex;align-items:center;gap:11px;padding:6px 8px 16px}
+  .brand .mark{width:38px;height:38px;border-radius:11px;background:var(--rausch);color:var(--on-rausch);display:grid;place-items:center;flex:0 0 auto}
+  .brand .mark svg{width:21px;height:21px}
+  .brand b{font-size:15px;font-weight:800;letter-spacing:-.01em;display:block}
+  .brand small{color:var(--ink-soft);font-size:12.5px}
+
+  /* ===== nav ===== */
+  .nav{display:flex;flex-direction:column;gap:2px;margin-top:4px}
+  .nav .grp{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);padding:16px 10px 6px}
+  .navlink{display:flex;align-items:center;gap:12px;padding:10px 11px;border:none;background:none;color:var(--ink);width:100%;text-align:left;border-radius:10px;cursor:pointer;font-size:14.5px;font-weight:600}
+  .navlink svg{width:20px;height:20px;flex:0 0 auto;color:var(--ink-soft);stroke-width:2}
+  .navlink:hover{background:var(--bg-soft)}
+  .navlink.is-on{background:var(--tint-rausch);color:var(--rausch)}
+  .navlink.is-on svg{color:var(--rausch)}
+
+  /* ===== topbar (persistente en todas las páginas) ===== */
+  .topbar{position:sticky;top:0;height:var(--topbar-h);display:flex;align-items:center;gap:12px;padding:0 clamp(14px,3vw,26px);background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:saturate(180%) blur(10px);border-bottom:1px solid var(--line-soft);z-index:30}
+  .topbar .now{font-weight:700;font-size:15px;letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .topbar .spacer{flex:1}
+  .burger{display:none;width:40px;height:40px;border:1px solid var(--line);background:var(--card);border-radius:10px;cursor:pointer;align-items:center;justify-content:center;color:var(--ink)}
+  .burger svg{width:20px;height:20px}
+  .iconbtn{width:40px;height:40px;border:1px solid var(--line);background:var(--card);border-radius:50%;cursor:pointer;display:grid;place-items:center;color:var(--ink)}
+  .iconbtn svg{width:19px;height:19px}
+  .iconbtn:hover{border-color:var(--ink-soft)}
+  /* segmented ESP | ENG */
+  .seg{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;background:var(--card)}
+  .seg button{border:none;background:none;color:var(--ink-soft);padding:8px 13px;font-size:12.5px;font-weight:800;letter-spacing:.03em;cursor:pointer}
+  .seg button.on{background:var(--rausch);color:var(--on-rausch)}
+
+  /* ===== views ===== */
+  .view{display:none;animation:fade .25s ease}
+  .view.is-on{display:block}
+  @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+  .eyebrow{font-size:12.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--rausch);margin:0 0 6px}
+  h1{font-size:clamp(1.7rem,4.5vw,2.15rem);line-height:1.12;margin:0 0 8px;letter-spacing:-.02em;font-weight:800}
+  h2{font-size:1.18rem;margin:26px 0 10px;letter-spacing:-.01em;font-weight:800}
+  .lead{color:var(--ink-soft);font-size:1.02rem;margin:0 0 6px}
+
+  /* photo + numbered dots */
+  figure{margin:18px 0 6px}
+  .ph{position:relative;display:inline-block;width:100%;max-width:420px;line-height:0;border-radius:var(--radius);overflow:hidden;border:1px solid var(--line)}
+  .ph img{width:100%}
+  .dot{position:absolute;transform:translate(-50%,-50%);width:30px;height:30px;border-radius:50%;background:var(--rausch);color:#fff;border:2.5px solid #fff;box-shadow:0 1px 5px rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800}
+  figcaption{color:var(--ink-soft);font-size:13.5px;margin-top:8px;line-height:1.4}
+
+  /* steps */
+  ol.steps{list-style:none;counter-reset:s;margin:6px 0 0;padding:0;display:flex;flex-direction:column;gap:12px}
+  ol.steps>li{counter-increment:s;display:grid;grid-template-columns:30px 1fr;gap:13px;align-items:start}
+  ol.steps>li::before{content:counter(s);grid-row:span 1;width:28px;height:28px;border-radius:50%;background:var(--tint-rausch);color:var(--rausch);display:grid;place-items:center;font-weight:800;font-size:14px}
+  ol.steps>li>div{padding-top:2px}
+  .kbd{display:inline-block;min-width:24px;text-align:center;padding:1px 7px;border:1px solid var(--line);border-radius:7px;background:var(--bg-soft);font-weight:800;font-size:.94em}
+
+  /* callouts */
+  .note{display:flex;gap:11px;align-items:flex-start;border-radius:12px;padding:13px 15px;margin:12px 0;font-size:14.5px;border:1px solid var(--line-soft)}
+  .note svg{width:19px;height:19px;flex:0 0 auto;margin-top:1px;stroke-width:2}
+  .note.danger{background:var(--tint-danger);border-color:transparent;color:var(--ink)}
+  .note.danger svg{color:var(--danger)}
+  .note.warn{background:var(--tint-warn);border-color:transparent}
+  .note.warn svg{color:var(--warn)}
+  .note.info{background:var(--tint-info);border-color:transparent}
+  .note.info svg{color:#3b78d8}
+  .note b{color:var(--ink)}
+
+  /* big cards (wifi / emergencia / placeholder) */
+  .bigcard{border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;margin:14px 0;background:var(--card);box-shadow:var(--shadow)}
+  .kv{font-size:13px;color:var(--ink-soft);font-weight:700;letter-spacing:.04em;text-transform:uppercase;margin:0 0 3px}
+  .val{font-size:1.5rem;font-weight:800;letter-spacing:-.01em;word-break:break-word}
+  .todo{border:1.5px dashed var(--line);border-radius:12px;padding:13px 15px;color:var(--ink-soft);font-size:14px;background:var(--bg-soft)}
+  .todo b{color:var(--ink)}
+  .emgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:14px 0}
+  .emcard{border:1px solid var(--line);border-radius:14px;padding:14px 16px;background:var(--card);display:flex;align-items:center;gap:13px}
+  .emcard .big{font-size:2rem;font-weight:900;color:var(--danger);line-height:1}
+  .emcard .lbl{font-size:14px;color:var(--ink-soft);font-weight:600;line-height:1.25}
+  .tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin:14px 0}
+  .tile{display:flex;align-items:center;gap:11px;border:1px solid var(--line);border-radius:12px;padding:13px 14px;background:var(--card);cursor:pointer;text-align:left;color:var(--ink);font-weight:700;font-size:14.5px}
+  .tile:hover{border-color:var(--rausch);color:var(--rausch)}
+  .tile svg{width:22px;height:22px;flex:0 0 auto;color:var(--rausch);stroke-width:2}
+
+  .scrim{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:35}
+
+  /* ===== mobile ===== */
+  @media (max-width:900px){
+    .side{transform:translateX(-100%);transition:transform .25s ease;box-shadow:var(--shadow)}
+    :root[data-drawer="open"] .side{transform:none}
+    :root[data-drawer="open"] .scrim{display:block}
+    .content{margin-left:0}
+    .burger{display:inline-flex}
+  }
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- ===================== SIDEBAR ===================== -->
+  <aside class="side" id="side">
+    <div class="brand">
+      <span class="mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg></span>
+      <span>
+        <b>Depto 309 · Villarrica</b>
+        <small class="es">Guía del huésped</small><small class="en">Guest guide</small>
+      </span>
+    </div>
+    <nav class="nav" id="nav">
+      <button class="navlink" data-sec="inicio"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg><span class="es">Inicio</span><span class="en">Home</span></button>
+      <button class="navlink" data-sec="wifi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13a10 10 0 0 1 14 0"/><path d="M8.5 16.5a5 5 0 0 1 7 0"/><path d="M2 8.82a15 15 0 0 1 20 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>WiFi</button>
+      <button class="navlink" data-sec="llegada"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg><span class="es">Llegada</span><span class="en">Check-in</span></button>
+      <button class="navlink" data-sec="salida"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg><span class="es">Salida</span><span class="en">Check-out</span></button>
+      <button class="navlink" data-sec="casa"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg><span class="es">Reglas de la casa</span><span class="en">House rules</span></button>
+
+      <div class="grp"><span class="es">Aparatos</span><span class="en">Appliances</span></div>
+      <button class="navlink" data-sec="nespresso"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8h1a4 4 0 1 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/><line x1="6" y1="2" x2="6" y2="4"/><line x1="10" y1="2" x2="10" y2="4"/><line x1="14" y1="2" x2="14" y2="4"/></svg><span class="es">Cafetera</span><span class="en">Coffee maker</span></button>
+      <button class="navlink" data-sec="radio"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4.9 19.1C1 15.2 1 8.8 4.9 4.9"/><path d="M7.8 16.2c-2.3-2.3-2.3-6.1 0-8.5"/><circle cx="12" cy="12" r="2"/><path d="M16.2 7.8c2.3 2.3 2.3 6.1 0 8.5"/><path d="M19.1 4.9C23 8.8 23 15.1 19.1 19"/></svg>Radio</button>
+      <button class="navlink" data-sec="calefactor"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg><span class="es">Calefactor</span><span class="en">Heater</span></button>
+      <button class="navlink" data-sec="secatoallas"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4v10.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0Z"/></svg><span class="es">Secatoallas</span><span class="en">Towel warmer</span></button>
+      <button class="navlink" data-sec="lavadora"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="20" x="3" y="2" rx="2"/><path d="M3 6h3"/><path d="M17 6h.01"/><circle cx="12" cy="13" r="5"/><path d="M12 18a2.5 2.5 0 0 0 0-5 2.5 2.5 0 0 1 0-5"/></svg><span class="es">Lavadora</span><span class="en">Washer</span></button>
+
+      <div class="grp"><span class="es">Seguridad</span><span class="en">Safety</span></div>
+      <button class="navlink" data-sec="extintor"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6.5V3a1 1 0 0 0-1-1h-2a1 1 0 0 0-1 1v3.5"/><path d="M9 18h8"/><path d="M18 3h-3"/><path d="M11 3a6 6 0 0 0-6 6v11"/><path d="M5 13h4"/><path d="M17 10a4 4 0 0 0-8 0v10a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1Z"/></svg>Extintor</button>
+      <button class="navlink" data-sec="manta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg><span class="es">Manta ignífuga</span><span class="en">Fire blanket</span></button>
+      <button class="navlink" data-sec="emergencias"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg><span class="es">Emergencias</span><span class="en">Emergency</span></button>
+    </nav>
+  </aside>
+  <div class="scrim" id="scrim"></div>
+
+  <!-- ===================== CONTENT ===================== -->
+  <div class="content">
+    <header class="topbar">
+      <button class="burger" id="burger" aria-label="Menú"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+      <span class="now" id="now">Inicio</span>
+      <span class="spacer"></span>
+      <button class="iconbtn" id="theme" aria-label="Tema claro/oscuro" title="Claro / Oscuro">
+        <svg id="ic-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        <svg id="ic-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+      </button>
+      <span class="seg" role="group" aria-label="Idioma / Language">
+        <button id="lang-es" data-l="es">ESP</button><button id="lang-en" data-l="en">ENG</button>
+      </span>
+    </header>
+
+    <main class="main" id="main">
+
+      <!-- INICIO -->
+      <section class="view" id="view-inicio">
+        <p class="eyebrow es">Bienvenido</p><p class="eyebrow en">Welcome</p>
+        <h1><span class="es">¡Bienvenido al Depto 309!</span><span class="en">Welcome to Apt 309!</span></h1>
+        <p class="lead es">Esta guía te muestra cómo usar todo en el departamento, paso a paso y con fotos. Elige un tema en el menú de la izquierda.</p>
+        <p class="lead en">This guide shows you how to use everything in the apartment, step by step and with photos. Pick a topic from the left menu.</p>
+
+        <div class="bigcard">
+          <p class="kv">WiFi</p>
+          <div class="val es">Red y clave más abajo →</div><div class="val en">Network & password below →</div>
+          <div class="todo" style="margin-top:10px"><b class="es">Por completar por el anfitrión:</b><b class="en">To be completed by the host:</b> <span class="es">nombre de la red y contraseña (ver pestaña WiFi).</span><span class="en">network name and password (see the WiFi tab).</span></div>
+        </div>
+
+        <div class="note danger"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg><span><b class="es">En una emergencia llama al 132 (Bomberos).</b><b class="en">In an emergency call 132 (Fire brigade).</b> <span class="es">Ver la pestaña Emergencias.</span><span class="en">See the Emergency tab.</span></span></div>
+
+        <h2><span class="es">Guías de aparatos</span><span class="en">Appliance guides</span></h2>
+        <div class="tiles" id="tiles"></div>
+      </section>
+
+      <!-- WIFI -->
+      <section class="view" id="view-wifi">
+        <p class="eyebrow">WiFi</p>
+        <h1><span class="es">Conéctate al WiFi</span><span class="en">Connect to WiFi</span></h1>
+        <div class="bigcard">
+          <p class="kv es">Nombre de la red · Network</p><p class="kv en">Network name</p>
+          <div class="val">············</div>
+          <p class="kv" style="margin-top:14px">Clave · Password</p>
+          <div class="val">············</div>
+          <div class="todo" style="margin-top:12px"><b class="es">Por completar por el anfitrión.</b><b class="en">To be completed by the host.</b></div>
+        </div>
+        <ol class="steps">
+          <li><div><span class="es">Abre los <b>ajustes de WiFi</b> en tu teléfono.</span><span class="en">Open your phone's <b>WiFi settings</b>.</span></div></li>
+          <li><div><span class="es">Toca el nombre de la red de arriba.</span><span class="en">Tap the network name above.</span></div></li>
+          <li><div><span class="es">Escribe la clave y listo.</span><span class="en">Type the password and you're done.</span></div></li>
+        </ol>
+      </section>
+
+      <!-- LLEGADA -->
+      <section class="view" id="view-llegada">
+        <p class="eyebrow es">Llegada</p><p class="eyebrow en">Check-in</p>
+        <h1><span class="es">Cómo entrar</span><span class="en">How to get in</span></h1>
+        <div class="todo"><b class="es">Por completar por el anfitrión:</b><b class="en">To be completed by the host:</b> <span class="es">dirección exacta, cómo llegar, estacionamiento, y cómo abrir la puerta (código de la cerradura inteligente).</span><span class="en">exact address, how to arrive, parking, and how to open the door (smart-lock code).</span></div>
+      </section>
+
+      <!-- SALIDA -->
+      <section class="view" id="view-salida">
+        <p class="eyebrow es">Salida</p><p class="eyebrow en">Check-out</p>
+        <h1><span class="es">Antes de irte</span><span class="en">Before you leave</span></h1>
+        <p class="lead es">Una lista corta para dejar todo bien.</p><p class="lead en">A short list to leave everything in order.</p>
+        <ol class="steps">
+          <li><div><span class="es"><b>Apaga el calefactor</b> y el secatoallas.</span><span class="en"><b>Turn off the heater</b> and the towel warmer.</span></div></li>
+          <li><div><span class="es">Apaga las luces.</span><span class="en">Turn off the lights.</span></div></li>
+          <li><div><span class="es">Deja las llaves donde te indicó el anfitrión.</span><span class="en">Leave the keys where the host told you.</span></div></li>
+          <li><div><span class="es">Cierra bien la puerta.</span><span class="en">Close the door firmly.</span></div></li>
+        </ol>
+        <div class="todo"><b class="es">Por completar por el anfitrión:</b><b class="en">To be completed by the host:</b> <span class="es">hora de salida, dónde dejar llaves/basura, pasos extra.</span><span class="en">check-out time, where to leave keys/trash, extra steps.</span></div>
+      </section>
+
+      <!-- CASA -->
+      <section class="view" id="view-casa">
+        <p class="eyebrow es">Reglas de la casa</p><p class="eyebrow en">House rules</p>
+        <h1><span class="es">Reglas de la casa</span><span class="en">House rules</span></h1>
+        <div class="todo"><b class="es">Por completar por el anfitrión:</b><b class="en">To be completed by the host:</b> <span class="es">no fumar, ruido/horarios, mascotas, número de huéspedes, reciclaje, etc.</span><span class="en">no smoking, noise/quiet hours, pets, number of guests, recycling, etc.</span></div>
+      </section>
+
+      <!-- NESPRESSO -->
+      <section class="view" id="view-nespresso">
+        <p class="eyebrow es">Cafetera</p><p class="eyebrow en">Coffee maker</p>
+        <h1>Nespresso</h1>
+        <p class="lead es">Café en cápsula. Sin leche.</p><p class="lead en">Capsule coffee. No milk.</p>
+        <figure><span class="ph"><img src="img/nespresso3.jpeg" alt="Cafetera Nespresso en el depto"></span><figcaption><span class="es">Así se ve la cafetera. Las cápsulas están al lado.</span><span class="en">This is the coffee machine. The pods are next to it.</span></figcaption></figure>
+        <ol class="steps">
+          <li><div><span class="es">Revisa que el estanque de atrás tenga agua.</span><span class="en">Check the tank at the back has water.</span></div></li>
+          <li><div><span class="es">Pon una taza sobre la rejilla.</span><span class="en">Put a cup on the grid.</span></div></li>
+          <li><div><span class="es">Sube la <b>palanca</b> de arriba, pon una cápsula y baja la palanca.</span><span class="en">Lift the top <b>lever</b>, drop in a pod, and lower the lever.</span></div></li>
+          <li><div><span class="es">Aprieta el botón de <b>taza chica</b> (café corto) o <b>taza grande</b> (café largo).</span><span class="en">Press the <b>small cup</b> (short coffee) or <b>big cup</b> (long coffee) button.</span></div></li>
+          <li><div><span class="es">Se detiene solo. Sube y baja la palanca para botar la cápsula usada.</span><span class="en">It stops by itself. Lift and lower the lever to drop the used pod.</span></div></li>
+        </ol>
+        <div class="note warn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg><span><span class="es">El café sale muy caliente. Usa solo cápsulas Nespresso Original.</span><span class="en">The coffee is very hot. Use only Nespresso Original pods.</span></span></div>
+      </section>
+
+      <!-- RADIO -->
+      <section class="view" id="view-radio">
+        <p class="eyebrow">Radio</p>
+        <h1>Radio Philco</h1>
+        <p class="lead es">Toca radio (FM/AM), Bluetooth desde tu teléfono, o un pendrive.</p><p class="lead en">Plays radio (FM/AM), Bluetooth from your phone, or a USB stick.</p>
+        <ol class="steps">
+          <li><div><span class="es">Gira la <b>perilla de encendido</b> hasta que haga clic.</span><span class="en">Turn the <b>power knob</b> until it clicks.</span></div></li>
+          <li><div><span class="es">Con el <b>selector</b>, elige: Radio, Bluetooth o pendrive.</span><span class="en">With the <b>selector</b>, pick: Radio, Bluetooth, or USB.</span></div></li>
+          <li><div><span class="es"><b>Radio:</b> gira la perilla de sintonía hasta oír claro. <b>Bluetooth:</b> conéctate a "Philco"/"VT329" en tu teléfono.</span><span class="en"><b>Radio:</b> turn the tuning knob until it's clear. <b>Bluetooth:</b> connect to "Philco"/"VT329" on your phone.</span></div></li>
+          <li><div><span class="es">Ajusta el volumen con la perilla.</span><span class="en">Adjust the volume with the knob.</span></div></li>
+        </ol>
+        <div class="note info"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg><span><span class="es">Funciona enchufada o con batería. Si no prende, revisa que esté enchufada.</span><span class="en">Works plugged in or on battery. If it won't turn on, check it's plugged in.</span></span></div>
+      </section>
+
+      <!-- CALEFACTOR -->
+      <section class="view" id="view-calefactor">
+        <p class="eyebrow es">Calefactor</p><p class="eyebrow en">Heater</p>
+        <h1><span class="es">Calefactor</span><span class="en">Heater</span></h1>
+        <p class="lead es">Tiene un interruptor rojo al costado y botones en el panel de arriba.</p><p class="lead en">It has a red switch on the side and buttons on the top panel.</p>
+        <figure><span class="ph"><img src="img/calefanctor1.jpeg" alt="Interruptor rojo lateral del calefactor"></span><figcaption><span class="es">Interruptor rojo al costado: <b>I</b> prende, <b>O</b> apaga del todo.</span><span class="en">Red side switch: <b>I</b> turns on, <b>O</b> turns fully off.</span></figcaption></figure>
+        <ol class="steps">
+          <li><div><span class="es">Pon el <b>interruptor rojo</b> del costado en <span class="kbd">I</span>.</span><span class="en">Set the <b>red side switch</b> to <span class="kbd">I</span>.</span></div></li>
+          <li><div><span class="es">En el panel de arriba, aprieta <span class="kbd">⏻</span> para prender el calor.</span><span class="en">On the top panel, press <span class="kbd">⏻</span> to turn on the heat.</span></div></li>
+          <li><div><span class="es">Sube con <span class="kbd">›</span> y baja con <span class="kbd">‹</span>. La pantalla muestra el número.</span><span class="en">Raise with <span class="kbd">›</span> and lower with <span class="kbd">‹</span>. The screen shows the number.</span></div></li>
+          <li><div><span class="es">Para apagar, aprieta <span class="kbd">⏻</span>. Si te vas, deja el interruptor rojo en <span class="kbd">O</span>.</span><span class="en">To turn off, press <span class="kbd">⏻</span>. If you leave, set the red switch to <span class="kbd">O</span>.</span></div></li>
+        </ol>
+        <div class="note danger"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg><span><span class="es">No pongas ropa ni nada encima; se calienta. El botón de <b>WiFi</b> es del anfitrión: no lo toques.</span><span class="en">Don't put clothes or anything on top; it gets hot. The <b>WiFi</b> button is the host's: don't press it.</span></span></div>
+      </section>
+
+      <!-- SECATOALLAS -->
+      <section class="view" id="view-secatoallas">
+        <p class="eyebrow es">Secatoallas</p><p class="eyebrow en">Towel warmer</p>
+        <h1><span class="es">Secatoallas</span><span class="en">Towel warmer</span></h1>
+        <p class="lead es">Entibia y seca tus toallas. Tres botones debajo de la pantalla.</p><p class="lead en">Warms and dries your towels. Three buttons below the screen.</p>
+        <figure><span class="ph"><img src="img/secatoallas1.jpeg" alt="Panel del secatoallas con tres botones">
+          <span class="dot" style="left:34%;top:59%">1</span><span class="dot" style="left:47%;top:59%">2</span><span class="dot" style="left:65%;top:59%">3</span></span>
+          <figcaption><span class="es"><b>1</b> menos · <b>2</b> más · <b>3</b> menú (prende/apaga).</span><span class="en"><b>1</b> minus · <b>2</b> plus · <b>3</b> menu (on/off).</span></figcaption></figure>
+        <ol class="steps">
+          <li><div><span class="es">Aprieta el botón <span class="kbd">3</span> <span class="kbd">≡</span> para prenderlo.</span><span class="en">Press button <span class="kbd">3</span> <span class="kbd">≡</span> to turn it on.</span></div></li>
+          <li><div><span class="es">Sube el calor con <span class="kbd">2</span> <span class="kbd">+</span>, bájalo con <span class="kbd">1</span> <span class="kbd">−</span>.</span><span class="en">Raise the heat with <span class="kbd">2</span> <span class="kbd">+</span>, lower it with <span class="kbd">1</span> <span class="kbd">−</span>.</span></div></li>
+          <li><div><span class="es">Cuelga la toalla. En 20–40 min queda tibia.</span><span class="en">Hang your towel. In 20–40 min it's warm.</span></div></li>
+          <li><div><span class="es">Para apagar, aprieta <span class="kbd">≡</span> otra vez.</span><span class="en">To turn off, press <span class="kbd">≡</span> again.</span></div></li>
+        </ol>
+        <div class="note warn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg><span><span class="es">Los fierros se calientan. Cuelga solo toallas. El WiFi es del anfitrión.</span><span class="en">The bars get hot. Hang only towels. The WiFi is the host's.</span></span></div>
+      </section>
+
+      <!-- LAVADORA -->
+      <section class="view" id="view-lavadora">
+        <p class="eyebrow es">Lavadora</p><p class="eyebrow en">Washer</p>
+        <h1><span class="es">Lavadora-Secadora</span><span class="en">Washer-Dryer</span></h1>
+        <p class="lead es">Lava y también puede secar. Dial central + botones.</p><p class="lead en">Washes and can also dry. Central dial + buttons.</p>
+        <ol class="steps">
+          <li><div><span class="es">Mete la ropa (no hasta el tope) y cierra la puerta hasta que haga clic.</span><span class="en">Put the clothes in (not to the top) and close the door until it clicks.</span></div></li>
+          <li><div><span class="es">Pon <b>una tapita</b> de detergente en el cajón de la izquierda.</span><span class="en">Put <b>one cap</b> of detergent in the left drawer.</span></div></li>
+          <li><div><span class="es">Aprieta <b>Encendido</b>, gira el <b>dial</b> a <b>"Algodón"</b> y aprieta <b>Inicio</b>.</span><span class="en">Press <b>Power</b>, turn the <b>dial</b> to <b>"Cotton"</b>, and press <b>Start</b>.</span></div></li>
+          <li><div><span class="es">La puerta se traba sola. Al terminar suena; espera unos segundos y ábrela.</span><span class="en">The door locks by itself. It beeps when done; wait a few seconds and open it.</span></div></li>
+        </ol>
+        <div class="note warn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg><span><span class="es"><b>Para secar, saca la mitad de la ropa</b> (seca menos que lava). Elige un programa de secado y aprieta Inicio.</span><span class="en"><b>To dry, take out half the clothes</b> (it dries less than it washes). Pick a drying program and press Start.</span></span></div>
+      </section>
+
+      <!-- EXTINTOR -->
+      <section class="view" id="view-extintor">
+        <p class="eyebrow es">Seguridad · Extintor</p><p class="eyebrow en">Safety · Extinguisher</p>
+        <h1><span class="es">Extintor</span><span class="en">Fire extinguisher</span></h1>
+        <p class="lead es">Está en el pasillo. Solo para fuego pequeño.</p><p class="lead en">It's in the hallway. Only for a small fire.</p>
+        <figure><span class="ph"><img src="img/extintor.jpeg" alt="Extintor ABC con pasador, palanca, manguera y manómetro">
+          <span class="dot" style="left:42%;top:8%">1</span><span class="dot" style="left:55%;top:9%">2</span><span class="dot" style="left:20%;top:17%">3</span><span class="dot" style="left:33%;top:14%">4</span></span>
+          <figcaption><span class="es"><b>1</b> anillo · <b>2</b> palanca · <b>3</b> manguera · <b>4</b> reloj (debe estar en verde).</span><span class="en"><b>1</b> pin · <b>2</b> lever · <b>3</b> hose · <b>4</b> gauge (must be green).</span></figcaption></figure>
+        <ol class="steps">
+          <li><div><span class="es">Tira el <b>anillo</b> <span class="kbd">1</span> hacia afuera.</span><span class="en">Pull the <b>pin</b> <span class="kbd">1</span> out.</span></div></li>
+          <li><div><span class="es">Apunta la <b>manguera</b> <span class="kbd">3</span> a la <b>base</b> del fuego (no a las llamas).</span><span class="en">Aim the <b>hose</b> <span class="kbd">3</span> at the <b>base</b> of the fire (not the flames).</span></div></li>
+          <li><div><span class="es">Aprieta la <b>palanca</b> <span class="kbd">2</span> y mueve de lado a lado.</span><span class="en">Squeeze the <b>lever</b> <span class="kbd">2</span> and sweep side to side.</span></div></li>
+        </ol>
+        <div class="note danger"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg><span><span class="es"><b>Si el fuego crece o hay mucho humo: sal y llama al 132.</b></span><span class="en"><b>If the fire grows or there's heavy smoke: get out and call 132.</b></span></span></div>
+      </section>
+
+      <!-- MANTA -->
+      <section class="view" id="view-manta">
+        <p class="eyebrow es">Seguridad · Manta</p><p class="eyebrow en">Safety · Blanket</p>
+        <h1><span class="es">Manta ignífuga</span><span class="en">Fire blanket</span></h1>
+        <p class="lead es">Junto al extintor. Ideal para fuego de cocina (sartén, aceite).</p><p class="lead en">Next to the extinguisher. Best for kitchen fires (pan, oil).</p>
+        <figure><span class="ph"><img src="img/mantaignifuga.jpeg" alt="Bolsa roja de manta ignífuga con dos cintas">
+          <span class="dot" style="left:28%;top:93%">1</span><span class="dot" style="left:72%;top:92%">2</span></span>
+          <figcaption><span class="es"><b>1</b> y <b>2</b>: las dos cintas negras que se tiran hacia abajo.</span><span class="en"><b>1</b> and <b>2</b>: the two black tapes you pull down.</span></figcaption></figure>
+        <ol class="steps">
+          <li><div><span class="es">Tira las <b>dos cintas</b> <span class="kbd">1</span> <span class="kbd">2</span> hacia abajo. La manta sale.</span><span class="en">Pull the <b>two tapes</b> <span class="kbd">1</span> <span class="kbd">2</span> down. The blanket comes out.</span></div></li>
+          <li><div><span class="es">Tapa el fuego con la manta y apaga la cocina.</span><span class="en">Cover the fire with the blanket and switch off the stove.</span></div></li>
+          <li><div><span class="es">Déjala encima hasta que se enfríe.</span><span class="en">Leave it on until it cools down.</span></div></li>
+        </ol>
+        <div class="note danger"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg><span><span class="es">Es chica: para fuego de cocina, no para ropa de adulto en llamas. Si alguien se quema, llama al 131.</span><span class="en">It's small: for kitchen fires, not for a person's burning clothes. If someone is burned, call 131.</span></span></div>
+      </section>
+
+      <!-- EMERGENCIAS -->
+      <section class="view" id="view-emergencias">
+        <p class="eyebrow es">Emergencias</p><p class="eyebrow en">Emergency</p>
+        <h1><span class="es">Números de emergencia</span><span class="en">Emergency numbers</span></h1>
+        <div class="emgrid">
+          <div class="emcard"><span class="big">132</span><span class="lbl"><span class="es">🚒 Bomberos</span><span class="en">🚒 Fire brigade</span></span></div>
+          <div class="emcard"><span class="big">131</span><span class="lbl"><span class="es">🚑 Ambulancia</span><span class="en">🚑 Ambulance</span></span></div>
+          <div class="emcard"><span class="big">133</span><span class="lbl"><span class="es">🚓 Carabineros</span><span class="en">🚓 Police</span></span></div>
+        </div>
+        <div class="bigcard"><p class="kv es">Anfitrión</p><p class="kv en">Host</p><div class="todo"><b class="es">Por completar:</b><b class="en">To complete:</b> <span class="es">teléfono del anfitrión.</span><span class="en">host's phone number.</span></div></div>
+        <h2><span class="es">¿Dónde está la seguridad?</span><span class="en">Where is the safety gear?</span></h2>
+        <figure><span class="ph"><img src="img/calefanctor4.jpeg" alt="Pasillo con la manta ignífuga y el extintor"></span><figcaption><span class="es">En el pasillo: arriba la manta roja, abajo el extintor.</span><span class="en">In the hallway: the red blanket on top, the extinguisher below.</span></figcaption></figure>
+      </section>
+
+    </main>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var root=document.documentElement;
+  var SEQ=["inicio","wifi","llegada","salida","casa","nespresso","radio","calefactor","secatoallas","lavadora","extintor","manta","emergencias"];
+  var TITLE={inicio:["Inicio","Home"],wifi:["WiFi","WiFi"],llegada:["Llegada","Check-in"],salida:["Salida","Check-out"],casa:["Reglas de la casa","House rules"],nespresso:["Cafetera","Coffee maker"],radio:["Radio","Radio"],calefactor:["Calefactor","Heater"],secatoallas:["Secatoallas","Towel warmer"],lavadora:["Lavadora","Washer"],extintor:["Extintor","Extinguisher"],manta:["Manta ignífuga","Fire blanket"],emergencias:["Emergencias","Emergency"]};
+  var now=document.getElementById("now");
+  function get(k){try{return localStorage.getItem(k)}catch(e){return null}}
+  function set(k,v){try{localStorage.setItem(k,v)}catch(e){}}
+
+  // ----- language (default ESP, persist), visible en todas las páginas -----
+  function applyLang(l){
+    l=(l==="en")?"en":"es";
+    root.setAttribute("data-lang",l); root.setAttribute("lang",l); set("gh:lang",l);
+    document.getElementById("lang-es").classList.toggle("on",l==="es");
+    document.getElementById("lang-en").classList.toggle("on",l==="en");
+    paintNow();
+  }
+  document.getElementById("lang-es").onclick=function(){applyLang("es")};
+  document.getElementById("lang-en").onclick=function(){applyLang("en")};
+
+  // ----- theme (default LIGHT always; only dark if user chose it) -----
+  function applyTheme(t){
+    t=(t==="dark")?"dark":"light";
+    root.setAttribute("data-theme",t); set("gh:theme",t);
+    document.getElementById("ic-sun").style.display=(t==="dark")?"none":"block";
+    document.getElementById("ic-moon").style.display=(t==="dark")?"block":"none";
+  }
+  document.getElementById("theme").onclick=function(){applyTheme(root.getAttribute("data-theme")==="dark"?"light":"dark")};
+
+  // ----- section routing (1 sección = 1 página) -----
+  function paintNow(){var id=(root.__sec||"inicio");now.textContent=TITLE[id]?TITLE[id][root.getAttribute("data-lang")==="en"?1:0]:"";}
+  function show(id,push){
+    if(SEQ.indexOf(id)<0)id="inicio";
+    root.__sec=id;
+    document.querySelectorAll(".view").forEach(function(v){v.classList.remove("is-on")});
+    var v=document.getElementById("view-"+id); if(v)v.classList.add("is-on");
+    document.querySelectorAll(".navlink").forEach(function(a){a.classList.toggle("is-on",a.getAttribute("data-sec")===id)});
+    paintNow();
+    document.getElementById("main").scrollTo?window.scrollTo(0,0):0;
+    root.removeAttribute("data-drawer");
+    if(push!==false && location.hash!=="#"+id){history.replaceState(null,"","#"+id)}
+  }
+  document.querySelectorAll(".navlink").forEach(function(a){a.onclick=function(){show(a.getAttribute("data-sec"))}});
+  window.addEventListener("hashchange",function(){show((location.hash||"#inicio").slice(1))});
+
+  // ----- home tiles (quick links to appliances) -----
+  var tiles=document.getElementById("tiles");
+  ["nespresso","calefactor","secatoallas","lavadora","radio","emergencias"].forEach(function(id){
+    var src=document.querySelector('.navlink[data-sec="'+id+'"]');
+    var es=src.querySelector(".es"), en=src.querySelector(".en");
+    var lbl=(es&&en)?('<span class="es">'+es.textContent+'</span><span class="en">'+en.textContent+'</span>'):('<span>'+src.textContent.trim()+'</span>');
+    var b=document.createElement("button"); b.className="tile";
+    b.innerHTML=src.querySelector("svg").outerHTML+lbl;
+    b.onclick=function(){show(id)};
+    tiles.appendChild(b);
+  });
+
+  // ----- mobile drawer -----
+  document.getElementById("burger").onclick=function(){root.setAttribute("data-drawer","open")};
+  document.getElementById("scrim").onclick=function(){root.removeAttribute("data-drawer")};
+
+  // ----- init -----
+  applyTheme(get("gh:theme")==="dark"?"dark":"light");   // parte siempre en claro salvo elección previa
+  applyLang(get("gh:lang")==="en"?"en":"es");
+  show((location.hash||"#inicio").slice(1),false);
+})();
+</script>
+</body>
+</html>
