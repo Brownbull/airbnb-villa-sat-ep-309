@@ -177,6 +177,13 @@
   .photo-slot svg{width:28px;height:28px;fill:none;stroke:currentColor;stroke-width:1.6}
   .map-print{display:none;font-size:12px;color:var(--ink-soft)}
   @media print{ .map-print{display:block!important} .place{break-inside:avoid} }
+  .spotlist{display:flex;flex-direction:column;gap:10px;margin:12px 0}
+  .spot{border:1px solid var(--line);border-radius:12px;padding:12px 14px;background:var(--card);display:flex;flex-direction:column;gap:6px;align-items:flex-start;break-inside:avoid}
+  .spot h4{margin:0;font-size:1.02rem}
+  .spot .blurb{font-size:14px;color:var(--ink-soft);margin:0}
+  .spot .go{display:inline-flex;align-items:center;gap:6px;font-size:13.5px;font-weight:700;color:var(--rausch);text-decoration:none}
+  .spot .go:hover{text-decoration:underline}
+  .spot .go svg{width:14px;height:14px}
 
   /* ===== print stage (hojas de QR para imprimir) ===== */
   #printstage{display:none}
@@ -227,7 +234,6 @@
       <button class="navlink" data-sec="llegada"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg><span class="es">Llegada</span><span class="en">Check-in</span></button>
       <button class="navlink" data-sec="salida"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg><span class="es">Salida</span><span class="en">Check-out</span></button>
       <button class="navlink" data-sec="casa"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg><span class="es">Reglas de la casa</span><span class="en">House rules</span></button>
-      <button class="navlink" data-sec="zona"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg><span class="es">La zona</span><span class="en">The area</span></button>
 
       <div class="grp"><span class="es">Aparatos</span><span class="en">Appliances</span></div>
       <button class="navlink" data-sec="nespresso"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8h1a4 4 0 1 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/><line x1="6" y1="2" x2="6" y2="4"/><line x1="10" y1="2" x2="10" y2="4"/><line x1="14" y1="2" x2="14" y2="4"/></svg><span class="es">Cafetera</span><span class="en">Coffee maker</span></button>
@@ -236,7 +242,7 @@
       <button class="navlink" data-sec="secatoallas"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4v10.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0Z"/></svg><span class="es">Secatoallas</span><span class="en">Towel warmer</span></button>
       <button class="navlink" data-sec="lavadora"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="20" x="3" y="2" rx="2"/><path d="M3 6h3"/><path d="M17 6h.01"/><circle cx="12" cy="13" r="5"/><path d="M12 18a2.5 2.5 0 0 0 0-5 2.5 2.5 0 0 1 0-5"/></svg><span class="es">Lavadora</span><span class="en">Washer</span></button>
 
-      <div class="grp"><span class="es">Seguridad</span><span class="en">Safety</span></div>
+      <div class="grp" id="grp-seg"><span class="es">Seguridad</span><span class="en">Safety</span></div>
       <button class="navlink" data-sec="extintor"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6.5V3a1 1 0 0 0-1-1h-2a1 1 0 0 0-1 1v3.5"/><path d="M9 18h8"/><path d="M18 3h-3"/><path d="M11 3a6 6 0 0 0-6 6v11"/><path d="M5 13h4"/><path d="M17 10a4 4 0 0 0-8 0v10a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1Z"/></svg>Extintor</button>
       <button class="navlink" data-sec="manta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg><span class="es">Manta ignífuga</span><span class="en">Fire blanket</span></button>
       <button class="navlink" data-sec="emergencias"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg><span class="es">Emergencias</span><span class="en">Emergency</span></button>
@@ -358,29 +364,8 @@
         </ul>
       </section>
 
-      <!-- LA ZONA -->
-      <section class="view" id="view-zona">
-        <p class="eyebrow es">La zona</p><p class="eyebrow en">The area</p>
-        <h1><span class="es">La zona</span><span class="en">The area</span></h1>
-        <p class="lead es">Lo mejor alrededor del depto. Partimos por la joya del sector: <b>Playa Pucará</b>, al frente. <span style="color:var(--ink-soft)">(Distancias aproximadas.)</span></p>
-        <p class="lead en">The best of what's around. We start with the area's gem: <b>Playa Pucará</b>, right across. <span style="color:var(--ink-soft)">(Distances approximate.)</span></p>
-
-        <div class="place">
-          <iframe class="pmap noprint" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Mapa Playa Pucará" src="https://maps.google.com/maps?q=Playa%20Pucar%C3%A1%2C%20Villarrica%2C%20Araucan%C3%ADa%2C%20Chile&z=15&output=embed"></iframe>
-          <div class="pbody">
-            <h3>🏖️ Playa Pucará</h3>
-            <span class="dist"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg><span class="es">Al frente · ~1-3 min a pie</span><span class="en">Right across · ~1-3 min walk</span></span>
-            <p class="es">Es la playa más icónica de Villarrica y la tienes literalmente al frente: arena oscura volcánica, agua cristalina del lago, muelle, juegos y un bosquecillo de arrayanes para la sombra. Ideal para nadar, tomar sol, kayak o paddle, con el volcán de fondo.</p>
-            <p class="en">It's the most iconic beach in Villarrica and it's literally across from you: dark volcanic sand, crystal-clear lake water, a pier, a playground and a small myrtle grove for shade. Great for swimming, sunbathing, kayak or paddle, with the volcano behind.</p>
-            <div class="note info"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg><span><span class="es"><b>Tip:</b> ve al atardecer — el sol sobre el lago con el volcán detrás es la mejor foto. Lleva algo para la sombra. Ojo: "Playa Grande" y "Playa Pucará" son la misma playa.</span><span class="en"><b>Tip:</b> go at sunset — the sun over the lake with the volcano behind is the best photo. Bring something for shade. Note: "Playa Grande" and "Playa Pucará" are the same beach.</span></span></div>
-            <a class="btn-primary" href="https://www.google.com/maps/dir/?api=1&destination=Playa%20Pucar%C3%A1%2C%20Villarrica%2C%20Araucan%C3%ADa%2C%20Chile" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:17px;height:17px"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg><span class="es">Cómo llegar</span><span class="en">Directions</span></a>
-            <p class="map-print">Google Maps: Playa Pucará, Villarrica, Araucanía, Chile</p>
-          </div>
-          <div class="photo-slot"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3z"/><circle cx="12" cy="13" r="3.5"/></svg><span class="es">Foto de Playa Pucará — por agregar (sube la tuya).</span><span class="en">Photo of Playa Pucará — to add (upload yours).</span></div>
-        </div>
-
-        <p class="lead" style="font-size:14px;color:var(--ink-soft)"><span class="es">Este es un ejemplo. Puedo llenar más categorías (comida, compras, servicios, cómo moverse) con lugares reales del sector.</span><span class="en">This is an example. I can fill more categories (food, shopping, services, getting around) with real local places.</span></p>
-      </section>
+      <!-- LA ZONA (categorías generadas por JS en #zona-views) -->
+      <div id="zona-views"></div>
 
       <!-- NESPRESSO -->
       <section class="view" id="view-nespresso">
@@ -589,8 +574,8 @@
 (function(){
   "use strict";
   var root=document.documentElement;
-  var SEQ=["inicio","wifi","llegada","salida","casa","zona","nespresso","radio","calefactor","secatoallas","lavadora","extintor","manta","emergencias","qr"];
-  var TITLE={inicio:["Inicio","Home"],wifi:["WiFi","WiFi"],llegada:["Llegada","Check-in"],salida:["Salida","Check-out"],casa:["Reglas de la casa","House rules"],zona:["La zona","The area"],nespresso:["Cafetera","Coffee maker"],radio:["Radio","Radio"],calefactor:["Calefactor","Heater"],secatoallas:["Secatoallas","Towel warmer"],lavadora:["Lavadora","Washer"],extintor:["Extintor","Extinguisher"],manta:["Manta ignífuga","Fire blanket"],emergencias:["Emergencias","Emergency"],qr:["Códigos QR","QR codes"]};
+  var SEQ=["inicio","wifi","llegada","salida","casa","nespresso","radio","calefactor","secatoallas","lavadora","extintor","manta","emergencias","qr"];
+  var TITLE={inicio:["Inicio","Home"],wifi:["WiFi","WiFi"],llegada:["Llegada","Check-in"],salida:["Salida","Check-out"],casa:["Reglas de la casa","House rules"],nespresso:["Cafetera","Coffee maker"],radio:["Radio","Radio"],calefactor:["Calefactor","Heater"],secatoallas:["Secatoallas","Towel warmer"],lavadora:["Lavadora","Washer"],extintor:["Extintor","Extinguisher"],manta:["Manta ignífuga","Fire blanket"],emergencias:["Emergencias","Emergency"],qr:["Códigos QR","QR codes"]};
   var now=document.getElementById("now");
   function get(k){try{return localStorage.getItem(k)}catch(e){return null}}
   function set(k,v){try{localStorage.setItem(k,v)}catch(e){}}
@@ -622,6 +607,7 @@
     root.__sec=id;
     document.querySelectorAll(".view").forEach(function(v){v.classList.remove("is-on")});
     var v=document.getElementById("view-"+id); if(v)v.classList.add("is-on");
+    if(v)v.querySelectorAll("iframe[data-map]").forEach(function(f){ if(!f.getAttribute("src")){ f.setAttribute("src","https://maps.google.com/maps?q="+encodeURIComponent(f.getAttribute("data-map"))+"&z=15&output=embed"); } });
     document.querySelectorAll(".navlink").forEach(function(a){a.classList.toggle("is-on",a.getAttribute("data-sec")===id)});
     paintNow();
     document.getElementById("main").scrollTo?window.scrollTo(0,0):0;
@@ -704,7 +690,12 @@
     lungo:'<path d="M5 8h10v7a3 3 0 0 1-3 3H8a3 3 0 0 1-3-3z"/><path d="M15 9.5h2a2.5 2.5 0 0 1 0 5h-2"/>',
     tray:'<rect x="3" y="13" width="18" height="6" rx="1"/><path d="M7 13v-2M11 13v-2M15 13v-2M18 13v-1"/>',
     capsule:'<path d="M7 4h10l-1.3 9.2a3 3 0 0 1-3 2.8h-1.4a3 3 0 0 1-3-2.8z"/><path d="M9.5 20h5"/>',
-    program:'<line x1="5" y1="21" x2="5" y2="14"/><line x1="5" y1="10" x2="5" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="19" y1="21" x2="19" y2="16"/><line x1="19" y1="12" x2="19" y2="3"/><line x1="2" y1="14" x2="8" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="16" y1="16" x2="22" y2="16"/>'
+    program:'<line x1="5" y1="21" x2="5" y2="14"/><line x1="5" y1="10" x2="5" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="19" y1="21" x2="19" y2="16"/><line x1="19" y1="12" x2="19" y2="3"/><line x1="2" y1="14" x2="8" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="16" y1="16" x2="22" y2="16"/>',
+    beach:'<path d="M12 2a9 7 0 0 0-9 7h18a9 7 0 0 0-9-7z"/><path d="M12 9v9a2 2 0 0 0 4 0"/>',
+    coffee:'<path d="M17 8h1a4 4 0 1 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/><line x1="6" y1="2" x2="6" y2="4"/><line x1="10" y1="2" x2="10" y2="4"/><line x1="14" y1="2" x2="14" y2="4"/>',
+    cart:'<circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2 3h2l2.6 12.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.57L22 7H5.1"/>',
+    hospital:'<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M12 8v8M8 12h8"/>',
+    bus:'<rect x="3" y="4" width="18" height="12" rx="2"/><path d="M3 10h18"/><path d="M7 16v2M17 16v2"/><circle cx="7.5" cy="16" r="1"/><circle cx="16.5" cy="16" r="1"/>'
   };
   function ico(n){return '<span class="ib"><svg viewBox="0 0 24 24" aria-hidden="true">'+(ICO[n]||ICO.dial)+'</svg></span>'}
   function specHTML(it){return '<div class="spec'+(it.hot?' hot':'')+'">'+ico(it.icon)+'<span><b><span class="es">'+it.es+'</span><span class="en">'+it.en+'</span>'+(it.hot?'<span class="tag"><span class="es">diario</span><span class="en">daily</span></span>':'')+'</b><span class="sub"><span class="es">'+it.ses+'</span><span class="en">'+it.sen+'</span></span></span></div>'}
@@ -746,6 +737,79 @@
     {icon:"program",es:"Programa tu tamaño",en:"Set your size",ses:"Mantén el botón y suéltalo al volumen que quieras; queda memorizado.",sen:"Hold the button and release at the volume you want; it's memorized."},
     {icon:"water",es:"Enjuague del primer café",en:"First-cup rinse",ses:"Sin cápsula, corre el botón Lungo una vez hasta que salga limpio.",sen:"With no capsule, run the Lungo button once until it runs clean."}
   ]);
+
+  // ----- La zona (grupo propio, data-driven) -----
+  var APT="Saturnino Epulef 1575, Villarrica, Araucanía, Chile";
+  function dirURL(dest){return "https://www.google.com/maps/dir/?api=1&origin="+encodeURIComponent(APT)+"&destination="+encodeURIComponent(dest)+"&travelmode=walking"}
+  var ZONA=[
+    {key:"zona-playa",icon:"beach",t_es:"Playa y lago",t_en:"Beach & lake",mapq:"Playa Pucará, Villarrica",photo:true,
+     intro_es:"La playa, la costanera y la orilla del lago, todo al frente del depto.",intro_en:"The beach, the promenade and the lakeshore, all right across from the apartment.",
+     places:[
+       {n:"Playa Pucará",q:"Playa Pucará, Villarrica, Araucanía, Chile",d_es:"Al frente · ~1-3 min a pie",d_en:"Right across · ~1-3 min walk",es:"La playa más icónica: arena oscura volcánica, agua cristalina, muelle y vista al volcán. Nadar, tomar sol, kayak o paddle. Tip: al atardecer sale la mejor foto.",en:"The most iconic beach: dark volcanic sand, clear water, a pier and volcano views. Swim, sunbathe, kayak or paddle. Tip: sunset makes the best photo."},
+       {n:"Costanera de Villarrica",q:"Costanera Villarrica, Araucanía, Chile",d_es:"Al frente · 0-2 min a pie",d_en:"Right across · 0-2 min walk",es:"Paseo de ~1,8 km al borde del lago con ciclovía. El mejor mirador caminable del volcán.",en:"A ~1.8 km lakeside promenade with a bike path. The best walkable spot to see the volcano."},
+       {n:"Embarcadero Municipal",q:"Embarcadero Municipal Villarrica",d_es:"~20-30 min a pie por la costanera",d_en:"~20-30 min walk along the promenade",es:"Muelle desde donde salen los paseos en lancha por el lago.",en:"Pier where lake boat rides depart."}
+     ]},
+    {key:"zona-comida",icon:"coffee",t_es:"Comida y cafés",t_en:"Food & cafes",mapq:"restaurantes Villarrica",
+     intro_es:"Restaurantes, cafés y pizzerías, agrupados en el centro (~15 min a pie).",intro_en:"Restaurants, cafes and pizzerias, clustered downtown (~15 min walk).",
+     places:[
+       {n:"Cafetería Praline",q:"Cafeteria Praline, Villarrica",d_es:"Centro · ~15 min a pie",d_en:"Downtown · ~15 min walk",es:"Café, pastelería y desayunos; de las mejor evaluadas de Villarrica.",en:"Coffee, pastries and breakfast; one of the best rated in town."},
+       {n:"The Travellers Resto Bar",q:"The Travellers Resto Bar, Valentin Letelier 753, Villarrica",d_es:"Centro · ~15-18 min a pie",d_en:"Downtown · ~15-18 min walk",es:"Resto-bar conocido: cocina variada, coctelería y música en vivo.",en:"Well-known resto-bar: varied cuisine, cocktails and live music."},
+       {n:"Pizzería El Sabio",q:"El Sabio, Julio Zegers 393, Villarrica",d_es:"Centro · ~15-18 min a pie",d_en:"Downtown · ~15-18 min walk",es:"Pizzería estilo argentino/italiano, entre las mejor rankeadas.",en:"Argentine/Italian-style pizzeria, among the best rated."}
+     ]},
+    {key:"zona-compras",icon:"cart",t_es:"Compras y súper",t_en:"Shopping & groceries",mapq:"supermercados Villarrica",
+     intro_es:"El súper más cercano está prácticamente al lado; en el centro hay mercado artesanal.",intro_en:"The nearest supermarket is practically next door; the town center has a craft market.",
+     places:[
+       {n:"Supermercado Eltit",q:"Supermercado Eltit, Saturnino Epulef 1520, Villarrica",d_es:"Al lado · ~100 m, 1-2 min",d_en:"Next door · ~100 m, 1-2 min",es:"Súper + farmacia + ferretería + cajeros, todo en un complejo en la misma calle.",en:"Supermarket + pharmacy + hardware + ATMs, all in one complex on the same street."},
+       {n:"Mercado Fritz",q:"Mercado Fritz, Pedro de Valdivia, Villarrica",d_es:"Centro · ~15 min a pie",d_en:"Downtown · ~15 min walk",es:"Feria artesanal: madera y lana, mermeladas y quesos locales, y cocina mapuche. Ideal para regalos.",en:"Craft market: wood and wool, local jams and cheeses, and Mapuche cooking. Great for gifts."}
+     ]},
+    {key:"zona-servicios",icon:"hospital",t_es:"Servicios y salud",t_en:"Services & health",mapq:"farmacias Villarrica",
+     intro_es:"Farmacia, bencinera 24h, cajeros y hospital, casi todos sobre tu misma avenida.",intro_en:"Pharmacy, 24h gas station, ATMs and hospital, almost all on your same avenue.",
+     places:[
+       {n:"Farmacia Salcobrand",q:"Salcobrand, Saturnino Epulef 1505, Villarrica",d_es:"Al lado · ~70-100 m",d_en:"Next door · ~70-100 m",es:"La farmacia más cercana, en el complejo Eltit. Lun-Sáb 09:00-21:30, Dom 10:30-21:00.",en:"The nearest pharmacy, in the Eltit complex. Mon-Sat 9:00-21:30, Sun 10:30-21:00."},
+       {n:"Bencinera Petrobras (24h)",q:"Petrobras, Saturnino Epulef 1519, Villarrica",d_es:"Al lado · ~1 min",d_en:"Next door · ~1 min",es:"La estación de servicio más cercana, abierta 24 horas.",en:"The nearest gas station, open 24 hours."},
+       {n:"Hospital de Villarrica",q:"Hospital de Villarrica, Saturnino Epulef 2105, Villarrica",d_es:"~7-8 min a pie subiendo",d_en:"~7-8 min walk uphill",es:"Hospital con urgencia 24h en la misma avenida. Urgencia (45) 2555293. Ambulancia SAMU: 131.",en:"Hospital with 24h ER on the same avenue. ER (45) 2555293. Ambulance (SAMU): 131."}
+     ]},
+    {key:"zona-moverse",icon:"bus",t_es:"Cómo moverse",t_en:"Getting around",mapq:"Terminal de Buses JAC Villarrica",
+     intro_es:"Los terminales de buses están en el centro; para tramos largos, colectivo o taxi.",intro_en:"Bus terminals are downtown; for longer trips, take a colectivo (shared taxi) or a taxi.",
+     places:[
+       {n:"Terminal de Buses JAC",q:"Terminal de Buses JAC, Francisco Bilbao 610, Villarrica",d_es:"Centro · ~22-25 min a pie",d_en:"Downtown · ~22-25 min walk",es:"Buses a Pucón, Temuco y otras ciudades. Para llegar, conviene colectivo o taxi.",en:"Buses to Pucón, Temuco and other cities. Best reached by colectivo or taxi."}
+     ]}
+  ];
+  function zonaHTML(c){
+    var h='<section class="view" id="view-'+c.key+'"><p class="eyebrow es">La zona</p><p class="eyebrow en">The area</p>';
+    h+='<h1><span class="es">'+c.t_es+'</span><span class="en">'+c.t_en+'</span></h1>';
+    h+='<p class="lead es">'+c.intro_es+'</p><p class="lead en">'+c.intro_en+'</p>';
+    h+='<div class="place"><iframe class="pmap noprint" loading="lazy" referrerpolicy="no-referrer-when-downgrade" data-map="'+c.mapq+'" title="Mapa '+c.t_es+'"></iframe><div class="pbody"><p class="map-print">Google Maps: '+c.mapq+'</p></div></div>';
+    h+='<div class="spotlist">';
+    c.places.forEach(function(p){
+      h+='<div class="spot"><h4>'+p.n+'</h4>'
+        +'<span class="dist"><span class="es">'+p.d_es+'</span><span class="en">'+p.d_en+'</span></span>'
+        +'<p class="blurb"><span class="es">'+p.es+'</span><span class="en">'+p.en+'</span></p>'
+        +'<a class="go" href="'+dirURL(p.q)+'" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M9 18l6-6-6-6"/></svg><span class="es">Cómo llegar desde el depto</span><span class="en">Directions from the apartment</span></a></div>';
+    });
+    h+='</div>';
+    if(c.photo) h+='<div class="place"><div class="photo-slot"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3z"/><circle cx="12" cy="13" r="3.5"/></svg><span class="es">Foto de la playa — por agregar (sube la tuya).</span><span class="en">Beach photo — to add (upload yours).</span></div></div>';
+    return h+'</section>';
+  }
+  (function(){
+    var zc=document.getElementById("zona-views"); if(!zc)return;
+    zc.innerHTML=ZONA.map(zonaHTML).join("");
+    var seg=document.getElementById("grp-seg");
+    if(seg&&seg.parentNode){
+      var frag=document.createDocumentFragment();
+      var lbl=document.createElement("div"); lbl.className="grp"; lbl.innerHTML='<span class="es">La zona</span><span class="en">The area</span>'; frag.appendChild(lbl);
+      ZONA.forEach(function(c){
+        var btn=document.createElement("button"); btn.className="navlink"; btn.setAttribute("data-sec",c.key);
+        btn.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">'+(ICO[c.icon]||ICO.dial)+'</svg><span class="es">'+c.t_es+'</span><span class="en">'+c.t_en+'</span>';
+        btn.onclick=function(){show(c.key)};
+        frag.appendChild(btn);
+      });
+      seg.parentNode.insertBefore(frag,seg);
+    }
+    var at=SEQ.indexOf("extintor"); if(at<0)at=SEQ.length;
+    SEQ.splice.apply(SEQ,[at,0].concat(ZONA.map(function(c){return c.key})));
+    ZONA.forEach(function(c){TITLE[c.key]=[c.t_es,c.t_en]});
+  })();
 
   // ----- init -----
   applyTheme(get("gh:theme")==="dark"?"dark":"light");   // parte siempre en claro salvo elección previa
