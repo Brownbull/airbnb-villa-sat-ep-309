@@ -284,7 +284,8 @@
           <p class="kv es">Nombre de la red · Network</p><p class="kv en">Network name</p>
           <div class="val">Tommy-309</div>
           <p class="kv" style="margin-top:14px">Clave · Password</p>
-          <div class="val" id="wifi-pass" style="font-size:1.05rem"><span class="es">Te enviamos la clave por el chat de Airbnb.</span><span class="en">We send you the password via the Airbnb chat.</span></div>
+          <div class="val" id="wifi-pass" style="font-size:1.05rem"><span class="es">La encuentras en una tarjeta dentro del departamento.</span><span class="en">You'll find it on a card inside the apartment.</span></div>
+          <p style="font-size:14px;color:var(--ink-soft);margin-top:8px"><span class="es">¿No la ves? Pídenosla por el <b>chat de Airbnb</b>.</span><span class="en">Can't find it? Ask us via the <b>Airbnb chat</b>.</span></p>
         </div>
         <ol class="steps">
           <li><div><span class="es">Abre los <b>ajustes de WiFi</b> en tu teléfono.</span><span class="en">Open your phone's <b>WiFi settings</b>.</span></div></li>
@@ -516,7 +517,16 @@
         <p class="lead es">Uno por aparato y zona, con su nombre. Imprime, recorta con tijeras y pega cada uno en su lugar.</p>
         <p class="lead en">One per appliance and area, labeled. Print, cut with scissors, and stick each one in its place.</p>
         <button class="btn-primary" id="qr-print-set"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:17px;height:17px"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg><span class="es">Imprimir hoja para recortar</span><span class="en">Print cut-out sheet</span></button>
+        <p style="font-size:13px;color:var(--ink-soft)"><span class="es">Cada etiqueta impresa sale en español e inglés.</span><span class="en">Each printed label comes out in Spanish and English.</span></p>
         <div class="qrgrid" id="qr-grid"></div>
+
+        <h2><span class="es">Etiqueta de WiFi para imprimir</span><span class="en">Printable WiFi label</span></h2>
+        <p class="lead es">Escribe la clave, imprime y pega la etiqueta dentro del depto. La clave <b>no se guarda ni se publica</b> en la web.</p>
+        <p class="lead en">Type the password, print and stick the label inside the apartment. The password is <b>not saved or published</b> on the web.</p>
+        <div class="qropts" style="max-width:420px">
+          <input id="wifi-pass-input" type="text" autocomplete="off" placeholder="Clave del WiFi / WiFi password" style="border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:15px;background:var(--card);color:var(--ink);font-family:inherit">
+          <button class="btn-primary" id="qr-print-wifi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:17px;height:17px"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg><span class="es">Imprimir etiquetas WiFi (4 por hoja)</span><span class="en">Print WiFi labels (4 per sheet)</span></button>
+        </div>
       </section>
 
     </main>
@@ -601,7 +611,10 @@
     {id:"manta",es:"Manta ignífuga",en:"Fire blanket"},
     {id:"emergencias",es:"Emergencias",en:"Emergency"}
   ];
-  var SCAN={es:"Escanea para abrir la guía",en:"Scan to open the guide"};
+  var SCAN="Escanea para la guía · Scan for the guide";
+  var NET="Tommy-309";
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+  function bothLabel(q){return q.es===q.en?q.es:(q.es+" · "+q.en)}
   var stage=document.getElementById("printstage");
   function curLang(){return root.getAttribute("data-lang")==="en"?"en":"es"}
   function svgQR(text){ if(typeof qrcode==="undefined")return "<span style='color:#c13515'>QR ✕</span>"; var q=qrcode(0,"M"); q.addData(text); q.make(); return q.createSvgTag({cellSize:4,margin:1,scalable:true}); }
@@ -615,10 +628,12 @@
 
   function doPrint(){ root.setAttribute("data-printmode","qr"); window.print(); }
   window.addEventListener("afterprint",function(){root.removeAttribute("data-printmode")});
-  function printHome(n){ var cols=n<=1?1:(n<=4?2:(n<=8?2:4)); var h='<div class="qrsheet" style="grid-template-columns:repeat('+cols+',1fr)">'; for(var i=0;i<n;i++){h+=cellHTML("","Depto 309 · Villarrica",SCAN[curLang()])} stage.innerHTML=h+'</div>'; doPrint(); }
-  function printSet(){ var l=curLang(); var h='<div class="qrsheet" style="grid-template-columns:repeat(3,1fr)">'; QRSET.forEach(function(q){ if(!q.id)return; h+=cellHTML(q.id, l==="en"?q.en:q.es, ""); }); stage.innerHTML=h+'</div>'; doPrint(); }
+  function printHome(n){ var cols=n<=1?1:(n<=4?2:(n<=8?2:4)); var h='<div class="qrsheet" style="grid-template-columns:repeat('+cols+',1fr)">'; for(var i=0;i<n;i++){h+=cellHTML("","Depto 309 · Villarrica",SCAN)} stage.innerHTML=h+'</div>'; doPrint(); }
+  function printSet(){ var h='<div class="qrsheet" style="grid-template-columns:repeat(3,1fr)">'; QRSET.forEach(function(q){ if(!q.id)return; h+=cellHTML(q.id, bothLabel(q), ""); }); stage.innerHTML=h+'</div>'; doPrint(); }
+  function printWifi(){ var el=document.getElementById("wifi-pass-input"); var v=(el&&el.value?el.value:"").trim(); var pass=v?esc(v):"________________"; var card='<div class="qcell"><div class="lbl">WiFi</div><div class="sub">Red · Network</div><div style="font-size:15pt;font-weight:800;color:#111">'+NET+'</div><div class="sub" style="margin-top:3mm">Clave · Password</div><div style="font-size:15pt;font-weight:800;color:#111">'+pass+'</div></div>'; stage.innerHTML='<div class="qrsheet" style="grid-template-columns:repeat(2,1fr)">'+card+card+card+card+'</div>'; doPrint(); }
   document.querySelectorAll("#qr-formats [data-n]").forEach(function(b){ b.onclick=function(){printHome(parseInt(b.getAttribute("data-n"),10))} });
   var setBtn=document.getElementById("qr-print-set"); if(setBtn) setBtn.onclick=printSet;
+  var wifiBtn=document.getElementById("qr-print-wifi"); if(wifiBtn) wifiBtn.onclick=printWifi;
   document.getElementById("scrim").onclick=function(){root.removeAttribute("data-drawer")};
 
   // ----- Lavadora: chips iconados -----
