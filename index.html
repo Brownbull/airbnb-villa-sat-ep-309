@@ -154,6 +154,16 @@
   .qrmini .txt{font-size:13.5px;color:var(--ink-soft)}
   .qrmini .fmtbtn{margin-top:8px}
 
+  /* ===== spec chips (botones / programas con icono) ===== */
+  .speclist{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px;margin:10px 0}
+  .spec{display:flex;gap:12px;align-items:flex-start;border:1px solid var(--line);border-radius:12px;padding:11px 13px;background:var(--card);break-inside:avoid}
+  .spec .ib{flex:0 0 auto;width:38px;height:38px;border-radius:10px;background:var(--tint-rausch);color:var(--rausch);display:grid;place-items:center}
+  .spec .ib svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  .spec b{display:block;font-size:14.5px;line-height:1.25}
+  .spec .sub{display:block;font-size:13px;color:var(--ink-soft);margin-top:2px}
+  .spec.hot{border-color:var(--rausch)}
+  .spec .tag{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.03em;text-transform:uppercase;color:var(--rausch);background:var(--tint-rausch);border-radius:6px;padding:1px 6px;margin-left:7px;vertical-align:middle}
+
   /* ===== print stage (hojas de QR para imprimir) ===== */
   #printstage{display:none}
   .qrsheet{display:grid;gap:8mm}
@@ -374,15 +384,36 @@
       <!-- LAVADORA -->
       <section class="view" id="view-lavadora">
         <p class="eyebrow es">Lavadora</p><p class="eyebrow en">Washer</p>
-        <h1><span class="es">Lavadora-Secadora</span><span class="en">Washer-Dryer</span></h1>
-        <p class="lead es">Lava y también puede secar. Dial central + botones.</p><p class="lead en">Washes and can also dry. Central dial + buttons.</p>
+        <h1><span class="es">Lavadora-Secadora LG</span><span class="en">LG Washer-Dryer</span></h1>
+        <p class="lead es">Lava y también seca. Es inteligente (AIDD): pesa y detecta la tela sola y ajusta el lavado. Casi todo lo hace ella.</p>
+        <p class="lead en">Washes and also dries. It's smart (AIDD): it weighs and senses the fabric on its own and adjusts the wash. It does almost everything for you.</p>
+
+        <h2><span class="es">Cómo lavar</span><span class="en">How to wash</span></h2>
         <ol class="steps">
-          <li><div><span class="es">Mete la ropa (no hasta el tope) y cierra la puerta hasta que haga clic.</span><span class="en">Put the clothes in (not to the top) and close the door until it clicks.</span></div></li>
-          <li><div><span class="es">Pon <b>una tapita</b> de detergente en el cajón de la izquierda.</span><span class="en">Put <b>one cap</b> of detergent in the left drawer.</span></div></li>
-          <li><div><span class="es">Aprieta <b>Encendido</b>, gira el <b>dial</b> a <b>"Algodón"</b> y aprieta <b>Inicio</b>.</span><span class="en">Press <b>Power</b>, turn the <b>dial</b> to <b>"Cotton"</b>, and press <b>Start</b>.</span></div></li>
-          <li><div><span class="es">La puerta se traba sola. Al terminar suena; espera unos segundos y ábrela.</span><span class="en">The door locks by itself. It beeps when done; wait a few seconds and open it.</span></div></li>
+          <li><div><span class="es">Aprieta <b>Encendido</b>.</span><span class="en">Press <b>Power</b>.</span></div></li>
+          <li><div><span class="es">Abre la puerta y mete la ropa. Deja un palmo libre arriba.</span><span class="en">Open the door and load the clothes. Leave a hand's width free at the top.</span></div></li>
+          <li><div><span class="es">Pon <b>una tapita</b> de detergente (o una cápsula) en el cajón de arriba a la izquierda.</span><span class="en">Put <b>one cap</b> of detergent (or one pod) in the drawer at the top left.</span></div></li>
+          <li><div><span class="es">Cierra la puerta.</span><span class="en">Close the door.</span></div></li>
+          <li><div><span class="es">Gira el <b>dial</b> a <b>Algodón</b>.</span><span class="en">Turn the <b>dial</b> to <b>Cotton</b>.</span></div></li>
+          <li><div><span class="es">Aprieta <b>Inicio</b>.</span><span class="en">Press <b>Start</b>.</span></div></li>
+          <li><div><span class="es">Espera a que suene. La puerta se destraba sola.</span><span class="en">Wait for the beep. The door unlocks by itself.</span></div></li>
+          <li><div><span class="es"><b>Para secar:</b> saca la mitad de la ropa, gira el dial a <b>Lavado y secado</b> y aprieta Inicio.</span><span class="en"><b>To dry:</b> take out half the load, turn the dial to <b>Wash &amp; dry</b> and press Start.</span></div></li>
         </ol>
-        <div class="note warn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg><span><span class="es"><b>Para secar, saca la mitad de la ropa</b> (seca menos que lava). Elige un programa de secado y aprieta Inicio.</span><span class="en"><b>To dry, take out half the clothes</b> (it dries less than it washes). Pick a drying program and press Start.</span></span></div>
+
+        <h2><span class="es">Los botones</span><span class="en">The buttons</span></h2>
+        <div class="speclist" id="lav-buttons"></div>
+        <p style="font-size:14px;color:var(--ink-soft);margin:2px 0 0"><span class="es">La <b>Temperatura</b> y el <b>Centrifugado</b> los elige el programa solo — no hace falta tocarlos.</span><span class="en">The program sets <b>Temperature</b> and <b>Spin</b> for you — no need to touch them.</span></p>
+
+        <h2><span class="es">Programas — gira el dial</span><span class="en">Programs — turn the dial</span></h2>
+        <div class="speclist" id="lav-programs"></div>
+
+        <h2><span class="es">Aprovecha la lavadora</span><span class="en">Make the most of it</span></h2>
+        <div class="speclist" id="lav-caps"></div>
+
+        <h2><span class="es">Cuidados</span><span class="en">Care</span></h2>
+        <div class="note warn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg><span><span class="es"><b>Para secar, saca la mitad de la ropa:</b> lava 12 kg pero seca 7 kg. Si secas todo junto, sale húmedo.</span><span class="en"><b>To dry, take out half the load:</b> it washes 12 kg but dries 7 kg. If you dry it all at once, it comes out damp.</span></span></div>
+        <div class="note warn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg><span><span class="es"><b>Poco detergente</b> (una tapita o una cápsula) y <b>no sobrecargues</b>: deja un palmo libre arriba.</span><span class="en"><b>Little detergent</b> (one cap or one pod) and <b>don't overload</b>: leave a hand's width free at the top.</span></span></div>
+        <div class="note info"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg><span><span class="es">La puerta se traba sola mientras trabaja (es por seguridad); se destraba al terminar. No la fuerces. No necesitas WiFi ni app para lavar.</span><span class="en">The door locks by itself while running (for safety); it unlocks when done. Don't force it. You don't need WiFi or the app to do laundry.</span></span></div>
       </section>
 
       <!-- EXTINTOR -->
@@ -563,6 +594,46 @@
   document.querySelectorAll("#qr-formats [data-n]").forEach(function(b){ b.onclick=function(){printHome(parseInt(b.getAttribute("data-n"),10))} });
   var setBtn=document.getElementById("qr-print-set"); if(setBtn) setBtn.onclick=printSet;
   document.getElementById("scrim").onclick=function(){root.removeAttribute("data-drawer")};
+
+  // ----- Lavadora: chips iconados -----
+  var ICO={
+    power:'<path d="M12 2v10"/><path d="M18.4 6.6a9 9 0 1 1-12.8 0"/>',
+    dial:'<circle cx="12" cy="12" r="8"/><line x1="12" y1="12" x2="12" y2="4.5"/>',
+    play:'<circle cx="12" cy="12" r="9"/><path d="M10 8.5 15 12l-5 3.5z"/>',
+    add:'<circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/>',
+    dry:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',
+    cotton:'<path d="M20 6.5 15.5 4a3.5 3.5 0 0 1-7 0L4 6.5l2.2 3.6L9 8.6V20a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1V8.6l2.8 1.5z"/>',
+    quick:'<path d="M13 2 4 14h7l-1 8 9-12h-7l1-8z"/>',
+    mixed:'<path d="m12 3 9 5-9 5-9-5 9-5z"/><path d="m3 13 9 5 9-5"/>',
+    allergy:'<path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/>',
+    steam:'<path d="M8 21c0-2 2-2 2-4s-2-2-2-4 2-2 2-4"/><path d="M14 21c0-2 2-2 2-4s-2-2-2-4 2-2 2-4"/>'
+  };
+  function ico(n){return '<span class="ib"><svg viewBox="0 0 24 24" aria-hidden="true">'+(ICO[n]||ICO.dial)+'</svg></span>'}
+  function specHTML(it){return '<div class="spec'+(it.hot?' hot':'')+'">'+ico(it.icon)+'<span><b><span class="es">'+it.es+'</span><span class="en">'+it.en+'</span>'+(it.hot?'<span class="tag"><span class="es">diario</span><span class="en">daily</span></span>':'')+'</b><span class="sub"><span class="es">'+it.ses+'</span><span class="en">'+it.sen+'</span></span></span></div>'}
+  function fillSpec(id,arr){var c=document.getElementById(id);if(c)c.innerHTML=arr.map(specHTML).join("")}
+  fillSpec("lav-buttons",[
+    {icon:"power",es:"Encendido",en:"Power",ses:"Paso 1: prende la máquina.",sen:"Step 1: turns it on."},
+    {icon:"dial",es:"Perilla (dial)",en:"Program dial",ses:"Gírala para elegir el programa.",sen:"Turn it to pick the program."},
+    {icon:"play",es:"Inicio / Pausa",en:"Start / Pause",ses:"Empieza; apretado de nuevo, pausa.",sen:"Starts; press again to pause."},
+    {icon:"add",es:"Añadir elemento",en:"Add item",ses:"Pausa y destraba para meter una prenda.",sen:"Pauses and unlocks to add a garment."},
+    {icon:"dry",es:"Secado",en:"Dry",ses:"Déjalo en Normal.",sen:"Leave it on Normal."}
+  ]);
+  fillSpec("lav-programs",[
+    {icon:"cotton",es:"Algodón",en:"Cotton",ses:"Ropa de todos los días.",sen:"Everyday clothes.",hot:true},
+    {icon:"cotton",es:"Eco 40-60",en:"Eco 40-60",ses:"Algodón normal; ahorra agua y luz.",sen:"Normal cotton; saves water and power.",hot:true},
+    {icon:"quick",es:"TurboWash 59",en:"TurboWash 59",ses:"Carga chica-mediana en ~1 hora.",sen:"Small-medium load in ~1 hour.",hot:true},
+    {icon:"mixed",es:"Mixtos",en:"Mixed",ses:"Ropa mezclada de distintos tipos.",sen:"A mix of fabric types.",hot:true},
+    {icon:"quick",es:"Rápido 14",en:"Quick 14",ses:"2-3 prendas apenas usadas, ~14 min.",sen:"2-3 barely-used items, ~14 min."},
+    {icon:"allergy",es:"Antialérgico",en:"Anti-allergy",ses:"Vapor caliente: sábanas, toallas, alergias.",sen:"Hot steam: sheets, towels, allergies."},
+    {icon:"steam",es:"Cuidado del bebé (vapor)",en:"Baby care (steam)",ses:"Ropa de bebé o manchas de comida.",sen:"Baby clothes or food stains."},
+    {icon:"dry",es:"Lavado y secado",en:"Wash &amp; dry",ses:"Lava y seca de una (seca la mitad).",sen:"Washes and dries in one (dries half)."}
+  ]);
+  fillSpec("lav-caps",[
+    {icon:"quick",es:"Lavar rápido",en:"Fast wash",ses:"Dial en TurboWash 59 → ~1 hora.",sen:"Dial to TurboWash 59 → ~1 hour."},
+    {icon:"allergy",es:"Higienizar con vapor",en:"Sanitize with steam",ses:"Dial en Antialérgico para sábanas y toallas.",sen:"Dial to Anti-allergy for sheets and towels."},
+    {icon:"add",es:"Agregar prenda olvidada",en:"Add a forgotten item",ses:"Inicio/Pausa → Añadir elemento → abre.",sen:"Start/Pause → Add item → open."},
+    {icon:"dry",es:"Lavar y secar de una",en:"Wash and dry in one",ses:"Dial en Lavado y secado (saca la mitad).",sen:"Dial to Wash & dry (remove half)."}
+  ]);
 
   // ----- init -----
   applyTheme(get("gh:theme")==="dark"?"dark":"light");   // parte siempre en claro salvo elección previa
