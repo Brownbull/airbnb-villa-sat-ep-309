@@ -36,7 +36,7 @@
 
   /* ===== layout ===== */
   .app{display:flex;min-height:100vh}
-  .side{width:var(--sidebar-w);flex:0 0 var(--sidebar-w);position:fixed;top:0;left:0;height:100vh;overflow-y:auto;background:var(--card);border-right:1px solid var(--line-soft);padding:18px 14px 28px;z-index:40}
+  .side{width:var(--sidebar-w);flex:0 0 var(--sidebar-w);position:fixed;top:0;left:0;height:100vh;height:100dvh;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;background:var(--card);border-right:1px solid var(--line-soft);padding:18px 14px calc(28px + env(safe-area-inset-bottom));z-index:40}
   .content{margin-left:var(--sidebar-w);flex:1;min-width:0;display:flex;flex-direction:column}
   .main{padding:26px clamp(18px,4vw,44px) 60px;max-width:760px}
 
@@ -556,21 +556,10 @@
   var grid=document.getElementById("qr-grid");
   if(grid) QRSET.forEach(function(q){ if(!q.id)return; var d=document.createElement("div"); d.className="qi"; d.innerHTML=svgQR(target(q.id))+'<div class="cap"><span class="es">'+q.es+'</span><span class="en">'+q.en+'</span></div>'; grid.appendChild(d); });
 
-  // inyectar QR chico + boton en cada aparato / seguridad
-  ["wifi","nespresso","radio","calefactor","secatoallas","lavadora","extintor","manta","emergencias"].forEach(function(id){
-    var v=document.getElementById("view-"+id); if(!v)return;
-    var q=QRSET.filter(function(x){return x.id===id})[0]||{es:id,en:id};
-    var box=document.createElement("div"); box.className="qrmini noprint";
-    box.innerHTML=svgQR(target(id))+'<div class="txt"><b><span class="es">Pega este QR junto al aparato para el huésped.</span><span class="en">Stick this QR next to the appliance for the guest.</span></b><br><button class="fmtbtn" data-one="'+id+'"><span class="es">Imprimir este QR</span><span class="en">Print this QR</span></button></div>';
-    v.appendChild(box);
-    box.querySelector("[data-one]").onclick=function(){printOne(id, curLang()==="en"?q.en:q.es)};
-  });
-
   function doPrint(){ root.setAttribute("data-printmode","qr"); window.print(); }
   window.addEventListener("afterprint",function(){root.removeAttribute("data-printmode")});
   function printHome(n){ var cols=n<=1?1:(n<=4?2:(n<=8?2:4)); var h='<div class="qrsheet" style="grid-template-columns:repeat('+cols+',1fr)">'; for(var i=0;i<n;i++){h+=cellHTML("","Depto 309 · Villarrica",SCAN[curLang()])} stage.innerHTML=h+'</div>'; doPrint(); }
   function printSet(){ var l=curLang(); var h='<div class="qrsheet" style="grid-template-columns:repeat(3,1fr)">'; QRSET.forEach(function(q){ if(!q.id)return; h+=cellHTML(q.id, l==="en"?q.en:q.es, ""); }); stage.innerHTML=h+'</div>'; doPrint(); }
-  function printOne(id,label){ stage.innerHTML='<div class="qrsheet" style="grid-template-columns:1fr;max-width:95mm">'+cellHTML(id,label,SCAN[curLang()])+'</div>'; doPrint(); }
   document.querySelectorAll("#qr-formats [data-n]").forEach(function(b){ b.onclick=function(){printHome(parseInt(b.getAttribute("data-n"),10))} });
   var setBtn=document.getElementById("qr-print-set"); if(setBtn) setBtn.onclick=printSet;
   document.getElementById("scrim").onclick=function(){root.removeAttribute("data-drawer")};
