@@ -229,16 +229,17 @@
      La grande es sqrt(2):1, asi las tres quedan con la MISMA proporcion al recortarlas. */
   .wsheet{display:flex;flex-direction:column;align-items:center;gap:0}
   .wsheet .wrow{display:flex}
-  .wsheet .wslot{display:grid;place-items:center;border:1px dashed #999}
-  .wcard{display:flex;align-items:center;gap:6%;padding:5%;box-sizing:border-box;color:#111}
-  .wcard .qzone{flex:0 0 auto;text-align:center}
+  .wsheet .wslot{display:grid;place-items:center;border:1px dashed #999;position:relative;overflow:hidden}
+  .wsheet .wrot{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-90deg)}
+  .wcard{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5%;text-align:center;padding:6% 5%;box-sizing:border-box;color:#111}
+  .wcard .qzone{width:72%;flex:0 0 auto}
   .wcard .qzone svg{width:100%;height:auto;background:#fff;display:block}
-  .wcard .qcap{font-size:.62em;color:#555;margin-top:.5em;line-height:1.2}
-  .wcard .wdata{flex:1 1 auto;min-width:0}
-  .wcard .wtit{font-size:1.5em;font-weight:900;letter-spacing:-.01em;margin-bottom:.35em}
-  .wcard .wlab{font-size:.66em;color:#555;text-transform:uppercase;letter-spacing:.06em;font-weight:700;margin-top:.7em}
-  .wcard .wval{font-size:1.35em;font-weight:800;word-break:break-all;line-height:1.15}
-  .wcard .wapt{font-size:.66em;color:#555;margin-top:1em}
+  .wcard .qcap{font-size:.6em;color:#555;margin-top:.55em;line-height:1.25}
+  .wcard .wdata{width:100%}
+  .wcard .wtit{font-size:1.45em;font-weight:900;letter-spacing:-.01em;margin-bottom:.3em}
+  .wcard .wlab{font-size:.62em;color:#555;text-transform:uppercase;letter-spacing:.06em;font-weight:700;margin-top:.6em}
+  .wcard .wval{font-size:1.3em;font-weight:800;word-break:break-all;line-height:1.15}
+  .wcard .wapt{font-size:.62em;color:#555;margin-top:.9em}
 
   /* ===== print → PDF: todas las secciones en orden, sin menú, versión clara ===== */
   @media print{
@@ -951,12 +952,13 @@
   window.addEventListener("afterprint",function(){root.removeAttribute("data-printmode")});
   function printHome(n){ var cols=n<=1?1:(n<=4?2:(n<=8?2:4)); var h='<div class="qrsheet" style="grid-template-columns:repeat('+cols+',1fr)">'; for(var i=0;i<n;i++){h+=cellHTML("","Depto 309 · Villarrica",SCAN)} stage.innerHTML=h+'</div>'; doPrint(); }
   function printSet(){ var h='<div class="qrsheet" style="grid-template-columns:repeat(3,1fr)">'; QRSET.forEach(function(q){ if(!q.id)return; h+=cellHTML(q.id, bothLabel(q), ""); }); stage.innerHTML=h+'</div>'; doPrint(); }
-  // Hoja de WiFi: una tarjeta de media hoja arriba y dos de un cuarto abajo, giradas.
-  // La grande mide 190x134 mm (sqrt(2):1), asi las tres salen con la misma proporcion.
+  // Hoja de WiFi. La tarjeta es VERTICAL: QR arriba, datos del WiFi abajo.
+  // La grande ocupa media hoja y va girada; las dos chicas, un cuarto cada una y derechas.
+  // Todas son 1:raiz(2), asi que al recortarlas las tres tienen la misma forma.
   function wifiCard(w,h,fs,qr,pass){
     return '<div class="wcard" style="width:'+w+'mm;height:'+h+'mm;font-size:'+fs+'pt">'
-      + '<div class="qzone" style="width:'+(h*0.62)+'mm">'+qr
-      + '<div class="qcap">Escanea para la guía<br>Scan for the guide</div></div>'
+      + '<div class="qzone">'+qr+'</div>'
+      + '<div class="qcap">Escanea para la guía<br>Scan for the guide</div>'
       + '<div class="wdata"><div class="wtit">WiFi</div>'
       + '<div class="wlab">Red · Network</div><div class="wval">'+NET+'</div>'
       + '<div class="wlab">Clave · Password</div><div class="wval">'+pass+'</div>'
@@ -967,11 +969,11 @@
     var v=(el&&el.value?el.value:"").trim();
     var pass=v?esc(v):"________________";
     var qr=svgQR(target(""));
-    var grande=wifiCard(190,134,13,qr,pass);
-    var chica=wifiCard(134,95,9.2,qr,pass);
-    var slot='<div class="wslot" style="width:95mm;height:134mm"><div style="transform:rotate(-90deg)">'+chica+'</div></div>';
+    var grande=wifiCard(134,189.5,13,qr,pass);
+    var chica=wifiCard(94,133,9.2,qr,pass);
+    var slot='<div class="wslot" style="width:95mm;height:138.5mm">'+chica+'</div>';
     stage.innerHTML='<div class="wsheet">'
-      + '<div class="wslot" style="width:190mm;height:134mm">'+grande+'</div>'
+      + '<div class="wslot" style="width:190mm;height:138.5mm"><div class="wrot">'+grande+'</div></div>'
       + '<div class="wrow">'+slot+slot+'</div></div>';
     doPrint();
   }
