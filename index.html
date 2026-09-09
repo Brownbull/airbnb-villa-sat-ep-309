@@ -782,6 +782,10 @@
             </div>
             <p style="font-size:13px;color:var(--ink-soft)" class="es">Elige cuántos por hoja → se abre la impresión (Guardar como PDF o imprimir).</p>
             <p style="font-size:13px;color:var(--ink-soft)" class="en">Pick how many per sheet → the print dialog opens (Save as PDF or print).</p><p style="font-size:13px;color:var(--ink-soft)" class="fr">Choisis le nombre par feuille → la fenêtre d’impression s’ouvre (Enregistrer au format PDF ou imprimer).</p>
+            <button class="fmtbtn" id="qr-svg" style="display:inline-flex;align-items:center;gap:7px;margin-top:6px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:17px;height:17px"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg><span class="es">Descargar el QR en vector (SVG)</span><span class="en">Download the QR as vector (SVG)</span><span class="fr">Télécharger le QR en vectoriel (SVG)</span></button>
+            <p style="font-size:13px;color:var(--ink-soft)" class="es">Para diseñar tus propias etiquetas: se agranda sin perder nitidez y se puede recolorear. Trae fondo blanco; bórralo si lo quieres transparente.</p>
+            <p style="font-size:13px;color:var(--ink-soft)" class="en">For designing your own labels: it scales without losing sharpness and can be recoloured. It comes with a white background; delete it if you want it transparent.</p>
+            <p style="font-size:13px;color:var(--ink-soft)" class="fr">Pour créer tes propres étiquettes : il s’agrandit sans perdre en netteté et peut être recoloré. Il a un fond blanc ; supprime-le si tu le veux transparent.</p>
           </div>
         </div>
 
@@ -942,6 +946,26 @@
   function curLang(){var l=root.getAttribute("data-lang");return langOf(l)?l:"es"}
   function svgQR(text){ if(typeof qrcode==="undefined")return "<span style='color:#c13515'>QR ✕</span>"; var q=qrcode(0,"M"); q.addData(text); q.make(); return q.createSvgTag({cellSize:4,margin:1,scalable:true}); }
   function target(id){return BASE+(id?("#"+id):"")}
+  // SVG autonomo del QR: un path por modulo, sin dependencias, listo para editar.
+  function svgQRFile(text){
+    if(typeof qrcode==="undefined") return null;
+    var q=qrcode(0,"M"); q.addData(text); q.make();
+    var n=q.getModuleCount(), m=4, size=n+m*2, d="";
+    for(var r=0;r<n;r++) for(var c=0;c<n;c++) if(q.isDark(r,c)) d+="M"+(c+m)+" "+(r+m)+"h1v1h-1z";
+    return '<?xml version="1.0" encoding="UTF-8"?>\n'
+      + '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 '+size+' '+size+'" width="1024" height="1024" shape-rendering="crispEdges">'
+      + '<title>QR · Guía del huésped · Depto 309 Villarrica</title>'
+      + '<desc>'+esc(text)+'</desc>'
+      + '<rect width="'+size+'" height="'+size+'" fill="#ffffff"/>'
+      + '<path fill="#000000" d="'+d+'"/></svg>';
+  }
+  function bajarQR(){
+    var svg=svgQRFile(target("")); if(!svg) return;
+    var url=URL.createObjectURL(new Blob([svg],{type:"image/svg+xml;charset=utf-8"}));
+    var a=document.createElement("a"); a.href=url; a.download="qr-guia-depto309.svg";
+    document.body.appendChild(a); a.click();
+    setTimeout(function(){URL.revokeObjectURL(url); a.remove();},1500);
+  }
   function cellHTML(id,label,sub){return '<div class="qcell">'+svgQR(target(id))+'<div class="lbl">'+label+'</div>'+(sub?('<div class="sub">'+sub+'</div>'):'')+'</div>'}
 
   // pantalla: QR de la guía + grilla por sección
@@ -980,6 +1004,7 @@
   }
   document.querySelectorAll("#qr-formats [data-n]").forEach(function(b){ b.onclick=function(){printHome(parseInt(b.getAttribute("data-n"),10))} });
   var setBtn=document.getElementById("qr-print-set"); if(setBtn) setBtn.onclick=printSet;
+  var svgBtn=document.getElementById("qr-svg"); if(svgBtn) svgBtn.onclick=bajarQR;
   var wifiBtn=document.getElementById("qr-print-wifi"); if(wifiBtn) wifiBtn.onclick=printWifi;
   document.getElementById("scrim").onclick=function(){root.removeAttribute("data-drawer")};
 
