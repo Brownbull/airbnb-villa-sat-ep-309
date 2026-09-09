@@ -225,6 +225,20 @@
   .qrsheet .qcell svg{width:100%;height:auto;max-width:60mm;background:#fff}
   .qrsheet .qcell .lbl{font-weight:800;font-size:12pt;color:#111}
   .qrsheet .qcell .sub{font-size:8.5pt;color:#555}
+  /* Hoja de WiFi: la grande ocupa media hoja; las dos chicas, un cuarto cada una y giradas.
+     La grande es sqrt(2):1, asi las tres quedan con la MISMA proporcion al recortarlas. */
+  .wsheet{display:flex;flex-direction:column;align-items:center;gap:0}
+  .wsheet .wrow{display:flex}
+  .wsheet .wslot{display:grid;place-items:center;border:1px dashed #999}
+  .wcard{display:flex;align-items:center;gap:6%;padding:5%;box-sizing:border-box;color:#111}
+  .wcard .qzone{flex:0 0 auto;text-align:center}
+  .wcard .qzone svg{width:100%;height:auto;background:#fff;display:block}
+  .wcard .qcap{font-size:.62em;color:#555;margin-top:.5em;line-height:1.2}
+  .wcard .wdata{flex:1 1 auto;min-width:0}
+  .wcard .wtit{font-size:1.5em;font-weight:900;letter-spacing:-.01em;margin-bottom:.35em}
+  .wcard .wlab{font-size:.66em;color:#555;text-transform:uppercase;letter-spacing:.06em;font-weight:700;margin-top:.7em}
+  .wcard .wval{font-size:1.35em;font-weight:800;word-break:break-all;line-height:1.15}
+  .wcard .wapt{font-size:.66em;color:#555;margin-top:1em}
 
   /* ===== print → PDF: todas las secciones en orden, sin menú, versión clara ===== */
   @media print{
@@ -781,7 +795,7 @@
         <p class="lead en">Type the password, print and stick the label inside the apartment. The password is <b>not saved or published</b> on the web.</p><p class="lead fr">Écris le mot de passe, imprime et colle l’étiquette dans l’appartement. Le mot de passe <b>n’est ni enregistré ni publié</b> sur le web.</p>
         <div class="qropts" style="max-width:420px">
           <input id="wifi-pass-input" type="text" autocomplete="off" placeholder="Clave del WiFi / WiFi password" style="border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:15px;background:var(--card);color:var(--ink);font-family:inherit">
-          <button class="btn-primary" id="qr-print-wifi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:17px;height:17px"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg><span class="es">Imprimir etiquetas WiFi (4 por hoja)</span><span class="en">Print WiFi labels (4 per sheet)</span><span class="fr">Imprimer les étiquettes WiFi (4 par feuille)</span></button>
+          <button class="btn-primary" id="qr-print-wifi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:17px;height:17px"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg><span class="es">Imprimir hoja de WiFi con QR (1 grande + 2 chicas)</span><span class="en">Print WiFi sheet with QR (1 large + 2 small)</span><span class="fr">Imprimer la feuille WiFi avec QR (1 grande + 2 petites)</span></button>
         </div>
       </section>
 
@@ -937,7 +951,30 @@
   window.addEventListener("afterprint",function(){root.removeAttribute("data-printmode")});
   function printHome(n){ var cols=n<=1?1:(n<=4?2:(n<=8?2:4)); var h='<div class="qrsheet" style="grid-template-columns:repeat('+cols+',1fr)">'; for(var i=0;i<n;i++){h+=cellHTML("","Depto 309 · Villarrica",SCAN)} stage.innerHTML=h+'</div>'; doPrint(); }
   function printSet(){ var h='<div class="qrsheet" style="grid-template-columns:repeat(3,1fr)">'; QRSET.forEach(function(q){ if(!q.id)return; h+=cellHTML(q.id, bothLabel(q), ""); }); stage.innerHTML=h+'</div>'; doPrint(); }
-  function printWifi(){ var el=document.getElementById("wifi-pass-input"); var v=(el&&el.value?el.value:"").trim(); var pass=v?esc(v):"________________"; var card='<div class="qcell"><div class="lbl">WiFi</div><div class="sub">Red · Network</div><div style="font-size:15pt;font-weight:800;color:#111">'+NET+'</div><div class="sub" style="margin-top:3mm">Clave · Password</div><div style="font-size:15pt;font-weight:800;color:#111">'+pass+'</div></div>'; stage.innerHTML='<div class="qrsheet" style="grid-template-columns:repeat(2,1fr)">'+card+card+card+card+'</div>'; doPrint(); }
+  // Hoja de WiFi: una tarjeta de media hoja arriba y dos de un cuarto abajo, giradas.
+  // La grande mide 190x134 mm (sqrt(2):1), asi las tres salen con la misma proporcion.
+  function wifiCard(w,h,fs,qr,pass){
+    return '<div class="wcard" style="width:'+w+'mm;height:'+h+'mm;font-size:'+fs+'pt">'
+      + '<div class="qzone" style="width:'+(h*0.62)+'mm">'+qr
+      + '<div class="qcap">Escanea para la guía<br>Scan for the guide</div></div>'
+      + '<div class="wdata"><div class="wtit">WiFi</div>'
+      + '<div class="wlab">Red · Network</div><div class="wval">'+NET+'</div>'
+      + '<div class="wlab">Clave · Password</div><div class="wval">'+pass+'</div>'
+      + '<div class="wapt">Depto 309 · Villarrica</div></div></div>';
+  }
+  function printWifi(){
+    var el=document.getElementById("wifi-pass-input");
+    var v=(el&&el.value?el.value:"").trim();
+    var pass=v?esc(v):"________________";
+    var qr=svgQR(target(""));
+    var grande=wifiCard(190,134,13,qr,pass);
+    var chica=wifiCard(134,95,9.2,qr,pass);
+    var slot='<div class="wslot" style="width:95mm;height:134mm"><div style="transform:rotate(-90deg)">'+chica+'</div></div>';
+    stage.innerHTML='<div class="wsheet">'
+      + '<div class="wslot" style="width:190mm;height:134mm">'+grande+'</div>'
+      + '<div class="wrow">'+slot+slot+'</div></div>';
+    doPrint();
+  }
   document.querySelectorAll("#qr-formats [data-n]").forEach(function(b){ b.onclick=function(){printHome(parseInt(b.getAttribute("data-n"),10))} });
   var setBtn=document.getElementById("qr-print-set"); if(setBtn) setBtn.onclick=printSet;
   var wifiBtn=document.getElementById("qr-print-wifi"); if(wifiBtn) wifiBtn.onclick=printWifi;
