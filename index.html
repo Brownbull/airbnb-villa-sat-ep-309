@@ -89,7 +89,10 @@
   .vid iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
   .vid-print{display:none;font-size:12px;color:var(--ink-soft);margin:4px 0 0}
   .dot{position:absolute;transform:translate(-50%,-50%);width:30px;height:30px;border-radius:50%;background:var(--rausch);color:#fff;border:2.5px solid #fff;box-shadow:0 1px 5px rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800}
-  .dot.ring{width:34px;height:34px;background:transparent;border:4px solid var(--rausch);box-shadow:0 0 0 2px #fff,0 1px 5px rgba(0,0,0,.5)}
+  /* Anillo: rodea un objeto chico SIN taparlo. --d = diametro en % del ancho de la foto,
+     asi el anillo escala con la imagen y el objeto queda holgado adentro en todo tamano. */
+  .dot.ring{width:var(--d,16%);height:auto;aspect-ratio:1;background:transparent;border:3.5px solid var(--rausch);box-shadow:0 0 0 2px #fff,0 1px 6px rgba(0,0,0,.55)}
+  .ico-nb{width:1.25em;height:1.25em;vertical-align:-.3em;margin:0 1px}
   figcaption{color:var(--ink-soft);font-size:13.5px;margin-top:8px;line-height:1.4}
 
   /* steps */
@@ -339,19 +342,21 @@
 
         <h2><span class="es">A pie: la puerta y el citófono</span><span class="en">On foot: the door and the intercom</span></h2>
         <figure><span class="ph"><img src="img/entrada2.jpeg" alt="Puerta de acceso del edificio; el citófono está en la pared de la izquierda">
-          <span class="dot ring" style="left:25.4%;top:39.7%"></span></span>
+          <span class="dot ring" style="--d:17%;left:25.4%;top:39.7%"></span></span>
           <figcaption><span class="es">Esta es la puerta. El <b>citófono</b> es la cajita plateada de la pared de la izquierda, dentro del círculo.</span><span class="en">This is the door. The <b>intercom</b> is the small silver box on the left wall, inside the circle.</span></figcaption></figure>
         <figure><span class="ph"><img src="img/entrada3.jpeg" alt="Citófono con teclado de números; el botón de abajo a la derecha llama al conserje">
-          <span class="dot" style="left:67.1%;top:83.7%">1</span></span>
-          <figcaption><span class="es"><b>1</b> · El botón de <b>abajo a la derecha</b>, el del dibujito de pantalla. Ese llama al conserje.</span><span class="en"><b>1</b> · The <b>bottom-right</b> button, the one with the little screen drawing. That one calls the concierge.</span></figcaption></figure>
+          <span class="dot ring" style="--d:14.5%;left:67.1%;top:83.7%"></span>
+          <span class="dot" style="left:81%;top:83.7%">1</span></span>
+          <figcaption><span class="es"><b>1</b> · El botón que está <b>dentro del círculo</b>: abajo a la derecha, el del dibujo de un notebook <svg class="ico-nb" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4.5" width="14" height="10" rx="1.5"/><path d="M3 18.5h18"/></svg>. Ese llama al conserje.</span><span class="en"><b>1</b> · The button <b>inside the circle</b>: bottom right, the one with a laptop drawing <svg class="ico-nb" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4.5" width="14" height="10" rx="1.5"/><path d="M3 18.5h18"/></svg>. That one calls the concierge.</span></figcaption></figure>
         <ol class="steps">
           <li><div><span class="es">Aprieta el botón <span class="kbd">1</span> de la foto: el de <b>abajo a la derecha</b>, con dibujo de pantalla.</span><span class="en">Press button <span class="kbd">1</span> in the photo: the <b>bottom-right</b> one, with the screen drawing.</span></div></li>
           <li><div><span class="es">Espera un poco. El <b>conserje</b> contesta y te abre la puerta.</span><span class="en">Wait a moment. The <b>concierge</b> answers and opens the door for you.</span></div></li>
           <li><div><span class="es">Dile que llegas al <b>depto 309</b>.</span><span class="en">Tell them you are arriving at <b>apartment 309</b>.</span></div></li>
-          <li><div><span class="es">Retira las <b>llaves</b> con el conserje.</span><span class="en">Pick up the <b>keys</b> from the concierge.</span></div></li>
+          <li><div><span class="es">Pídele las <b>llaves del depto 309</b>. Dile que están en el <b>casillero del 309</b>, el de las cartas.</span><span class="en">Ask for the <b>keys for apartment 309</b>. Tell them the keys are in the <b>309 mailbox slot</b>, the one for letters.</span></div></li>
           <li><div><span class="es">Sube al <b>piso 3</b>.</span><span class="en">Go up to the <b>3rd floor</b>.</span></div></li>
           <li><div><span class="es">El <b>depto 309</b> está en ese piso. Llegaste.</span><span class="en">Apartment <b>309</b> is on that floor. You made it.</span></div></li>
         </ol>
+        <div class="note info"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg><span><span class="es"><b>Dónde están las llaves.</b> Detrás del conserje hay un mueble grande con un cuadradito por cada departamento, donde se dejan las cartas. Tus llaves están en el cuadradito del <b>309</b>. Dile eso al pedirlas: si solo pides «las llaves del 309», al conserje a veces le cuesta encontrarlas.</span><span class="en"><b>Where the keys are.</b> Behind the concierge there is a big unit with one small box per apartment, where letters are left. Your keys are in box <b>309</b>. Say that when you ask: if you only ask for «the keys for 309», the concierge sometimes can't find them.</span></span></div>
         <div class="note info"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg><span><span class="es">Los números del teclado son para los vecinos. Tú no necesitas ningún código: el conserje te abre. El check-in es desde las <b>15:00</b>; si llegas más tarde tampoco hay problema, porque hay conserjería las 24 horas.</span><span class="en">The keypad numbers are for residents. You don't need any code: the concierge opens for you. Check-in is from <b>3:00 PM</b>; arriving later is fine too, because the desk is staffed 24 hours.</span></span></div>
 
         <h2><span class="es">En auto: estacionamiento</span><span class="en">By car: parking</span></h2>
@@ -359,7 +364,7 @@
         <ol class="steps">
           <li><div><span class="es">Tu espacio es el <b>#94</b>, en el <b>piso 3</b>.</span><span class="en">Your space is <b>#94</b>, on the <b>3rd floor</b>.</span></div></li>
           <li><div><span class="es">Ese es el <b>mismo piso del depto</b>: del auto al 309 no tienes que bajar.</span><span class="en">That is the <b>same floor as the apartment</b>: from the car to 309 you don't go down.</span></div></li>
-          <li><div><span class="es">Las <b>llaves</b> las entrega el conserje igual que si llegaras a pie.</span><span class="en">The <b>keys</b> are handed over by the concierge, same as if you arrived on foot.</span></div></li>
+          <li><div><span class="es">Las <b>llaves</b> las pides al conserje igual que si llegaras a pie: están en el <b>casillero del 309</b>.</span><span class="en">You ask the concierge for the <b>keys</b> just like arriving on foot: they are in the <b>309 mailbox slot</b>.</span></div></li>
         </ol>
         <p><span class="es">Estos dos videos cortos muestran el camino.</span><span class="en">These two short videos show the way.</span></p>
         <div class="vidrow">
