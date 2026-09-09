@@ -201,7 +201,6 @@
   ul.rules li::marker{color:var(--rausch)}
   /* lugar (La zona) */
   .place{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--card);margin:16px 0;box-shadow:var(--shadow)}
-  .place .pmap{width:100%;aspect-ratio:16/9;border:0;display:block;background:var(--bg-soft)}
   .place .pbody{padding:15px 17px;display:flex;flex-direction:column;gap:10px;align-items:flex-start}
   .place h3{margin:0;font-size:1.2rem;letter-spacing:-.01em}
   .dist{display:inline-flex;align-items:center;gap:6px;background:var(--tint-rausch);color:var(--rausch);border-radius:999px;padding:3px 11px;font-size:13px;font-weight:700}
@@ -209,14 +208,31 @@
   .photo-slot{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;aspect-ratio:16/6;background:var(--bg-soft);border-top:1px dashed var(--line);color:var(--ink-soft);font-size:13.5px;text-align:center;padding:14px}
   .photo-slot svg{width:28px;height:28px;fill:none;stroke:currentColor;stroke-width:1.6}
   .map-print{display:none;font-size:12px;color:var(--ink-soft)}
-  @media print{ .map-print,.vid-print{display:block!important} .place{break-inside:avoid} }
+  @media print{ .map-print,.vid-print{display:block!important} .place{break-inside:avoid}
+    /* en papel la miniatura solo gastaria tinta: la ficha vuelve a una columna */
+    .spot{grid-template-columns:1fr!important} .thumb{display:none!important} }
   .spotlist{display:flex;flex-direction:column;gap:10px;margin:12px 0}
-  .spot{border:1px solid var(--line);border-radius:12px;padding:12px 14px;background:var(--card);display:flex;flex-direction:column;gap:6px;align-items:flex-start;break-inside:avoid}
+  /* ficha de lugar: cuerpo a la izquierda, miniatura a la derecha */
+  .spot{border:1px solid var(--line);border-radius:12px;padding:12px 14px;background:var(--card);display:grid;grid-template-columns:1fr 84px;gap:14px;align-items:start;break-inside:avoid}
+  .spot .sbody{display:flex;flex-direction:column;gap:6px;align-items:flex-start;min-width:0}
+  .spot .shead{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 10px}
   .spot h4{margin:0;font-size:1.02rem}
   .spot .blurb{font-size:14px;color:var(--ink-soft);margin:0}
   .spot .go{display:inline-flex;align-items:center;gap:6px;font-size:13.5px;font-weight:700;color:var(--rausch);text-decoration:none}
   .spot .go:hover{text-decoration:underline}
   .spot .go svg{width:14px;height:14px}
+  /* calificacion: la estrella es de Google Maps, foto tomada en la fecha del pie */
+  .rate{display:inline-flex;align-items:center;gap:4px;font-size:13px;font-weight:700;color:var(--ink);white-space:nowrap}
+  .rate svg{width:13px;height:13px;fill:#f5a623;stroke:none;flex:none}
+  .rate .rn{color:var(--ink-soft);font-weight:600;font-size:12px}
+  /* miniatura: foto si existe, si no el icono de la categoria */
+  .thumb{width:84px;aspect-ratio:1;border-radius:10px;overflow:hidden;background:var(--bg-soft);border:1px solid var(--line);display:flex;align-items:center;justify-content:center}
+  .thumb img{width:100%;height:100%;object-fit:cover;display:block}
+  .thumb svg{width:30px;height:30px;fill:none;stroke:var(--rausch);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;opacity:.5}
+  .ratefoot{font-size:12px;color:var(--ink-soft);margin:2px 0 0}
+  .creds{font-size:11.5px;line-height:1.5;color:var(--ink-soft);margin:6px 0 0}
+  .creds a{color:inherit;text-decoration:underline;text-underline-offset:2px}
+  @media (max-width:420px){ .spot{grid-template-columns:1fr 64px;gap:10px} .thumb{width:64px} }
 
   /* ===== print stage (hojas de QR para imprimir) ===== */
   #printstage{display:none}
@@ -1101,72 +1117,123 @@
       var u=U[a.getAttribute("data-maplink")]; if(u)a.href=u;});
   })();
   var ZONA=[
-    {key:"zona-playa",icon:"beach",t_es:"Playa y lago",t_en:"Beach & lake",t_fr:"Plage et lac",mapq:"Playa Pucará, Villarrica, Araucanía, Chile",photo:true,
+    {key:"zona-playa",icon:"beach",t_es:"Playa y lago",t_en:"Beach & lake",t_fr:"Plage et lac",photo:true,
      intro_es:"La playa, la costanera y la orilla del lago, todo al frente del depto.",intro_en:"The beach, the promenade and the lakeshore, all right across from the apartment.",intro_fr:"La plage, la promenade et la rive du lac, tout ça juste en face de l’appartement.",
      places:[
-       {n:"Playa Pucará",q:"Playa Pucará, Villarrica, Araucanía, Chile",dest:"Parque Mirador Playa Pucará, Villarrica, Araucanía, Chile",d_es:"Al frente · ~1-3 min a pie",d_en:"Right across · ~1-3 min walk",d_fr:"En face · ~1-3 min à pied",es:"La playa más icónica: arena oscura volcánica, agua cristalina, muelle y vista al volcán. Nadar, tomar sol, kayak o paddle. Tip: al atardecer sale la mejor foto.",en:"The most iconic beach: dark volcanic sand, clear water, a pier and volcano views. Swim, sunbathe, kayak or paddle. Tip: sunset makes the best photo.",fr:"La plage la plus emblématique : sable volcanique foncé, eau cristalline, une jetée et vue sur le volcan. Nager, bronzer, kayak ou paddle. Astuce : au coucher du soleil, tu prends la plus belle photo."},
-       {n:"Costanera de Villarrica",q:"Costanera Villarrica, Araucanía, Chile",d_es:"Al frente · 0-2 min a pie",d_en:"Right across · 0-2 min walk",d_fr:"En face · 0-2 min à pied",es:"Paseo de ~1,8 km al borde del lago con ciclovía. El mejor mirador caminable del volcán.",en:"A ~1.8 km lakeside promenade with a bike path. The best walkable spot to see the volcano.",fr:"Promenade de ~1,8 km au bord du lac, avec piste cyclable. Le meilleur point de vue sur le volcan accessible à pied."},
-       {n:"Embarcadero Municipal",q:"Embarcadero Municipal Villarrica",d_es:"~20-30 min a pie por la costanera",d_en:"~20-30 min walk along the promenade",d_fr:"~20-30 min à pied le long de la promenade",es:"Muelle desde donde salen los paseos en lancha por el lago.",en:"Pier where lake boat rides depart.",fr:"Jetée d’où partent les balades en bateau sur le lac."}
+       {n:"Playa Pucará",q:"Playa Pucará, Villarrica, Araucanía, Chile",g:4.7,gn:7414,img:"img/zona-playa-pucara.jpg",cred:{a:"FranciscoBarreraMartínez",l:"CC BY-SA 4.0",u:"https://creativecommons.org/licenses/by-sa/4.0",p:"https://commons.wikimedia.org/wiki/File:Lago_Villarrica_Dron.jpg"},dest:"Parque Mirador Playa Pucará, Villarrica, Araucanía, Chile",d_es:"Al frente · ~1-3 min a pie",d_en:"Right across · ~1-3 min walk",d_fr:"En face · ~1-3 min à pied",es:"La playa más icónica: arena oscura volcánica, agua cristalina, muelle y vista al volcán. Nadar, tomar sol, kayak o paddle. Tip: al atardecer sale la mejor foto.",en:"The most iconic beach: dark volcanic sand, clear water, a pier and volcano views. Swim, sunbathe, kayak or paddle. Tip: sunset makes the best photo.",fr:"La plage la plus emblématique : sable volcanique foncé, eau cristalline, une jetée et vue sur le volcan. Nager, bronzer, kayak ou paddle. Astuce : au coucher du soleil, tu prends la plus belle photo."},
+       {n:"Costanera de Villarrica",q:"Costanera Villarrica, Araucanía, Chile",img:"img/zona-costanera.jpg",cred:{a:"Nicolás Barra Robles",l:"CC BY-SA 4.0",u:"https://creativecommons.org/licenses/by-sa/4.0",p:"https://commons.wikimedia.org/wiki/File:Costanera_de_Villarrica._Chile.jpg"},d_es:"Al frente · 0-2 min a pie",d_en:"Right across · 0-2 min walk",d_fr:"En face · 0-2 min à pied",es:"Paseo de ~1,8 km al borde del lago con ciclovía. El mejor mirador caminable del volcán.",en:"A ~1.8 km lakeside promenade with a bike path. The best walkable spot to see the volcano.",fr:"Promenade de ~1,8 km au bord du lac, avec piste cyclable. Le meilleur point de vue sur le volcan accessible à pied."},
+       {n:"Embarcadero Municipal",q:"Embarcadero Villarrica, Araucanía, Chile",g:4.6,gn:2621,img:"img/zona-embarcadero.jpg",cred:{a:"Dario Alpern",l:"CC BY-SA 4.0",u:"https://creativecommons.org/licenses/by-sa/4.0",p:"https://commons.wikimedia.org/wiki/File:Muelle_de_Villarrica.jpg"},d_es:"~20-30 min a pie por la costanera",d_en:"~20-30 min walk along the promenade",d_fr:"~20-30 min à pied le long de la promenade",es:"Muelle desde donde salen los paseos en lancha por el lago.",en:"Pier where lake boat rides depart.",fr:"Jetée d’où partent les balades en bateau sur le lac."}
      ]},
-    {key:"zona-comida",icon:"coffee",t_es:"Comida y cafés",t_en:"Food & cafes",t_fr:"Restaurants et cafés",mapq:"Mercado Fritz, Villarrica, Araucanía, Chile",
+    {key:"zona-comida",icon:"coffee",t_es:"Comida y cafés",t_en:"Food & cafes",t_fr:"Restaurants et cafés",
      intro_es:"Restaurantes, cafés y pizzerías, agrupados en el centro (~15 min a pie).",intro_en:"Restaurants, cafes and pizzerias, clustered downtown (~15 min walk).",intro_fr:"Restaurants, cafés et pizzerias, groupés dans le centre (~15 min à pied).",
      places:[
-       {n:"Cafetería Praline",q:"Cafeteria Praline, Villarrica, Araucanía, Chile",d_es:"Centro · ~15 min a pie",d_en:"Downtown · ~15 min walk",d_fr:"Centre-ville · ~15 min à pied",es:"Café, pastelería y desayunos; de las mejor evaluadas de Villarrica.",en:"Coffee, pastries and breakfast; one of the best rated in town.",fr:"Café, pâtisseries et petits-déjeuners ; une des mieux notées de Villarrica."},
-       {n:"Café 2001",q:"Café 2001, Camilo Henríquez 379, Villarrica, Araucanía, Chile",d_es:"Centro · ~18 min a pie",d_en:"Downtown · ~18 min walk",d_fr:"Centre-ville · ~18 min à pied",es:"Café-bar familiar (desde 1978): completos, churrascos, jugos naturales y pastelería casera. Muy céntrico y bien rankeado.",en:"Family café-bar (since 1978): Chilean sandwiches, fresh juices and homemade pastries. Central and well rated.",fr:"Café-bar familial (depuis 1978) : sandwichs chiliens (completos, churrascos), jus de fruits frais et pâtisseries maison. En plein centre et bien noté."},
-       {n:"Pizza Cala",q:"Pizza Cala, Aviador Acevedo 497, Villarrica, Araucanía, Chile",d_es:"~12 min a pie · la más cercana",d_en:"~12 min walk · the closest",d_fr:"~12 min à pied · la plus proche",es:"Pizzas artesanales con opciones vegetarianas y veganas, con delivery. La pizzería más cercana al depto.",en:"Artisanal pizzas with vegetarian and vegan options, delivery available. The closest pizzeria to the apartment.",fr:"Pizzas artisanales avec des options végétariennes et véganes, livraison possible. La pizzeria la plus proche de l’appartement."},
-       {n:"The Travellers Resto Bar",q:"The Travellers Resto Bar, Valentin Letelier 753, Villarrica",d_es:"Centro · ~15-18 min a pie",d_en:"Downtown · ~15-18 min walk",d_fr:"Centre-ville · ~15-18 min à pied",es:"Resto-bar conocido: cocina variada, coctelería y música en vivo.",en:"Well-known resto-bar: varied cuisine, cocktails and live music.",fr:"Resto-bar connu : cuisine variée, cocktails et musique live."},
-       {n:"Café de Jo",q:"Café de Jo, San Martín 205, Villarrica, Araucanía, Chile",d_es:"Centro · ~18 min a pie",d_en:"Downtown · ~18 min walk",d_fr:"Centre-ville · ~18 min à pied",es:"Cafetería de especialidad: café de grano, sándwiches frescos y snacks. Excelentes reseñas.",en:"Specialty coffee shop: bean coffee, fresh sandwiches and snacks. Excellent reviews.",fr:"Café de spécialité : café en grains, sandwichs frais et snacks. Très bons avis."},
-       {n:"Plan Café",q:"Plan Café, General Urrutia 788, Villarrica, Araucanía, Chile",d_es:"Centro · ~20 min a pie (junto al Súper Lily)",d_en:"Downtown · ~20 min walk (next to Súper Lily)",d_fr:"Centre-ville · ~20 min à pied (à côté du Súper Lily)",es:"Cafetería de especialidad con ambiente moderno, al lado del Supermercado Lily. Muy bien evaluada.",en:"Modern specialty coffee shop next to Supermercado Lily. Very well rated.",fr:"Café de spécialité au cadre moderne, à côté du Supermercado Lily. Très bien noté."}
+       {n:"Cafetería Praline",q:"Cafeteria Praline, Villarrica, Araucanía, Chile",g:4.5,gn:111,d_es:"Centro · ~15 min a pie",d_en:"Downtown · ~15 min walk",d_fr:"Centre-ville · ~15 min à pied",es:"Café, pastelería y desayunos; de las mejor evaluadas de Villarrica.",en:"Coffee, pastries and breakfast; one of the best rated in town.",fr:"Café, pâtisseries et petits-déjeuners ; une des mieux notées de Villarrica."},
+       {n:"Café 2001",q:"Café 2001, Camilo Henríquez 379, Villarrica, Araucanía, Chile",g:4.7,gn:4464,d_es:"Centro · ~18 min a pie",d_en:"Downtown · ~18 min walk",d_fr:"Centre-ville · ~18 min à pied",es:"Café-bar familiar (desde 1978): completos, churrascos, jugos naturales y pastelería casera. Muy céntrico y bien rankeado.",en:"Family café-bar (since 1978): Chilean sandwiches, fresh juices and homemade pastries. Central and well rated.",fr:"Café-bar familial (depuis 1978) : sandwichs chiliens (completos, churrascos), jus de fruits frais et pâtisseries maison. En plein centre et bien noté."},
+       {n:"Pizza Cala",q:"Pizza Cala, Aviador Acevedo 497, Villarrica, Araucanía, Chile",g:4.5,gn:3752,d_es:"~12 min a pie · la más cercana",d_en:"~12 min walk · the closest",d_fr:"~12 min à pied · la plus proche",es:"Pizzas artesanales con opciones vegetarianas y veganas, con delivery. La pizzería más cercana al depto.",en:"Artisanal pizzas with vegetarian and vegan options, delivery available. The closest pizzeria to the apartment.",fr:"Pizzas artisanales avec des options végétariennes et véganes, livraison possible. La pizzeria la plus proche de l’appartement."},
+       {n:"The Travellers Resto Bar",q:"The Travellers Resto Bar, Valentin Letelier 753, Villarrica",g:4.5,gn:1181,d_es:"Centro · ~15-18 min a pie",d_en:"Downtown · ~15-18 min walk",d_fr:"Centre-ville · ~15-18 min à pied",es:"Resto-bar conocido: cocina variada, coctelería y música en vivo.",en:"Well-known resto-bar: varied cuisine, cocktails and live music.",fr:"Resto-bar connu : cuisine variée, cocktails et musique live."},
+       {n:"Café de Jo",q:"Café de Jo, San Martín 205, Villarrica, Araucanía, Chile",g:4.9,gn:170,d_es:"Centro · ~18 min a pie",d_en:"Downtown · ~18 min walk",d_fr:"Centre-ville · ~18 min à pied",es:"Cafetería de especialidad: café de grano, sándwiches frescos y snacks. Excelentes reseñas.",en:"Specialty coffee shop: bean coffee, fresh sandwiches and snacks. Excellent reviews.",fr:"Café de spécialité : café en grains, sandwichs frais et snacks. Très bons avis."},
+       {n:"Plan Café",q:"Plan Café, General Urrutia 788, Villarrica, Araucanía, Chile",g:4.6,gn:108,d_es:"Centro · ~20 min a pie (junto al Súper Lily)",d_en:"Downtown · ~20 min walk (next to Súper Lily)",d_fr:"Centre-ville · ~20 min à pied (à côté du Súper Lily)",es:"Cafetería de especialidad con ambiente moderno, al lado del Supermercado Lily. Muy bien evaluada.",en:"Modern specialty coffee shop next to Supermercado Lily. Very well rated.",fr:"Café de spécialité au cadre moderne, à côté du Supermercado Lily. Très bien noté."}
      ]},
-    {key:"zona-compras",icon:"cart",t_es:"Compras y súper",t_en:"Shopping & groceries",t_fr:"Courses et supermarchés",mapq:"Supermercado Eltit, Villarrica, Araucanía, Chile",
+    {key:"zona-compras",icon:"cart",t_es:"Compras y súper",t_en:"Shopping & groceries",t_fr:"Courses et supermarchés",
      intro_es:"El súper más cercano está prácticamente al lado; en el centro hay mercado artesanal.",intro_en:"The nearest supermarket is practically next door; the town center has a craft market.",intro_fr:"Le supermarché le plus proche est presque à côté ; dans le centre il y a un marché artisanal.",
      places:[
-       {n:"Supermercado Eltit",q:"Supermercado Eltit, Saturnino Epulef 1520, Villarrica",d_es:"Al lado · ~100 m, 1-2 min",d_en:"Next door · ~100 m, 1-2 min",d_fr:"Juste à côté · ~100 m, 1-2 min",es:"Súper con farmacia y cajeros en la misma calle. Para la compra grande sin moverte del sector.",en:"Supermarket with pharmacy and ATMs on the same street. For the big shop without leaving the area.",fr:"Supermarché avec pharmacie et distributeurs de billets dans la même rue. Pour les grosses courses sans quitter le quartier."},
+       {n:"Supermercado Eltit",q:"Supermercado Eltit, Saturnino Epulef 1520, Villarrica",img:"img/zona-eltit.jpg",cred:{a:"Carlos Figueroa Rojas",l:"CC BY-SA 4.0",u:"https://creativecommons.org/licenses/by-sa/4.0",p:"https://commons.wikimedia.org/wiki/File:Supermercado_Eltit,_Villarrica_20230921.jpg"},d_es:"Al lado · ~100 m, 1-2 min",d_en:"Next door · ~100 m, 1-2 min",d_fr:"Juste à côté · ~100 m, 1-2 min",es:"Súper con farmacia y cajeros en la misma calle. Para la compra grande sin moverte del sector.",en:"Supermarket with pharmacy and ATMs on the same street. For the big shop without leaving the area.",fr:"Supermarché avec pharmacie et distributeurs de billets dans la même rue. Pour les grosses courses sans quitter le quartier."},
        {n:"Líder Express",q:"Líder Express, Saturnino Epulef 1328, Villarrica, Araucanía, Chile",d_es:"~500 m · ~6 min a pie (misma avenida)",d_en:"~500 m · ~6 min walk (same avenue)",d_fr:"~500 m · ~6 min à pied (même avenue)",es:"Supermercado en la misma Av. Saturnino Epulef, a pocos minutos caminando.",en:"Supermarket on the same Saturnino Epulef avenue, a few minutes' walk.",fr:"Supermarché sur la même avenue Saturnino Epulef, à quelques minutes à pied."},
        {n:"Easy — al frente",q:"Easy, Saturnino Epulef 1580, Villarrica, Araucanía, Chile",d_es:"Al frente · ~150 m, cruzando la avenida",d_en:"Across the street · ~150 m",d_fr:"En face · ~150 m, de l’autre côté de l’avenue",es:"Tienda de hogar y construcción justo al frente del edificio (abrió 2025, en el sitio del antiguo Sodimac).",en:"Home & hardware store right across from the building (opened 2025, on the former Sodimac site).",fr:"Magasin de bricolage et maison, juste en face de l’immeuble (ouvert en 2025, à l’emplacement de l’ancien Sodimac)."},
        {n:"Sodimac Homecenter",q:"Sodimac Homecenter, Camino Villarrica-Pucón Km 0,1, Villarrica",d_es:"~10 min · camino a Pucón (mejor en auto)",d_en:"~10 min · toward Pucón (car better)",d_fr:"~10 min · sur la route de Pucón (mieux en voiture)",es:"Ferretería y hogar; se mudó a una tienda nueva más grande en el camino a Pucón.",en:"Hardware & home store; moved to a larger new store on the road to Pucón.",fr:"Quincaillerie et maison ; a déménagé dans un nouveau magasin plus grand sur la route de Pucón."},
-       {n:"Supermercado Lily",q:"Supermercado Lily, Camilo Henríquez 272, Villarrica, Araucanía, Chile",d_es:"Centro · ~23 min a pie",d_en:"Downtown · ~23 min walk",d_fr:"Centre-ville · ~23 min à pied",es:"Supermercado en el centro; conviene ir en auto o colectivo.",en:"Supermarket downtown; better reached by car or colectivo.",fr:"Supermarché au centre-ville ; mieux vaut y aller en voiture ou en colectivo."},
+       {n:"Supermercado Lily",q:"Supermercado Lily, Camilo Henríquez 272, Villarrica, Araucanía, Chile",g:4.2,gn:1805,d_es:"Centro · ~23 min a pie",d_en:"Downtown · ~23 min walk",d_fr:"Centre-ville · ~23 min à pied",es:"Supermercado en el centro; conviene ir en auto o colectivo.",en:"Supermarket downtown; better reached by car or colectivo.",fr:"Supermarché au centre-ville ; mieux vaut y aller en voiture ou en colectivo."},
        {n:"Mercado Fritz (feria artesanal)",q:"Mercado Fritz, Aviador Acevedo 612, Villarrica, Araucanía, Chile",d_es:"~12 min a pie · centro",d_en:"~12 min walk · downtown",d_fr:"~12 min à pied · centre-ville",es:"Feria artesanal: madera y lana, conservas y quesos locales, y asado de cordero. Ideal para regalos.",en:"Craft market: wood and wool crafts, local preserves and cheeses, and lamb asado. Great for gifts.",fr:"Marché artisanal : artisanat en bois et en laine, conserves et fromages du coin, et agneau grillé. Parfait pour les cadeaux."}
      ]},
-    {key:"zona-servicios",icon:"hospital",t_es:"Servicios y salud",t_en:"Services & health",t_fr:"Services et santé",mapq:"Hospital de Villarrica, Araucanía, Chile",
+    {key:"zona-servicios",icon:"hospital",t_es:"Servicios y salud",t_en:"Services & health",t_fr:"Services et santé",
      intro_es:"Farmacia, bencinera 24h, cajeros y hospital, casi todos sobre tu misma avenida.",intro_en:"Pharmacy, 24h gas station, ATMs and hospital, almost all on your same avenue.",intro_fr:"Pharmacie, station-service 24h, distributeurs de billets et hôpital, presque tous sur ton avenue.",
      places:[
-       {n:"Farmacia Salcobrand",q:"Salcobrand, Saturnino Epulef 1505, Villarrica",d_es:"Al lado · ~70-100 m",d_en:"Next door · ~70-100 m",d_fr:"Juste à côté · ~70-100 m",es:"La farmacia más cercana, en el complejo Eltit. Lun-Sáb 09:00-21:30, Dom 10:30-21:00.",en:"The nearest pharmacy, in the Eltit complex. Mon-Sat 9:00-21:30, Sun 10:30-21:00.",fr:"La pharmacie la plus proche, dans le complexe Eltit. Lun-Sam 09:00-21:30, Dim 10:30-21:00."},
+       {n:"Farmacia Salcobrand",q:"Salcobrand, Saturnino Epulef 1505, Villarrica",g:4.5,gn:13,d_es:"Al lado · ~70-100 m",d_en:"Next door · ~70-100 m",d_fr:"Juste à côté · ~70-100 m",es:"La farmacia más cercana, en el complejo Eltit. Lun-Sáb 09:00-21:30, Dom 10:30-21:00.",en:"The nearest pharmacy, in the Eltit complex. Mon-Sat 9:00-21:30, Sun 10:30-21:00.",fr:"La pharmacie la plus proche, dans le complexe Eltit. Lun-Sam 09:00-21:30, Dim 10:30-21:00."},
        {n:"Bencinera Petrobras (24h)",q:"Petrobras, Saturnino Epulef 1519, Villarrica",d_es:"Al lado · ~1 min",d_en:"Next door · ~1 min",d_fr:"Juste à côté · ~1 min",es:"La estación de servicio más cercana, abierta 24 horas.",en:"The nearest gas station, open 24 hours.",fr:"La station-service la plus proche, ouverte 24 heures sur 24."},
-       {n:"Hospital de Villarrica",q:"Hospital de Villarrica, Saturnino Epulef 2105, Villarrica",d_es:"~7-8 min a pie subiendo",d_en:"~7-8 min walk uphill",d_fr:"~7-8 min à pied en montant",es:"Hospital con urgencia 24h en la misma avenida. Urgencia (45) 2555293. Ambulancia SAMU: 131.",en:"Hospital with 24h ER on the same avenue. ER (45) 2555293. Ambulance (SAMU): 131.",fr:"Hôpital avec urgences 24h/24 sur la même avenue. Urgences (45) 2555293. Ambulance SAMU : 131."}
+       {n:"Hospital de Villarrica",q:"Hospital de Villarrica, Saturnino Epulef 2105, Villarrica",g:2.7,gn:241,img:"img/zona-hospital.jpg",cred:{a:"Carlos Figueroa Rojas",l:"CC BY-SA 4.0",u:"https://creativecommons.org/licenses/by-sa/4.0",p:"https://commons.wikimedia.org/wiki/File:Nuevo_Hospital,_Villarrica_20230921.jpg"},d_es:"~7-8 min a pie subiendo",d_en:"~7-8 min walk uphill",d_fr:"~7-8 min à pied en montant",es:"Hospital con urgencia 24h en la misma avenida. Urgencia (45) 2555293. Ambulancia SAMU: 131.",en:"Hospital with 24h ER on the same avenue. ER (45) 2555293. Ambulance (SAMU): 131.",fr:"Hôpital avec urgences 24h/24 sur la même avenue. Urgences (45) 2555293. Ambulance SAMU : 131."}
      ]},
-    {key:"zona-moverse",icon:"bus",t_es:"Cómo moverse",t_en:"Getting around",t_fr:"Comment se déplacer",mapq:"Terminal de Buses Villarrica, Araucanía, Chile",
+    {key:"zona-moverse",icon:"bus",t_es:"Cómo moverse",t_en:"Getting around",t_fr:"Comment se déplacer",
      intro_es:"Los terminales de buses están en el centro; para tramos largos, colectivo o taxi.",intro_en:"Bus terminals are downtown; for longer trips, take a colectivo (shared taxi) or a taxi.",intro_fr:"Les gares routières sont dans le centre ; pour les longs trajets, prends un colectivo (taxi partagé) ou un taxi.",
      places:[
-       {n:"Terminal de Buses JAC",q:"Terminal de Buses JAC, Francisco Bilbao 610, Villarrica",d_es:"Centro · ~22-25 min a pie",d_en:"Downtown · ~22-25 min walk",d_fr:"Centre-ville · ~22-25 min à pied",es:"Buses a Pucón, Temuco y otras ciudades. Para llegar, conviene colectivo o taxi.",en:"Buses to Pucón, Temuco and other cities. Best reached by colectivo or taxi.",fr:"Bus pour Pucón, Temuco et d’autres villes. Pour y aller, prends un colectivo ou un taxi."}
+       {n:"Terminal de Buses JAC",q:"Terminal de Buses JAC, Francisco Bilbao 610, Villarrica",g:4.0,gn:3145,img:"img/zona-terminal-jac.jpg",cred:{a:"Draceane",l:"CC BY-SA 4.0",u:"https://creativecommons.org/licenses/by-sa/4.0",p:"https://commons.wikimedia.org/wiki/File:JAC_Villarrica.jpg"},d_es:"Centro · ~22-25 min a pie",d_en:"Downtown · ~22-25 min walk",d_fr:"Centre-ville · ~22-25 min à pied",es:"Buses a Pucón, Temuco y otras ciudades. Para llegar, conviene colectivo o taxi.",en:"Buses to Pucón, Temuco and other cities. Best reached by colectivo or taxi.",fr:"Bus pour Pucón, Temuco et d’autres villes. Pour y aller, prends un colectivo ou un taxi."}
      ]},
-    {key:"zona-naturaleza",icon:"mountain",t_es:"Naturaleza y aventura",t_en:"Nature & adventure",t_fr:"Nature et aventure",mapq:"Volcán Villarrica, Chile",
+    {key:"zona-naturaleza",icon:"mountain",t_es:"Naturaleza y aventura",t_en:"Nature & adventure",t_fr:"Nature et aventure",
      intro_es:"El volcán y su parque nacional; se llega en auto o tour, no a pie.",intro_en:"The volcano and its national park; reached by car or tour, not on foot.",intro_fr:"Le volcan et son parc national ; on y va en voiture ou en excursion, pas à pied.",
      places:[
-       {n:"Volcán Villarrica / P.N. Villarrica",q:"Parque Nacional Villarrica sector Rucapillán",d_es:"En auto/tour · ~40-60 min",d_en:"By car/tour · ~40-60 min",d_fr:"En voiture/excursion · ~40-60 min",es:"Volcán de 2.847 m con senderos, araucarias, miradores y ascenso guiado (la actividad icónica); ski en invierno. Se contrata tour o se va en auto vía Pucón.",en:"A 2,847 m volcano with trails, araucaria forest, lookouts and a guided summit climb (the iconic activity); skiing in winter. Book a tour or drive via Pucón.",fr:"Volcan de 2 847 m avec sentiers, araucarias, points de vue et ascension guidée (l’activité phare) ; ski en hiver. Réserve une excursion ou vas-y en voiture par Pucón."}
+       {n:"Volcán Villarrica / P.N. Villarrica",q:"Parque Nacional Villarrica sector Rucapillán",img:"img/zona-volcan.jpg",cred:{a:"Dario Alpern",l:"CC BY-SA 4.0",u:"https://creativecommons.org/licenses/by-sa/4.0",p:"https://commons.wikimedia.org/wiki/File:Volc%C3%A1n_y_lago_Villarrica.jpg"},d_es:"En auto/tour · ~40-60 min",d_en:"By car/tour · ~40-60 min",d_fr:"En voiture/excursion · ~40-60 min",es:"Volcán de 2.847 m con senderos, araucarias, miradores y ascenso guiado (la actividad icónica); ski en invierno. Se contrata tour o se va en auto vía Pucón.",en:"A 2,847 m volcano with trails, araucaria forest, lookouts and a guided summit climb (the iconic activity); skiing in winter. Book a tour or drive via Pucón.",fr:"Volcan de 2 847 m avec sentiers, araucarias, points de vue et ascension guidée (l’activité phare) ; ski en hiver. Réserve une excursion ou vas-y en voiture par Pucón."}
      ]},
-    {key:"zona-entretencion",icon:"fun",t_es:"Entretención",t_en:"Entertainment",t_fr:"Loisirs",mapq:"Campo Viejo Restobar, Villarrica, Araucanía, Chile",
+    {key:"zona-entretencion",icon:"fun",t_es:"Entretención",t_en:"Entertainment",t_fr:"Loisirs",
      intro_es:"Un resto-bar con shows a pasos del depto, y el casino en Pucón para la noche.",intro_en:"A resto-bar with shows steps from the apartment, and the casino in Pucón for a night out.",intro_fr:"Un resto-bar avec spectacles à deux pas de l’appartement, et le casino à Pucón pour la soirée.",
      places:[
-       {n:"Campo Viejo Restobar",q:"Campo Viejo Restobar, Villarrica, Araucanía, Chile",d_es:"Costanera, frente a la playa · ~5 min a pie",d_en:"On the promenade, by the beach · ~5 min walk",d_fr:"Sur la promenade, face à la plage · ~5 min à pied",es:"Resto-bar frente a Playa Pucará: parrilladas, tributos y karaoke los viernes, y stand-up los sábados.",en:"Resto-bar facing Playa Pucará: grills, tribute shows and karaoke on Fridays, and stand-up on Saturdays.",fr:"Resto-bar en face de Playa Pucará : grillades, concerts hommage et karaoké le vendredi, et stand-up le samedi."},
-       {n:"Casino Enjoy Pucón",q:"Enjoy Pucón, Pucón, Araucanía, Chile",d_es:"En auto · ~30 min (en Pucón)",d_en:"By car · ~30 min (in Pucón)",d_fr:"En voiture · ~30 min (à Pucón)",es:"Casino y resort frente al lago en Pucón: juegos, restaurantes y espectáculos. Abierto hasta la madrugada.",en:"Lakefront casino and resort in Pucón: gaming, restaurants and shows. Open until early morning.",fr:"Casino et resort au bord du lac à Pucón : jeux, restaurants et spectacles. Ouvert jusqu’au petit matin."}
+       {n:"Campo Viejo Restobar",q:"Campo Viejo Restobar, Villarrica, Araucanía, Chile",g:3.7,gn:174,d_es:"Costanera, frente a la playa · ~5 min a pie",d_en:"On the promenade, by the beach · ~5 min walk",d_fr:"Sur la promenade, face à la plage · ~5 min à pied",es:"Resto-bar frente a Playa Pucará: parrilladas, tributos y karaoke los viernes, y stand-up los sábados.",en:"Resto-bar facing Playa Pucará: grills, tribute shows and karaoke on Fridays, and stand-up on Saturdays.",fr:"Resto-bar en face de Playa Pucará : grillades, concerts hommage et karaoké le vendredi, et stand-up le samedi."},
+       {n:"Casino Enjoy Pucón",q:"Enjoy Pucón, Pucón, Araucanía, Chile",g:4.2,gn:4255,img:"img/zona-casino-pucon.jpg",cred:{a:"Warko",l:"CC BY-SA 3.0",u:"https://creativecommons.org/licenses/by-sa/3.0",p:"https://commons.wikimedia.org/wiki/File:Enjoy_Pucon_2014-01_01.JPG"},d_es:"En auto · ~30 min (en Pucón)",d_en:"By car · ~30 min (in Pucón)",d_fr:"En voiture · ~30 min (à Pucón)",es:"Casino y resort frente al lago en Pucón: juegos, restaurantes y espectáculos. Abierto hasta la madrugada.",en:"Lakefront casino and resort in Pucón: gaming, restaurants and shows. Open until early morning.",fr:"Casino et resort au bord du lac à Pucón : jeux, restaurants et spectacles. Ouvert jusqu’au petit matin."}
      ]}
   ];
+  // ---- calificaciones: foto fechada de Google Maps, no una API en vivo ----
+  var STAR='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg>';
+  var RATEFOOT={es:"Estrellas y reseñas de Google Maps, consultadas en septiembre de 2026. Los lugares van ordenados de mejor a peor evaluados.",
+                en:"Stars and review counts from Google Maps, checked in September 2026. Places are listed best-rated first.",
+                fr:"Étoiles et avis de Google Maps, consultés en septembre 2026. Les lieux sont classés du mieux noté au moins bien noté."};
+  function miles(n,lang){var s=String(n),sep=lang==="en"?",":(lang==="fr"?"\u202f":".");
+    return s.replace(/\B(?=(\d{3})+(?!\d))/g,sep)}
+  // El conteo de resenas es una foto de un dia y las fuentes no coinciden entre si
+  // (Cafe 2001 aparece con 4.143, 4.464 y 4.815 al mismo tiempo). Publicar el numero
+  // exacto finge una precision que no existe: se redondea a dos cifras y se marca con ~.
+  // Bajo 20 va exacto, porque ahi el conteo es justamente el dato que califica la estrella.
+  function aprox(n){
+    if(n<20) return {v:n,ap:false};
+    var d=Math.pow(10,Math.floor(Math.log(n)/Math.LN10)-1);
+    return {v:Math.round(n/d)*d,ap:true};
+  }
+  function rateHTML(p){
+    if(p.g==null) return "";
+    var a=p.gn?aprox(p.gn):null;
+    var body=LANGS.map(function(x){
+      var num=p.g.toFixed(1); if(x.c!=="en") num=num.replace(".",",");
+      var cnt=a?' <span class="rn">('+(a.ap?"~":"")+miles(a.v,x.c)+')</span>':"";
+      return '<span class="'+x.c+'">'+num+cnt+'</span>';
+    }).join("");
+    return '<span class="rate" title="Google Maps">'+STAR+body+'</span>';
+  }
+  // Las fotos de Wikimedia Commons son CC BY-SA: exigen autor, licencia, enlace a la ficha
+  // y decir que se modificaron. Sin este bloque no se pueden publicar.
+  var CREDLEAD={es:"Fotos de Wikimedia Commons, recortadas para esta guía:",
+                en:"Photos from Wikimedia Commons, cropped for this guide:",
+                fr:"Photos de Wikimedia Commons, recadrées pour ce guide :"};
+  function credsHTML(lista){
+    var cs=lista.filter(function(p){return p.cred});
+    if(!cs.length) return "";
+    var items=cs.map(function(p){
+      var c=p.cred;
+      return esc(p.n)+' — <a href="'+c.p+'" target="_blank" rel="noopener">'+esc(c.a)+'</a>'
+           + ' (<a href="'+c.u+'" target="_blank" rel="noopener">'+c.l+'</a>)';
+    }).join(" · ");
+    return LANGS.map(function(x){
+      return '<p class="creds '+x.c+'">'+(CREDLEAD[x.c]||CREDLEAD.es)+' '+items+'</p>';
+    }).join("");
+  }
   function zonaHTML(c){
     var h='<section class="view" id="view-'+c.key+'"><p class="eyebrow es">La zona</p><p class="eyebrow en">The area</p><p class="eyebrow fr">Les environs</p>';
     h+='<h1>'+lspan(c,"t_")+'</h1>';
     h+=lp(c,"intro_","lead");
-    h+='<div class="place"><iframe class="pmap noprint" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?q='+encodeURIComponent(c.mapq)+'&z=15&output=embed" title="Mapa '+c.t_es+'"></iframe><div class="pbody"><p class="map-print">Google Maps: '+c.mapq+'</p></div></div>';
     h+='<div class="spotlist">';
-    c.places.forEach(function(p){
+    var lista=c.places.slice().sort(function(a,b){return (b.g==null?-1:b.g)-(a.g==null?-1:a.g)});
+    lista.forEach(function(p){
       var link=p.view?("https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(p.q)):dirURL(p.dest||p.q);
       var lab=p.view?LBL_VER:LBL_COMO;
-      h+='<div class="spot"><h4>'+p.n+'</h4>'
+      var th=p.img
+        ? '<img src="'+p.img+'" alt="'+esc(p.n)+'" loading="lazy" decoding="async">'
+        : '<svg viewBox="0 0 24 24" aria-hidden="true">'+(ICO[p.icon||c.icon]||ICO.dial)+'</svg>';
+      h+='<div class="spot"><div class="sbody">'
+        +'<div class="shead"><h4>'+p.n+'</h4>'+rateHTML(p)+'</div>'
         +'<span class="dist">'+lspan(p,"d_")+'</span>'
         +'<p class="blurb">'+lspan(p)+'</p>'
-        +'<a class="go" href="'+link+'" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M9 18l6-6-6-6"/></svg>'+lspan(lab)+'</a></div>';
+        +'<a class="go" href="'+link+'" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M9 18l6-6-6-6"/></svg>'+lspan(lab)+'</a>'
+        +'<p class="map-print">Google Maps: '+esc(p.q)+'</p>'
+        +'</div><div class="thumb">'+th+'</div></div>';
     });
     h+='</div>';
+    if(lista.some(function(p){return p.g!=null})) h+=lp(RATEFOOT,"","ratefoot");
+    h+=credsHTML(lista);
     if(c.photo) h+='<div class="place"><div class="photo-slot"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3z"/><circle cx="12" cy="13" r="3.5"/></svg><span class="es">Foto de la playa — por agregar (sube la tuya).</span><span class="en">Beach photo — to add (upload yours).</span><span class="fr">Photo de la plage — à ajouter (mets la tienne).</span></div></div>';
     return h+'</section>';
   }
