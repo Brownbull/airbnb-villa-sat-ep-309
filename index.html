@@ -84,9 +84,12 @@
   .ph{position:relative;display:inline-block;width:100%;max-width:420px;line-height:0;border-radius:var(--radius);overflow:hidden;border:1px solid var(--line)}
   .ph img{width:100%}
   .vid{position:relative;display:block;width:100%;max-width:300px;aspect-ratio:9/16;border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);background:var(--bg-soft)}
+  .vidrow{display:flex;flex-wrap:wrap;gap:16px;align-items:flex-start;margin:14px 0}
+  .vidrow figure{margin:0;flex:0 1 300px}
   .vid iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
   .vid-print{display:none;font-size:12px;color:var(--ink-soft);margin:4px 0 0}
   .dot{position:absolute;transform:translate(-50%,-50%);width:30px;height:30px;border-radius:50%;background:var(--rausch);color:#fff;border:2.5px solid #fff;box-shadow:0 1px 5px rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800}
+  .dot.ring{width:34px;height:34px;background:transparent;border:4px solid var(--rausch);box-shadow:0 0 0 2px #fff,0 1px 5px rgba(0,0,0,.5)}
   figcaption{color:var(--ink-soft);font-size:13.5px;margin-top:8px;line-height:1.4}
 
   /* steps */
@@ -326,12 +329,43 @@
           <div class="val" style="font-size:1.15rem">Saturnino Epulef 1575, Villarrica, Araucanía</div>
           <p style="font-size:14px;color:var(--ink-soft);margin-top:8px"><span class="es"><b>Estacionamiento:</b> piso 3 (mismo piso del depto), espacio <b>#94</b>.</span><span class="en"><b>Parking:</b> 3rd floor (same floor as the apartment), space <b>#94</b>.</span></p>
         </div>
+        <h2><span class="es">Así se ve el edificio</span><span class="en">This is the building</span></h2>
+        <figure><span class="ph"><img src="img/entrada1.jpeg" alt="Fachada del edificio con el número 1575 pintado en grande en la esquina"></span>
+          <figcaption><span class="es">Busca el <b>1575</b> pintado en grande en la esquina. El edificio queda <b>frente a la tienda Easy</b>.</span><span class="en">Look for the big <b>1575</b> painted on the corner. The building is <b>across from the Easy store</b>.</span></figcaption></figure>
         <ol class="steps">
           <li><div><span class="es">El edificio está en Saturnino Epulef 1575, <b>frente a la tienda Easy</b>.</span><span class="en">The building is at Saturnino Epulef 1575, <b>across from the Easy store</b>.</span></div></li>
           <li><div><span class="es">Entra por la <b>calle lateral (Recabarren)</b>, primera entrada a la derecha.</span><span class="en">Enter through the <b>side street (Recabarren)</b>, first entrance on the right.</span></div></li>
-          <li><div><span class="es">Toca el <b>timbre</b> para que el conserje te abra. Menciona el <b>depto 309</b>.</span><span class="en">Ring the <b>bell</b> so the concierge lets you in. Mention <b>apartment 309</b>.</span></div></li>
-          <li><div><span class="es">Retira las llaves con el <b>conserje</b>.</span><span class="en">Pick up the keys from the <b>concierge</b>.</span></div></li>
         </ol>
+
+        <h2><span class="es">A pie: la puerta y el citófono</span><span class="en">On foot: the door and the intercom</span></h2>
+        <figure><span class="ph"><img src="img/entrada2.jpeg" alt="Puerta de acceso del edificio; el citófono está en la pared de la izquierda">
+          <span class="dot ring" style="left:25.4%;top:39.7%"></span></span>
+          <figcaption><span class="es">Esta es la puerta. El <b>citófono</b> es la cajita plateada de la pared de la izquierda, dentro del círculo.</span><span class="en">This is the door. The <b>intercom</b> is the small silver box on the left wall, inside the circle.</span></figcaption></figure>
+        <figure><span class="ph"><img src="img/entrada3.jpeg" alt="Citófono con teclado de números; el botón de abajo a la derecha llama al conserje">
+          <span class="dot" style="left:67.1%;top:83.7%">1</span></span>
+          <figcaption><span class="es"><b>1</b> · El botón de <b>abajo a la derecha</b>, el del dibujito de pantalla. Ese llama al conserje.</span><span class="en"><b>1</b> · The <b>bottom-right</b> button, the one with the little screen drawing. That one calls the concierge.</span></figcaption></figure>
+        <ol class="steps">
+          <li><div><span class="es">Aprieta el botón <span class="kbd">1</span> de la foto: el de <b>abajo a la derecha</b>, con dibujo de pantalla.</span><span class="en">Press button <span class="kbd">1</span> in the photo: the <b>bottom-right</b> one, with the screen drawing.</span></div></li>
+          <li><div><span class="es">Espera un poco. El <b>conserje</b> contesta y te abre la puerta.</span><span class="en">Wait a moment. The <b>concierge</b> answers and opens the door for you.</span></div></li>
+          <li><div><span class="es">Dile que llegas al <b>depto 309</b>.</span><span class="en">Tell them you are arriving at <b>apartment 309</b>.</span></div></li>
+          <li><div><span class="es">Retira las <b>llaves</b> con el conserje.</span><span class="en">Pick up the <b>keys</b> from the concierge.</span></div></li>
+        </ol>
+        <div class="note info"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg><span><span class="es">Los números del teclado son para los vecinos. Tú no necesitas ningún código: el conserje te abre. Hay conserjería las 24 horas, así que puedes llegar a cualquier hora.</span><span class="en">The keypad numbers are for residents. You don't need any code: the concierge opens for you. The desk is staffed 24 hours, so you can arrive at any time.</span></span></div>
+
+        <h2><span class="es">En auto: estacionamiento</span><span class="en">By car: parking</span></h2>
+        <p><span class="es">El depto tiene estacionamiento propio: <b>piso 3</b>, espacio <b>#94</b>. Estos dos videos cortos lo muestran.</span><span class="en">The apartment has its own parking: <b>3rd floor</b>, space <b>#94</b>. These two short videos show it.</span></p>
+        <div class="vidrow">
+          <figure>
+            <div class="vid noprint"><iframe data-yt="JisGF6d4BHw" title="Video: estacionamiento privado del edificio · private parking" loading="lazy" allow="encrypted-media; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
+            <p class="vid-print">Video: youtube.com/shorts/JisGF6d4BHw</p>
+            <figcaption><span class="es"><b>Video 1 · El estacionamiento.</b> Muestra el estacionamiento del edificio y el espacio #94. Si no carga, <a href="https://youtube.com/shorts/JisGF6d4BHw" target="_blank" rel="noopener">ábrelo en YouTube</a>.</span><span class="en"><b>Video 1 · The parking.</b> Shows the building's parking and space #94. If it doesn't load, <a href="https://youtube.com/shorts/JisGF6d4BHw" target="_blank" rel="noopener">open it on YouTube</a>.</span></figcaption>
+          </figure>
+          <figure>
+            <div class="vid noprint"><iframe data-yt="-Ki-3DNJUpc" title="Video: entrada desde el estacionamiento · entrance from parking" loading="lazy" allow="encrypted-media; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
+            <p class="vid-print">Video: youtube.com/shorts/-Ki-3DNJUpc</p>
+            <figcaption><span class="es"><b>Video 2 · Del estacionamiento al depto.</b> Muestra el camino desde el auto hasta adentro. Si no carga, <a href="https://youtube.com/shorts/-Ki-3DNJUpc" target="_blank" rel="noopener">ábrelo en YouTube</a>.</span><span class="en"><b>Video 2 · From the parking to the apartment.</b> Shows the way from the car to inside. If it doesn't load, <a href="https://youtube.com/shorts/-Ki-3DNJUpc" target="_blank" rel="noopener">open it on YouTube</a>.</span></figcaption>
+          </figure>
+        </div>
       </section>
 
       <!-- SALIDA -->
@@ -440,6 +474,12 @@
         <p class="eyebrow es">Secatoallas</p><p class="eyebrow en">Towel warmer</p>
         <h1><span class="es">Secatoallas</span><span class="en">Towel warmer</span></h1>
         <p class="lead es">Entibia y seca tus toallas. Tres botones debajo de la pantalla.</p><p class="lead en">Warms and dries your towels. Three buttons below the screen.</p>
+        <h2><span class="es">Mira cómo se usa</span><span class="en">Watch how it works</span></h2>
+        <figure>
+          <div class="vid noprint"><iframe data-yt="nkY58Gik89U" title="Video: cómo usar el secatoallas · how to use the towel warmer" loading="lazy" allow="encrypted-media; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
+          <p class="vid-print">Video: youtube.com/shorts/nkY58Gik89U</p>
+          <figcaption><span class="es">Video corto del anfitrión: cómo usar el secatoallas. Si no carga, <a href="https://youtube.com/shorts/nkY58Gik89U" target="_blank" rel="noopener">ábrelo en YouTube</a>.</span><span class="en">Short video by the host: how to use the towel warmer. If it doesn't load, <a href="https://youtube.com/shorts/nkY58Gik89U" target="_blank" rel="noopener">open it on YouTube</a>.</span></figcaption>
+        </figure>
         <figure><span class="ph"><img src="img/secatoallas1.jpeg" alt="Panel del secatoallas con tres botones">
           <span class="dot" style="left:34%;top:59%">1</span><span class="dot" style="left:47%;top:59%">2</span><span class="dot" style="left:65%;top:59%">3</span></span>
           <figcaption><span class="es"><b>1</b> menos · <b>2</b> más · <b>3</b> menú (prende/apaga).</span><span class="en"><b>1</b> minus · <b>2</b> plus · <b>3</b> menu (on/off).</span></figcaption></figure>
