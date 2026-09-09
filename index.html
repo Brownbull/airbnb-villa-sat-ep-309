@@ -96,6 +96,12 @@
   figure{margin:18px 0 6px}
   .ph{position:relative;display:inline-block;width:100%;max-width:420px;line-height:0;border-radius:var(--radius);overflow:hidden;border:1px solid var(--line)}
   .ph img{width:100%}
+  /* una foto muy apaisada se ahoga en 420px: esta usa todo el ancho de la columna */
+  .ph.wide{max-width:100%}
+  .maplinks{display:flex;flex-wrap:wrap;gap:8px;margin-top:13px}
+  .maplink{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);background:var(--bg-soft);color:var(--ink);border-radius:999px;padding:9px 14px;font-weight:800;font-size:13.5px;text-decoration:none}
+  .maplink:hover{border-color:var(--rausch);color:var(--rausch)}
+  .maplink svg{width:16px;height:16px;stroke-width:2;flex:0 0 auto;color:var(--rausch)}
   .vid{position:relative;display:block;width:100%;max-width:300px;aspect-ratio:9/16;border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);background:var(--bg-soft)}
   .vidrow{display:flex;flex-wrap:wrap;gap:16px;align-items:flex-start;margin:14px 0}
   .vidrow figure{margin:0;flex:0 1 300px}
@@ -260,6 +266,7 @@
       <button class="navlink" data-sec="inicio"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg><span class="es">Inicio</span><span class="en">Home</span><span class="fr">Accueil</span></button>
       <button class="navlink" data-sec="wifi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13a10 10 0 0 1 14 0"/><path d="M8.5 16.5a5 5 0 0 1 7 0"/><path d="M2 8.82a15 15 0 0 1 20 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>WiFi</button>
       <button class="navlink" data-sec="llegada"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg><span class="es">Llegada</span><span class="en">Check-in</span><span class="fr">Arrivée</span></button>
+      <button class="navlink" data-sec="estacionamiento"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M19 17h2a1 1 0 0 0 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4a1 1 0 0 0 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></svg><span class="es">Estacionamiento</span><span class="en">Parking</span><span class="fr">Parking</span></button>
       <button class="navlink" data-sec="salida"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg><span class="es">Salida</span><span class="en">Check-out</span><span class="fr">Départ</span></button>
       <button class="navlink" data-sec="casa"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg><span class="es">Reglas de la casa</span><span class="en">House rules</span><span class="fr">Règles de la maison</span></button>
 
@@ -330,9 +337,9 @@
         <p class="eyebrow">WiFi</p>
         <h1><span class="es">Conéctate al WiFi</span><span class="en">Connect to WiFi</span><span class="fr">Connecte-toi au WiFi</span></h1>
         <div class="bigcard">
-          <p class="kv es">Nombre de la red · Network</p><p class="kv en">Network name</p><p class="kv fr">Nom du réseau · Network</p>
+          <p class="kv es">Nombre de la red</p><p class="kv en">Network name</p><p class="kv fr">Nom du réseau</p>
           <div class="val">Tommy-309</div>
-          <p class="kv" style="margin-top:14px">Clave · Password</p>
+          <p class="kv es" style="margin-top:14px">Clave</p><p class="kv en" style="margin-top:14px">Password</p><p class="kv fr" style="margin-top:14px">Mot de passe</p>
           <div class="val" id="wifi-pass" style="font-size:1.05rem"><span class="es">La encuentras en una tarjeta dentro del departamento.</span><span class="en">You'll find it on a card inside the apartment.</span><span class="fr">C’est écrit sur une carte dans l’appartement.</span></div>
           <p style="font-size:14px;color:var(--ink-soft);margin-top:8px"><span class="es">¿No la ves? Pídenosla por el <b>chat de Airbnb</b>.</span><span class="en">Can't find it? Ask us via the <b>Airbnb chat</b>.</span><span class="fr">Tu ne la trouves pas ? Demande-la-nous par le <b>chat Airbnb</b>.</span></p>
         </div>
@@ -350,8 +357,12 @@
         <p class="lead es">Check-in desde las <b>15:00</b>. El acceso es por <b>conserjería</b> (edificio con acceso controlado 24/7). No hay cerradura con código: el conserje te abre y te entrega las llaves.</p>
         <p class="lead en">Check-in from <b>3:00 PM</b>. Access is through the <b>concierge</b> (building has 24/7 controlled access). There's no keypad lock: the concierge lets you in and hands you the keys.</p><p class="lead fr">Arrivée à partir de <b>15:00</b>. On entre par la <b>loge</b> (immeuble avec accès contrôlé 24h/24). Il n’y a pas de serrure à code : le concierge t’ouvre et te donne les clés.</p>
         <div class="bigcard">
-          <p class="kv es">Dirección · Address</p><p class="kv en">Address</p><p class="kv fr">Adresse · Address</p>
+          <p class="kv es">Dirección</p><p class="kv en">Address</p><p class="kv fr">Adresse</p>
           <div class="val" style="font-size:1.15rem">Saturnino Epulef 1575, Villarrica, Araucanía</div>
+          <div class="maplinks noprint">
+            <a class="maplink" data-maplink="gmaps" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg><span class="es">Abrir en Google Maps</span><span class="en">Open in Google Maps</span><span class="fr">Ouvrir dans Google Maps</span></a>
+            <a class="maplink" data-maplink="waze" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg><span class="es">Abrir en Waze</span><span class="en">Open in Waze</span><span class="fr">Ouvrir dans Waze</span></a>
+          </div>
           <p style="font-size:14px;color:var(--ink-soft);margin-top:8px"><span class="es"><b>Estacionamiento:</b> piso 3 (mismo piso del depto), espacio <b>#94</b>.</span><span class="en"><b>Parking:</b> 3rd floor (same floor as the apartment), space <b>#94</b>.</span><span class="fr"><b>Parking :</b> 3e étage (le même étage que l’appartement), place <b>#94</b>.</span></p>
         </div>
         <h2 class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="20" x="4" y="2" rx="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01"/><path d="M12 6h.01"/><path d="M16 6h.01"/><path d="M8 10h.01"/><path d="M12 10h.01"/><path d="M16 10h.01"/><path d="M8 14h.01"/><path d="M12 14h.01"/><path d="M16 14h.01"/></svg><span class="es">Así se ve el edificio</span><span class="en">This is the building</span><span class="fr">Voici l’immeuble</span></h2>
@@ -400,6 +411,46 @@
             <div class="vid noprint"><iframe data-yt="-Ki-3DNJUpc" title="Video: entrada desde el estacionamiento · entrance from parking" loading="lazy" allow="encrypted-media; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
             <p class="vid-print">Video: youtube.com/shorts/-Ki-3DNJUpc</p>
             <figcaption><span class="es"><b>Video 2 · Del estacionamiento al depto.</b> Muestra el camino desde el auto hasta adentro. Si no carga, <a href="https://youtube.com/shorts/-Ki-3DNJUpc" target="_blank" rel="noopener">ábrelo en YouTube</a>.</span><span class="en"><b>Video 2 · From the parking to the apartment.</b> Shows the way from the car to inside. If it doesn't load, <a href="https://youtube.com/shorts/-Ki-3DNJUpc" target="_blank" rel="noopener">open it on YouTube</a>.</span><span class="fr"><b>Vidéo 2 · Du parking à l’appartement.</b> Montre le chemin depuis la voiture jusqu’à l’intérieur. Si elle ne charge pas, <a href="https://youtube.com/shorts/-Ki-3DNJUpc" target="_blank" rel="noopener">ouvre-la sur YouTube</a>.</span></figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <!-- ESTACIONAMIENTO -->
+      <section class="view" id="view-estacionamiento">
+        <p class="eyebrow es">Estacionamiento</p><p class="eyebrow en">Parking</p><p class="eyebrow fr">Parking</p>
+        <h1><span class="es">Dónde estacionar</span><span class="en">Where to park</span><span class="fr">Où se garer</span></h1>
+        <p class="lead es">El depto tiene estacionamiento propio: <b>piso 3</b>, espacio <b>#94</b>. Es el mismo piso del departamento.</p>
+        <p class="lead en">The apartment has its own parking: <b>3rd floor</b>, space <b>#94</b>. It's the same floor as the apartment.</p>
+        <p class="lead fr">L’appartement a son propre parking : <b>3e étage</b>, place <b>#94</b>. C’est le même étage que l’appartement.</p>
+
+        <figure><span class="ph"><img src="img/estacionamiento1.jpeg" alt="Espacio de estacionamiento 94, con las bodegas al fondo">
+          <span class="dot ring" style="--d:18%;left:53.9%;top:87.5%"></span></span>
+          <figcaption><span class="es">Tu espacio es el <b>94</b>, el del círculo. Al fondo están las bodegas.</span><span class="en">Your space is <b>94</b>, the one in the circle. The storage rooms are at the back.</span><span class="fr">Ta place est la <b>94</b>, celle dans le cercle. Les caves sont au fond.</span></figcaption></figure>
+
+        <figure><span class="ph wide"><img src="img/estacionamiento2.jpeg" alt="Fila de estacionamientos 93, 94 y 95 vistos de frente">
+          <span class="dot ring" style="--d:7%;left:53.3%;top:88.2%"></span></span>
+          <figcaption><span class="es">Visto de frente: el <b>94</b> queda entre el 93 y el 95.</span><span class="en">Head-on: <b>94</b> sits between 93 and 95.</span><span class="fr">Vu de face : la <b>94</b> est entre la 93 et la 95.</span></figcaption></figure>
+
+        <h2 class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 17h2a1 1 0 0 0 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4a1 1 0 0 0 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></svg><span class="es">Paso a paso</span><span class="en">Step by step</span><span class="fr">Étape par étape</span></h2>
+        <ol class="steps">
+          <li><div><span class="es">El estacionamiento está en el <b>piso 3</b> del edificio.</span><span class="en">The parking is on the <b>3rd floor</b> of the building.</span><span class="fr">Le parking est au <b>3e étage</b> de l’immeuble.</span></div></li>
+          <li><div><span class="es">Tu espacio es el <b>#94</b>.</span><span class="en">Your space is <b>#94</b>.</span><span class="fr">Ta place est la <b>#94</b>.</span></div></li>
+          <li><div><span class="es">Es el <b>mismo piso del depto</b>: del auto al 309 no tienes que bajar.</span><span class="en">It's the <b>same floor as the apartment</b>: from the car to 309 you don't go down.</span><span class="fr">C’est le <b>même étage que l’appartement</b> : de la voiture au 309, tu ne descends pas.</span></div></li>
+          <li><div><span class="es">Las <b>llaves</b> las pides al conserje: están en el <b>casillero del 309</b>, el de las cartas.</span><span class="en">Ask the concierge for the <b>keys</b>: they are in the <b>309 mailbox slot</b>, the one for letters.</span><span class="fr">Demande les <b>clés</b> au concierge : elles sont dans la <b>case du 309</b>, celle du courrier.</span></div></li>
+        </ol>
+        <div class="note info"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg><span><span class="es">Si llegas en auto igual tienes que <b>registrarte</b> en conserjería y retirar las llaves, como quien llega a pie. Ver <b>Llegada</b>.</span><span class="en">If you arrive by car you still have to <b>register</b> at the concierge desk and pick up the keys, like anyone arriving on foot. See <b>Check-in</b>.</span><span class="fr">Si tu arrives en voiture, tu dois quand même t’<b>inscrire</b> à la loge et récupérer les clés, comme à pied. Voir <b>Arrivée</b>.</span></span></div>
+
+        <h2><span class="es">Mira el camino</span><span class="en">Watch the way</span><span class="fr">Regarde le chemin</span></h2>
+        <div class="vidrow">
+          <figure>
+            <div class="vid noprint"><iframe data-yt="JisGF6d4BHw" title="Video: estacionamiento privado del edificio · private parking" loading="lazy" allow="encrypted-media; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
+            <p class="vid-print">Video: youtube.com/shorts/JisGF6d4BHw</p>
+            <figcaption><span class="es"><b>Video 1 · El estacionamiento.</b> Muestra el estacionamiento del edificio y el espacio #94. Si no carga, <a href="https://youtube.com/shorts/JisGF6d4BHw" target="_blank" rel="noopener">ábrelo en YouTube</a>.</span><span class="en"><b>Video 1 · The parking.</b> Shows the building's parking and space #94. If it doesn't load, <a href="https://youtube.com/shorts/JisGF6d4BHw" target="_blank" rel="noopener">open it on YouTube</a>.</span><span class="fr"><b>Vidéo 1 · Le parking.</b> Montre le parking de l’immeuble et la place #94. S’il ne se charge pas, <a href="https://youtube.com/shorts/JisGF6d4BHw" target="_blank" rel="noopener">ouvre-le sur YouTube</a>.</span></figcaption>
+          </figure>
+          <figure>
+            <div class="vid noprint"><iframe data-yt="-Ki-3DNJUpc" title="Video: entrada desde el estacionamiento · entrance from parking" loading="lazy" allow="encrypted-media; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
+            <p class="vid-print">Video: youtube.com/shorts/-Ki-3DNJUpc</p>
+            <figcaption><span class="es"><b>Video 2 · Del estacionamiento al depto.</b> Muestra el camino desde el auto hasta adentro. Si no carga, <a href="https://youtube.com/shorts/-Ki-3DNJUpc" target="_blank" rel="noopener">ábrelo en YouTube</a>.</span><span class="en"><b>Video 2 · From the parking to the apartment.</b> Shows the way from the car to inside. If it doesn't load, <a href="https://youtube.com/shorts/-Ki-3DNJUpc" target="_blank" rel="noopener">open it on YouTube</a>.</span><span class="fr"><b>Vidéo 2 · Du parking à l’appartement.</b> Montre le chemin depuis la voiture jusqu’à l’intérieur. S’il ne se charge pas, <a href="https://youtube.com/shorts/-Ki-3DNJUpc" target="_blank" rel="noopener">ouvre-le sur YouTube</a>.</span></figcaption>
           </figure>
         </div>
       </section>
@@ -604,7 +655,7 @@
           <div class="emcard"><span class="big">131</span><span class="lbl"><span class="es">🚑 Ambulancia</span><span class="en">🚑 Ambulance</span><span class="fr">🚑 Ambulance</span></span></div>
           <div class="emcard"><span class="big">133</span><span class="lbl"><span class="es">🚓 Carabineros</span><span class="en">🚓 Police</span><span class="fr">🚓 Police</span></span></div>
         </div>
-        <div class="bigcard"><p class="kv es">Anfitrión · Host</p><p class="kv en">Host</p><p class="kv fr">Hôte</p><div class="val" style="font-size:1.1rem"><span class="es">Escríbenos por el chat de Airbnb</span><span class="en">Message us via the Airbnb chat</span><span class="fr">Écris-nous sur le chat Airbnb</span></div><p style="font-size:14px;color:var(--ink-soft);margin-top:8px"><span class="es">El edificio tiene <b>conserjería 24/7</b> en la entrada.</span><span class="en">The building has a <b>24/7 concierge</b> at the entrance.</span><span class="fr">L’immeuble a un <b>concierge 24h/24, 7j/7</b> à l’entrée.</span></p></div>
+        <div class="bigcard"><p class="kv es">Anfitrión</p><p class="kv en">Host</p><p class="kv fr">Hôte</p><div class="val" style="font-size:1.1rem"><span class="es">Escríbenos por el chat de Airbnb</span><span class="en">Message us via the Airbnb chat</span><span class="fr">Écris-nous sur le chat Airbnb</span></div><p style="font-size:14px;color:var(--ink-soft);margin-top:8px"><span class="es">El edificio tiene <b>conserjería 24/7</b> en la entrada.</span><span class="en">The building has a <b>24/7 concierge</b> at the entrance.</span><span class="fr">L’immeuble a un <b>concierge 24h/24, 7j/7</b> à l’entrée.</span></p></div>
         <h2><span class="es">¿Dónde está la seguridad?</span><span class="en">Where is the safety gear?</span><span class="fr">Où est le matériel de sécurité ?</span></h2>
         <figure><span class="ph"><img src="img/calefanctor4.jpeg" alt="Pasillo con la manta ignífuga y el extintor"></span><figcaption><span class="es">En el pasillo: arriba la manta roja, abajo el extintor.</span><span class="en">In the hallway: the red blanket on top, the extinguisher below.</span><span class="fr">Dans le couloir : la couverture rouge en haut, l’extincteur en bas.</span></figcaption></figure>
       </section>
@@ -659,8 +710,8 @@
 (function(){
   "use strict";
   var root=document.documentElement;
-  var SEQ=["inicio","wifi","llegada","salida","casa","nespresso","radio","calefactor","secatoallas","lavadora","extintor","manta","emergencias","qr"];
-  var TITLE={inicio:{es:"Inicio",en:"Home",fr:"Accueil"},wifi:{es:"WiFi",en:"WiFi",fr:"WiFi"},llegada:{es:"Llegada",en:"Check-in",fr:"Arrivée"},salida:{es:"Salida",en:"Check-out",fr:"Départ"},casa:{es:"Reglas de la casa",en:"House rules",fr:"Règles de la maison"},nespresso:{es:"Cafetera",en:"Coffee maker",fr:"Cafetière"},radio:{es:"Radio",en:"Radio",fr:"Radio"},calefactor:{es:"Calefactor",en:"Heater",fr:"Radiateur"},secatoallas:{es:"Secatoallas",en:"Towel warmer",fr:"Sèche-serviettes"},lavadora:{es:"Lavadora",en:"Washer",fr:"Lave-linge"},extintor:{es:"Extintor",en:"Extinguisher",fr:"Extincteur"},manta:{es:"Manta ignífuga",en:"Fire blanket",fr:"Couverture anti-feu"},emergencias:{es:"Emergencias",en:"Emergency",fr:"Urgences"},qr:{es:"Códigos QR",en:"QR codes",fr:"Codes QR"}};
+  var SEQ=["inicio","wifi","llegada","estacionamiento","salida","casa","nespresso","radio","calefactor","secatoallas","lavadora","extintor","manta","emergencias","qr"];
+  var TITLE={inicio:{es:"Inicio",en:"Home",fr:"Accueil"},wifi:{es:"WiFi",en:"WiFi",fr:"WiFi"},llegada:{es:"Llegada",en:"Check-in",fr:"Arrivée"},estacionamiento:{es:"Estacionamiento",en:"Parking",fr:"Parking"},salida:{es:"Salida",en:"Check-out",fr:"Départ"},casa:{es:"Reglas de la casa",en:"House rules",fr:"Règles de la maison"},nespresso:{es:"Cafetera",en:"Coffee maker",fr:"Cafetière"},radio:{es:"Radio",en:"Radio",fr:"Radio"},calefactor:{es:"Calefactor",en:"Heater",fr:"Radiateur"},secatoallas:{es:"Secatoallas",en:"Towel warmer",fr:"Sèche-serviettes"},lavadora:{es:"Lavadora",en:"Washer",fr:"Lave-linge"},extintor:{es:"Extintor",en:"Extinguisher",fr:"Extincteur"},manta:{es:"Manta ignífuga",en:"Fire blanket",fr:"Couverture anti-feu"},emergencias:{es:"Emergencias",en:"Emergency",fr:"Urgences"},qr:{es:"Códigos QR",en:"QR codes",fr:"Codes QR"}};
   var now=document.getElementById("now");
   function get(k){try{return localStorage.getItem(k)}catch(e){return null}}
   function set(k,v){try{localStorage.setItem(k,v)}catch(e){}}
@@ -691,6 +742,17 @@
     if(!langOf(l))l="es";
     root.setAttribute("data-lang",l); root.setAttribute("lang",l); set("gh:lang",l);
     curBtn.textContent=langOf(l).lbl;          // la pastilla muestra el idioma activo
+    (function(){
+      function t(o){return o[l]||o.es}
+      document.title=t(CHROME.doc);
+      function rot(id,txt,conTitle){var e=document.getElementById(id); if(!e)return;
+        e.setAttribute("aria-label",txt); if(conTitle)e.setAttribute("title",txt);}
+      rot("burger",t(CHROME.menu),false);
+      rot("pdf",t(CHROME.pdf),true);
+      rot("theme",t(CHROME.tema),true);
+      rot("lang-cur",t(CHROME.idioma),false);
+      rot("lang-more",t(CHROME.elegir),true);
+    })();
     [].forEach.call(menuEl.querySelectorAll("button"),function(b){b.classList.toggle("on",b.getAttribute("data-l")===l)});
     closeLangMenu();
     paintNow();
@@ -823,6 +885,16 @@
   function ico(n){return '<span class="ib"><svg viewBox="0 0 24 24" aria-hidden="true">'+(ICO[n]||ICO.dial)+'</svg></span>'}
   var HOT={es:"diario",en:"daily",fr:"quotidien"};
   var LBL_VER={es:"Ver en el mapa",en:"See on map",fr:"Voir sur la carte"};
+  // Rotulos del chrome: no son texto de la pagina, asi que no pueden llevar <span> por idioma.
+  // Se cambian desde applyLang para que tampoco muestren dos idiomas juntos.
+  var CHROME={
+    doc:{es:"Guía del huésped · Depto 309 Villarrica",en:"Guest guide · Apt 309 Villarrica",fr:"Guide du voyageur · Appt 309 Villarrica"},
+    menu:{es:"Menú",en:"Menu",fr:"Menu"},
+    pdf:{es:"Descargar como PDF",en:"Download as PDF",fr:"Télécharger en PDF"},
+    tema:{es:"Claro / Oscuro",en:"Light / Dark",fr:"Clair / Sombre"},
+    idioma:{es:"Idioma",en:"Language",fr:"Langue"},
+    elegir:{es:"Elegir idioma",en:"Choose language",fr:"Choisir la langue"}
+  };
   var LBL_COMO={es:"Cómo llegar desde el depto",en:"Directions from the apartment",fr:"Y aller depuis l’appartement"};
   function specHTML(it){return '<div class="spec'+(it.hot?' hot':'')+'">'+ico(it.icon)+'<span><b>'+lspan(it)+(it.hot?'<span class="tag">'+lspan(HOT)+'</span>':'')+'</b><span class="sub">'+lspan(it,"s")+'</span></span></div>'}
   function fillSpec(id,arr){var c=document.getElementById(id);if(c)c.innerHTML=arr.map(specHTML).join("")}
@@ -867,6 +939,13 @@
   // ----- La zona (grupo propio, data-driven) -----
   var APT="Saturnino Epulef 1575, Villarrica, Araucanía, Chile";
   function dirURL(dest){return "https://www.google.com/maps/dir/?api=1&origin="+encodeURIComponent(APT)+"&destination="+encodeURIComponent(dest)+"&travelmode=walking"}
+  // Los botones de la tarjeta de direccion salen de APT: una sola fuente de verdad.
+  (function(){var q=encodeURIComponent(APT);
+    var U={gmaps:"https://www.google.com/maps/search/?api=1&query="+q,
+           waze:"https://waze.com/ul?q="+q+"&navigate=yes"};
+    [].forEach.call(document.querySelectorAll("[data-maplink]"),function(a){
+      var u=U[a.getAttribute("data-maplink")]; if(u)a.href=u;});
+  })();
   var ZONA=[
     {key:"zona-playa",icon:"beach",t_es:"Playa y lago",t_en:"Beach & lake",t_fr:"Plage et lac",mapq:"Playa Pucará, Villarrica, Araucanía, Chile",photo:true,
      intro_es:"La playa, la costanera y la orilla del lago, todo al frente del depto.",intro_en:"The beach, the promenade and the lakeshore, all right across from the apartment.",intro_fr:"La plage, la promenade et la rive du lac, tout ça juste en face de l’appartement.",
