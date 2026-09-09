@@ -227,7 +227,8 @@
   .qrsheet .qcell .sub{font-size:8.5pt;color:#555}
   /* Hoja de WiFi: la grande ocupa media hoja; las dos chicas, un cuarto cada una y giradas.
      La grande es sqrt(2):1, asi las tres quedan con la MISMA proporcion al recortarlas. */
-  .wsheet{display:flex;flex-direction:column;align-items:center;gap:0}
+  @page wifi{size:A4;margin:0}
+  .wsheet{display:flex;flex-direction:column;align-items:center;gap:0;page:wifi}
   .wsheet .wrow{display:flex}
   .wsheet .wslot{display:grid;place-items:center;border:1px dashed #999;position:relative;overflow:hidden}
   .wsheet .wrot{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-90deg)}
@@ -969,11 +970,11 @@
     var v=(el&&el.value?el.value:"").trim();
     var pass=v?esc(v):"________________";
     var qr=svgQR(target(""));
-    var grande=wifiCard(134,189.5,13,qr,pass);
-    var chica=wifiCard(94,133,9.2,qr,pass);
-    var slot='<div class="wslot" style="width:95mm;height:138.5mm">'+chica+'</div>';
+    var grande=wifiCard(143,202,13.8,qr,pass);
+    var chica=wifiCard(101,143,9.8,qr,pass);
+    var slot='<div class="wslot" style="width:105mm;height:148.5mm">'+chica+'</div>';
     stage.innerHTML='<div class="wsheet">'
-      + '<div class="wslot" style="width:190mm;height:138.5mm"><div class="wrot">'+grande+'</div></div>'
+      + '<div class="wslot" style="width:210mm;height:148.5mm"><div class="wrot">'+grande+'</div></div>'
       + '<div class="wrow">'+slot+slot+'</div></div>';
     doPrint();
   }
