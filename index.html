@@ -98,10 +98,16 @@
   .ph img{width:100%}
   /* una foto muy apaisada se ahoga en 420px: esta usa todo el ancho de la columna */
   .ph.wide{max-width:100%}
-  .maplinks{display:flex;flex-wrap:wrap;gap:8px;margin-top:13px}
-  .maplink{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);background:var(--bg-soft);color:var(--ink);border-radius:999px;padding:9px 14px;font-weight:800;font-size:13.5px;text-decoration:none}
-  .maplink:hover{border-color:var(--rausch);color:var(--rausch)}
-  .maplink svg{width:16px;height:16px;stroke-width:2;flex:0 0 auto;color:var(--rausch)}
+  /* El rotulo de la tarjeta y sus acciones en una sola linea. */
+  .kvrow{display:flex;align-items:center;justify-content:space-between;gap:10px}
+  .kvrow .kv{margin:0}
+  .maplinks{display:inline-flex;gap:7px;flex:0 0 auto}
+  /* Solo icono: el nombre del servicio va en title/aria-label, que applyLang traduce. */
+  .maplink{display:inline-grid;place-items:center;width:36px;height:36px;border:1px solid var(--line);background:var(--card);border-radius:50%;text-decoration:none}
+  .maplink:hover{border-color:currentColor}
+  .maplink svg{width:19px;height:19px;stroke-width:2}
+  .maplink.gmaps{color:#ea4335}
+  .maplink.waze{color:#12b5cb}
   .vid{position:relative;display:block;width:100%;max-width:300px;aspect-ratio:9/16;border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);background:var(--bg-soft)}
   .vidrow{display:flex;flex-wrap:wrap;gap:16px;align-items:flex-start;margin:14px 0}
   .vidrow figure{margin:0;flex:0 1 300px}
@@ -357,12 +363,14 @@
         <p class="lead es">Check-in desde las <b>15:00</b>. El acceso es por <b>conserjería</b> (edificio con acceso controlado 24/7). No hay cerradura con código: el conserje te abre y te entrega las llaves.</p>
         <p class="lead en">Check-in from <b>3:00 PM</b>. Access is through the <b>concierge</b> (building has 24/7 controlled access). There's no keypad lock: the concierge lets you in and hands you the keys.</p><p class="lead fr">Arrivée à partir de <b>15:00</b>. On entre par la <b>loge</b> (immeuble avec accès contrôlé 24h/24). Il n’y a pas de serrure à code : le concierge t’ouvre et te donne les clés.</p>
         <div class="bigcard">
-          <p class="kv es">Dirección</p><p class="kv en">Address</p><p class="kv fr">Adresse</p>
-          <div class="val" style="font-size:1.15rem">Saturnino Epulef 1575, Villarrica, Araucanía</div>
-          <div class="maplinks noprint">
-            <a class="maplink" data-maplink="gmaps" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg><span class="es">Abrir en Google Maps</span><span class="en">Open in Google Maps</span><span class="fr">Ouvrir dans Google Maps</span></a>
-            <a class="maplink" data-maplink="waze" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg><span class="es">Abrir en Waze</span><span class="en">Open in Waze</span><span class="fr">Ouvrir dans Waze</span></a>
+          <div class="kvrow">
+            <p class="kv es">Dirección</p><p class="kv en">Address</p><p class="kv fr">Adresse</p>
+            <span class="maplinks noprint">
+              <a class="maplink gmaps" data-maplink="gmaps" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></a>
+              <a class="maplink waze" data-maplink="waze" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg></a>
+            </span>
           </div>
+          <div class="val" style="font-size:1.15rem">Saturnino Epulef 1575, Villarrica, Araucanía</div>
           <p style="font-size:14px;color:var(--ink-soft);margin-top:8px"><span class="es"><b>Estacionamiento:</b> piso 3 (mismo piso del depto), espacio <b>#94</b>.</span><span class="en"><b>Parking:</b> 3rd floor (same floor as the apartment), space <b>#94</b>.</span><span class="fr"><b>Parking :</b> 3e étage (le même étage que l’appartement), place <b>#94</b>.</span></p>
         </div>
         <h2 class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="20" x="4" y="2" rx="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01"/><path d="M12 6h.01"/><path d="M16 6h.01"/><path d="M8 10h.01"/><path d="M12 10h.01"/><path d="M16 10h.01"/><path d="M8 14h.01"/><path d="M12 14h.01"/><path d="M16 14h.01"/></svg><span class="es">Así se ve el edificio</span><span class="en">This is the building</span><span class="fr">Voici l’immeuble</span></h2>
@@ -413,6 +421,20 @@
             <figcaption><span class="es"><b>Video 2 · Del estacionamiento al depto.</b> Muestra el camino desde el auto hasta adentro. Si no carga, <a href="https://youtube.com/shorts/-Ki-3DNJUpc" target="_blank" rel="noopener">ábrelo en YouTube</a>.</span><span class="en"><b>Video 2 · From the parking to the apartment.</b> Shows the way from the car to inside. If it doesn't load, <a href="https://youtube.com/shorts/-Ki-3DNJUpc" target="_blank" rel="noopener">open it on YouTube</a>.</span><span class="fr"><b>Vidéo 2 · Du parking à l’appartement.</b> Montre le chemin depuis la voiture jusqu’à l’intérieur. Si elle ne charge pas, <a href="https://youtube.com/shorts/-Ki-3DNJUpc" target="_blank" rel="noopener">ouvre-la sur YouTube</a>.</span></figcaption>
           </figure>
         </div>
+        <h2 class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="7.5" cy="15.5" r="3.5"/><path d="m10 13 8.5-8.5"/><path d="m17 6 2 2"/><path d="m14.5 8.5 2 2"/></svg><span class="es">Abrir la puerta con el código</span><span class="en">Open the door with the code</span><span class="fr">Ouvrir la porte avec le code</span></h2>
+        <p class="es">Adentro hay <b>otra botonera igual</b>. Para pasar esa puerta se marca esta secuencia.</p>
+        <p class="en">Inside there is <b>another identical keypad</b>. To get through that door you enter this sequence.</p>
+        <p class="fr">À l’intérieur il y a <b>un autre clavier identique</b>. Pour passer cette porte, tu entres cette séquence.</p>
+        <figure><span class="ph"><img src="img/entrada3.jpeg" alt="Botonera: el botón de la llave abajo a la izquierda y el número 3">
+          <span class="dot ring" style="--d:14.5%;left:28.3%;top:83.7%"></span><span class="dot" style="left:14.5%;top:83.7%">1</span>
+          <span class="dot ring" style="--d:14.5%;left:54.1%;top:64.2%"></span><span class="dot" style="left:54.1%;top:55.5%">2</span></span>
+          <figcaption><span class="es"><b>1</b> · el botón de la <b>llave</b>, abajo a la izquierda. <b>2</b> · el número <b>3</b>.</span><span class="en"><b>1</b> · the <b>key</b> button, bottom left. <b>2</b> · the number <b>3</b>.</span><span class="fr"><b>1</b> · le bouton <b>clé</b>, en bas à gauche. <b>2</b> · le chiffre <b>3</b>.</span></figcaption></figure>
+        <ol class="steps">
+          <li><div><span class="es">Aprieta el botón de la <b>llave</b> <span class="kbd">1</span>. <b>Una vez</b>.</span><span class="en">Press the <b>key</b> button <span class="kbd">1</span>. <b>Once</b>.</span><span class="fr">Appuie sur le bouton <b>clé</b> <span class="kbd">1</span>. <b>Une fois</b>.</span></div></li>
+          <li><div><span class="es">Aprieta el <b>3</b> <span class="kbd">2</span> <b>cuatro veces</b>: <span class="kbd">3</span> <span class="kbd">3</span> <span class="kbd">3</span> <span class="kbd">3</span>.</span><span class="en">Press <b>3</b> <span class="kbd">2</span> <b>four times</b>: <span class="kbd">3</span> <span class="kbd">3</span> <span class="kbd">3</span> <span class="kbd">3</span>.</span><span class="fr">Appuie sur le <b>3</b> <span class="kbd">2</span> <b>quatre fois</b> : <span class="kbd">3</span> <span class="kbd">3</span> <span class="kbd">3</span> <span class="kbd">3</span>.</span></div></li>
+          <li><div><span class="es">Aprieta la <b>llave</b> <span class="kbd">1</span> otra vez. La puerta se abre.</span><span class="en">Press the <b>key</b> <span class="kbd">1</span> again. The door opens.</span><span class="fr">Appuie encore sur la <b>clé</b> <span class="kbd">1</span>. La porte s’ouvre.</span></div></li>
+        </ol>
+        <div class="note warn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg><span><span class="es">Este código es solo para ti. No lo compartas ni lo dejes anotado a la vista.</span><span class="en">This code is just for you. Don't share it or leave it written where others can see it.</span><span class="fr">Ce code est seulement pour toi. Ne le partage pas et ne le laisse pas écrit à la vue.</span></span></div>
       </section>
 
       <!-- ESTACIONAMIENTO -->
@@ -439,6 +461,21 @@
           <li><div><span class="es">Las <b>llaves</b> las pides al conserje: están en el <b>casillero del 309</b>, el de las cartas.</span><span class="en">Ask the concierge for the <b>keys</b>: they are in the <b>309 mailbox slot</b>, the one for letters.</span><span class="fr">Demande les <b>clés</b> au concierge : elles sont dans la <b>case du 309</b>, celle du courrier.</span></div></li>
         </ol>
         <div class="note info"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg><span><span class="es">Si llegas en auto igual tienes que <b>registrarte</b> en conserjería y retirar las llaves, como quien llega a pie. Ver <b>Llegada</b>.</span><span class="en">If you arrive by car you still have to <b>register</b> at the concierge desk and pick up the keys, like anyone arriving on foot. See <b>Check-in</b>.</span><span class="fr">Si tu arrives en voiture, tu dois quand même t’<b>inscrire</b> à la loge et récupérer les clés, comme à pied. Voir <b>Arrivée</b>.</span></span></div>
+
+        <h2 class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="7.5" cy="15.5" r="3.5"/><path d="m10 13 8.5-8.5"/><path d="m17 6 2 2"/><path d="m14.5 8.5 2 2"/></svg><span class="es">Abrir la puerta con el código</span><span class="en">Open the door with the code</span><span class="fr">Ouvrir la porte avec le code</span></h2>
+        <p class="es">Adentro hay <b>otra botonera igual</b>. Para pasar esa puerta se marca esta secuencia.</p>
+        <p class="en">Inside there is <b>another identical keypad</b>. To get through that door you enter this sequence.</p>
+        <p class="fr">À l’intérieur il y a <b>un autre clavier identique</b>. Pour passer cette porte, tu entres cette séquence.</p>
+        <figure><span class="ph"><img src="img/entrada3.jpeg" alt="Botonera: el botón de la llave abajo a la izquierda y el número 3">
+          <span class="dot ring" style="--d:14.5%;left:28.3%;top:83.7%"></span><span class="dot" style="left:14.5%;top:83.7%">1</span>
+          <span class="dot ring" style="--d:14.5%;left:54.1%;top:64.2%"></span><span class="dot" style="left:54.1%;top:55.5%">2</span></span>
+          <figcaption><span class="es"><b>1</b> · el botón de la <b>llave</b>, abajo a la izquierda. <b>2</b> · el número <b>3</b>.</span><span class="en"><b>1</b> · the <b>key</b> button, bottom left. <b>2</b> · the number <b>3</b>.</span><span class="fr"><b>1</b> · le bouton <b>clé</b>, en bas à gauche. <b>2</b> · le chiffre <b>3</b>.</span></figcaption></figure>
+        <ol class="steps">
+          <li><div><span class="es">Aprieta el botón de la <b>llave</b> <span class="kbd">1</span>. <b>Una vez</b>.</span><span class="en">Press the <b>key</b> button <span class="kbd">1</span>. <b>Once</b>.</span><span class="fr">Appuie sur le bouton <b>clé</b> <span class="kbd">1</span>. <b>Une fois</b>.</span></div></li>
+          <li><div><span class="es">Aprieta el <b>3</b> <span class="kbd">2</span> <b>cuatro veces</b>: <span class="kbd">3</span> <span class="kbd">3</span> <span class="kbd">3</span> <span class="kbd">3</span>.</span><span class="en">Press <b>3</b> <span class="kbd">2</span> <b>four times</b>: <span class="kbd">3</span> <span class="kbd">3</span> <span class="kbd">3</span> <span class="kbd">3</span>.</span><span class="fr">Appuie sur le <b>3</b> <span class="kbd">2</span> <b>quatre fois</b> : <span class="kbd">3</span> <span class="kbd">3</span> <span class="kbd">3</span> <span class="kbd">3</span>.</span></div></li>
+          <li><div><span class="es">Aprieta la <b>llave</b> <span class="kbd">1</span> otra vez. La puerta se abre.</span><span class="en">Press the <b>key</b> <span class="kbd">1</span> again. The door opens.</span><span class="fr">Appuie encore sur la <b>clé</b> <span class="kbd">1</span>. La porte s’ouvre.</span></div></li>
+        </ol>
+        <div class="note warn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg><span><span class="es">Este código es solo para ti. No lo compartas ni lo dejes anotado a la vista.</span><span class="en">This code is just for you. Don't share it or leave it written where others can see it.</span><span class="fr">Ce code est seulement pour toi. Ne le partage pas et ne le laisse pas écrit à la vue.</span></span></div>
 
         <h2><span class="es">Mira el camino</span><span class="en">Watch the way</span><span class="fr">Regarde le chemin</span></h2>
         <div class="vidrow">
@@ -752,6 +789,9 @@
       rot("theme",t(CHROME.tema),true);
       rot("lang-cur",t(CHROME.idioma),false);
       rot("lang-more",t(CHROME.elegir),true);
+      [].forEach.call(document.querySelectorAll("[data-maplink]"),function(a){
+        var o=CHROME[a.getAttribute("data-maplink")]; if(!o)return;
+        a.setAttribute("aria-label",t(o)); a.setAttribute("title",t(o));});
     })();
     [].forEach.call(menuEl.querySelectorAll("button"),function(b){b.classList.toggle("on",b.getAttribute("data-l")===l)});
     closeLangMenu();
@@ -893,7 +933,9 @@
     pdf:{es:"Descargar como PDF",en:"Download as PDF",fr:"Télécharger en PDF"},
     tema:{es:"Claro / Oscuro",en:"Light / Dark",fr:"Clair / Sombre"},
     idioma:{es:"Idioma",en:"Language",fr:"Langue"},
-    elegir:{es:"Elegir idioma",en:"Choose language",fr:"Choisir la langue"}
+    elegir:{es:"Elegir idioma",en:"Choose language",fr:"Choisir la langue"},
+    gmaps:{es:"Abrir en Google Maps",en:"Open in Google Maps",fr:"Ouvrir dans Google Maps"},
+    waze:{es:"Abrir en Waze",en:"Open in Waze",fr:"Ouvrir dans Waze"}
   };
   var LBL_COMO={es:"Cómo llegar desde el depto",en:"Directions from the apartment",fr:"Y aller depuis l’appartement"};
   function specHTML(it){return '<div class="spec'+(it.hot?' hot':'')+'">'+ico(it.icon)+'<span><b>'+lspan(it)+(it.hot?'<span class="tag">'+lspan(HOT)+'</span>':'')+'</b><span class="sub">'+lspan(it,"s")+'</span></span></div>'}
